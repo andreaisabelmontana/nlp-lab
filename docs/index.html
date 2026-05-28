@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NLP Lab — Interactive Course Visualizations</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="logo">NL<span>P</span></div>
+    <div>
+      <div class="brand-title">NLP Lab</div>
+      <div class="brand-sub">Interactive Course</div>
+    </div>
+  </div>
+
+  <nav id="nav">
+    <a href="#overview" class="active"><span class="nav-ico">◎</span>Overview</a>
+    <a href="#pipeline"><span class="nav-ico">▤</span>NLP Pipeline</a>
+    <a href="#history"><span class="nav-ico">⌛</span>History</a>
+    <a href="#preprocessing"><span class="nav-ico">✂</span>Preprocessing</a>
+    <a href="#regex"><span class="nav-ico">⌗</span>Regex</a>
+    <a href="#tfidf"><span class="nav-ico">∑</span>TF-IDF & IR</a>
+    <a href="#bayes"><span class="nav-ico">▲</span>Naive Bayes</a>
+    <a href="#logistic"><span class="nav-ico">∫</span>Logistic Reg.</a>
+    <a href="#sentiment"><span class="nav-ico">♥</span>Sentiment</a>
+    <a href="#embeddings"><span class="nav-ico">◈</span>Word Embeddings</a>
+    <a href="#pos"><span class="nav-ico">⌥</span>POS Tagging</a>
+    <a href="#ner"><span class="nav-ico">⌘</span>NER</a>
+    <a href="#nn"><span class="nav-ico">◉</span>Neural Networks</a>
+    <a href="#rnn"><span class="nav-ico">↻</span>RNN</a>
+    <a href="#transformer"><span class="nav-ico">✦</span>Transformer</a>
+    <a href="#bpe"><span class="nav-ico">⊞</span>BPE Tokenizer</a>
+    <a href="#ngram"><span class="nav-ico">∾</span>N-gram LM</a>
+    <a href="#edit"><span class="nav-ico">≈</span>Edit Distance</a>
+    <a href="#lda"><span class="nav-ico">❉</span>Topic Modeling</a>
+    <a href="#beam"><span class="nav-ico">⇶</span>Beam Search</a>
+    <a href="#summ"><span class="nav-ico">▦</span>Summarization</a>
+    <a href="#qa"><span class="nav-ico">?</span>Question Answering</a>
+    <a href="#bleu"><span class="nav-ico">⚖</span>BLEU/ROUGE</a>
+    <a href="#confusion"><span class="nav-ico">⊟</span>Confusion Matrix</a>
+    <a href="#challenges"><span class="nav-ico">⚠</span>Challenges</a>
+    <a href="#flashcards"><span class="nav-ico">★</span>Flashcards</a>
+  </nav>
+
+  <button class="theme-toggle" id="themeToggle">◐ Theme</button>
+</aside>
+
+<main class="content">
+
+<!-- OVERVIEW -->
+<section id="overview" class="panel">
+  <div class="hero">
+    <div class="hero-eyebrow">Interactive course companion</div>
+    <h1>Natural Language Processing<br/><span class="grad">— made tangible.</span></h1>
+    <p class="lead">Every core concept from your NLP syllabus, distilled into a live demo you can break, replay, and inspect. Built as a static site you can host on GitHub Pages.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">23</div><div class="lbl">Interactive demos</div></div>
+      <div class="stat"><div class="num">25</div><div class="lbl">Sessions covered</div></div>
+      <div class="stat"><div class="num">314</div><div class="lbl">Flashcards loaded</div></div>
+    </div>
+  </div>
+
+  <div class="grid grid-3">
+    <a class="card-link" href="#preprocessing"><div class="micro">Foundations</div><h3>Text Preprocessing</h3><p>Tokenize, stem, lemmatize, strip stopwords — all live.</p></a>
+    <a class="card-link" href="#tfidf"><div class="micro">Statistical NLP</div><h3>TF-IDF & Retrieval</h3><p>Rank documents against a query with cosine similarity.</p></a>
+    <a class="card-link" href="#embeddings"><div class="micro">Representations</div><h3>Word Embeddings</h3><p>Walk through a 2D vector space and try analogies.</p></a>
+    <a class="card-link" href="#pos"><div class="micro">Sequence labeling</div><h3>POS Tagging (Viterbi)</h3><p>Watch the trellis fill in word by word.</p></a>
+    <a class="card-link" href="#rnn"><div class="micro">Deep learning</div><h3>RNN Hidden States</h3><p>Step a recurrent net through a sequence.</p></a>
+    <a class="card-link" href="#transformer"><div class="micro">Modern NLP</div><h3>Self-Attention</h3><p>Render a real attention heatmap from your sentence.</p></a>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section id="pipeline" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 01 · Introduction</div>
+    <h2>The NLP Pipeline</h2>
+    <p class="lead">Almost every NLP system, from a spam filter to GPT, follows the same five stages. Click any stage to see what happens inside.</p>
+  </header>
+
+  <div class="pipe" id="pipe">
+    <div class="pipe-step" data-step="0"><div class="pn">1</div><div class="pl">Data Collection<br/>& Cleaning</div></div>
+    <div class="pipe-arr">→</div>
+    <div class="pipe-step" data-step="1"><div class="pn">2</div><div class="pl">Preprocessing</div></div>
+    <div class="pipe-arr">→</div>
+    <div class="pipe-step" data-step="2"><div class="pn">3</div><div class="pl">Feature<br/>Engineering</div></div>
+    <div class="pipe-arr">→</div>
+    <div class="pipe-step" data-step="3"><div class="pn">4</div><div class="pl">Modeling</div></div>
+    <div class="pipe-arr">→</div>
+    <div class="pipe-step" data-step="4"><div class="pn">5</div><div class="pl">Monitoring<br/>& Evaluation</div></div>
+  </div>
+
+  <div class="pipe-detail" id="pipeDetail"></div>
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 02 · History</div>
+    <h2>From Rules to Foundation Models</h2>
+    <p class="lead">Seven decades of NLP, condensed. Click any era to load its defining ideas, systems, and breakthroughs.</p>
+  </header>
+
+  <div class="tl" id="timeline"></div>
+  <div class="tl-detail" id="tlDetail"></div>
+</section>
+
+<!-- PREPROCESSING -->
+<section id="preprocessing" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 03 · Fundamental Concepts</div>
+    <h2>Text Preprocessing Playground</h2>
+    <p class="lead">Type any text. Watch every preprocessing stage update live. Toggle steps on and off to feel what each one does.</p>
+  </header>
+
+  <textarea id="ppInput" class="textbox" rows="3">The QUICK brown foxes are jumping over 2 lazy dogs in London! Mr. Smith couldn't believe his eyes.</textarea>
+
+  <div class="toggles">
+    <label><input type="checkbox" id="ppLower" checked> lowercase</label>
+    <label><input type="checkbox" id="ppPunct" checked> strip punctuation</label>
+    <label><input type="checkbox" id="ppStop" checked> remove stopwords</label>
+    <label><input type="checkbox" id="ppStem"> stemming (Porter-like)</label>
+    <label><input type="checkbox" id="ppLemma" checked> lemmatization</label>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h4>① Sentence segmentation</h4>
+      <div id="ppSents" class="chips"></div>
+    </div>
+    <div class="card">
+      <h4>② Tokenization</h4>
+      <div id="ppTokens" class="chips"></div>
+    </div>
+    <div class="card">
+      <h4>③ Normalized tokens</h4>
+      <div id="ppNorm" class="chips"></div>
+    </div>
+    <div class="card">
+      <h4>④ Final pipeline output</h4>
+      <div id="ppFinal" class="chips"></div>
+    </div>
+  </div>
+
+  <p class="note"><b>Stemming</b> chops suffixes (<code>jumping → jump</code>) — fast but crude. <b>Lemmatization</b> uses a dictionary + POS to return real words (<code>was → be</code>, <code>better → good</code>).</p>
+</section>
+
+<!-- REGEX -->
+<section id="regex" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 06 · Regular Expressions</div>
+    <h2>Regex Playground</h2>
+    <p class="lead">Regex is the workhorse of preprocessing, scraping, and tokenization. Try a pattern, see matches highlight live.</p>
+  </header>
+
+  <div class="rx-row">
+    <div class="rx-pat">
+      <span class="rx-d">/</span>
+      <input id="rxPat" value="\b\w+@\w+\.\w+\b" />
+      <span class="rx-d">/</span>
+      <input id="rxFlags" value="g" style="width:60px" />
+    </div>
+    <div class="rx-presets">
+      <button data-rx='{"p":"\\b\\w+@\\w+\\.\\w+\\b","f":"g"}'>Email</button>
+      <button data-rx='{"p":"\\d{4}-\\d{2}-\\d{2}","f":"g"}'>Date YYYY-MM-DD</button>
+      <button data-rx='{"p":"#\\w+","f":"g"}'>Hashtag</button>
+      <button data-rx='{"p":"\\b[A-Z][a-z]+\\b","f":"g"}'>Capitalized word</button>
+      <button data-rx='{"p":"https?://[^\\s]+","f":"g"}'>URL</button>
+      <button data-rx='{"p":"\\b\\d+\\b","f":"g"}'>Number</button>
+    </div>
+  </div>
+
+  <textarea id="rxText" class="textbox" rows="6">Contact Alice at alice@example.com or Bob at bob@uni.edu on 2025-11-12.
+Read more: https://arxiv.org/abs/1706.03762 #NLP #transformers
+Phone: 555-1234. Visit New York and Paris in October.</textarea>
+
+  <div id="rxOut" class="rx-out"></div>
+  <div id="rxMatches" class="rx-list"></div>
+</section>
+
+<!-- TF-IDF -->
+<section id="tfidf" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 07 · Information Retrieval</div>
+    <h2>TF-IDF & Cosine Similarity</h2>
+    <p class="lead">Build a tiny search engine. Each document becomes a sparse vector weighted by how distinctive its words are; the query is scored by cosine similarity.</p>
+  </header>
+
+  <div class="grid grid-2">
+    <div>
+      <h4>Documents <button class="mini" id="tfAdd">+ add doc</button></h4>
+      <div id="tfDocs"></div>
+    </div>
+    <div>
+      <h4>Query</h4>
+      <input id="tfQuery" class="textbox" value="natural language processing models" />
+      <h4 style="margin-top:18px">Ranked results</h4>
+      <div id="tfResults"></div>
+    </div>
+  </div>
+
+  <h4 style="margin-top:24px">TF-IDF weight matrix (top terms)</h4>
+  <div id="tfMatrix" class="matrix"></div>
+</section>
+
+<!-- NAIVE BAYES -->
+<section id="bayes" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 09 · Naive Bayes</div>
+    <h2>Multinomial Naive Bayes Classifier</h2>
+    <p class="lead">A spam classifier you can train in your browser. Watch the priors and per-word likelihoods update as you flip labels.</p>
+  </header>
+
+  <div class="grid grid-2">
+    <div>
+      <h4>Training data <button class="mini" id="nbAdd">+ example</button></h4>
+      <div id="nbTrain"></div>
+    </div>
+    <div>
+      <h4>Classify a new message</h4>
+      <textarea id="nbTest" class="textbox" rows="3">free money now click here to win</textarea>
+      <div id="nbPred" class="big-pred"></div>
+      <h4 style="margin-top:18px">Decision math</h4>
+      <div id="nbMath" class="math"></div>
+    </div>
+  </div>
+
+  <h4 style="margin-top:24px">Top discriminative words per class</h4>
+  <div id="nbWords" class="grid grid-2"></div>
+</section>
+
+<!-- LOGISTIC -->
+<section id="logistic" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 10 · Logistic Regression</div>
+    <h2>Logistic Regression — see the decision boundary</h2>
+    <p class="lead">The sigmoid squashes any score into a probability. Drag the weights and bias to move the boundary; click the canvas to add new points.</p>
+  </header>
+
+  <div class="lr-grid">
+    <div>
+      <canvas id="lrCanvas" width="420" height="420"></canvas>
+      <div class="canvas-hint">Left-click = ★ class · Shift-click = ▲ class · Right-click = remove</div>
+    </div>
+    <div>
+      <div class="slider"><label>w₁ (x weight) <span id="lrW1Val">1.0</span></label><input type="range" id="lrW1" min="-3" max="3" step="0.05" value="1"></div>
+      <div class="slider"><label>w₂ (y weight) <span id="lrW2Val">-1.0</span></label><input type="range" id="lrW2" min="-3" max="3" step="0.05" value="-1"></div>
+      <div class="slider"><label>b (bias) <span id="lrBVal">0.0</span></label><input type="range" id="lrB" min="-5" max="5" step="0.05" value="0"></div>
+      <button class="primary" id="lrFit">Fit with gradient descent</button>
+      <button class="ghost" id="lrReset">Reset weights</button>
+
+      <h4 style="margin-top:20px">Sigmoid σ(z) = 1 / (1 + e⁻ᶻ)</h4>
+      <canvas id="lrSig" width="360" height="160"></canvas>
+      <div class="stat-row">
+        <div><span class="k">Loss</span><span id="lrLoss" class="v">—</span></div>
+        <div><span class="k">Accuracy</span><span id="lrAcc" class="v">—</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SENTIMENT -->
+<section id="sentiment" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 11 · Sentiment Analysis</div>
+    <h2>Lexicon-based Sentiment Scorer</h2>
+    <p class="lead">A miniature VADER-style scorer. Each word carries a valence; negators flip, intensifiers amplify, and the sum tells you the mood.</p>
+  </header>
+
+  <textarea id="seText" class="textbox" rows="3">The movie was absolutely brilliant and the acting was incredibly good, but the ending was terribly disappointing.</textarea>
+
+  <div class="se-meter"><div id="seBar"></div></div>
+  <div class="se-score" id="seScore">—</div>
+
+  <h4>Per-word contribution</h4>
+  <div id="seWords" class="chips"></div>
+
+  <p class="note"><b>Negation window:</b> a "not" flips the sign of the next 3 tokens. <b>Booster:</b> words like <i>very, absolutely</i> multiply the next word's valence. This mirrors how real lexicon scorers handle context.</p>
+</section>
+
+<!-- EMBEDDINGS -->
+<section id="embeddings" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 13 · Word Embeddings</div>
+    <h2>Walk the Vector Space</h2>
+    <p class="lead">A small pre-computed embedding projected into 2D. Click a word for its nearest neighbours, or run an analogy: king − man + woman ≈ ?</p>
+  </header>
+
+  <div class="emb-grid">
+    <div>
+      <canvas id="embCanvas" width="640" height="520"></canvas>
+    </div>
+    <div>
+      <h4>Nearest neighbours of <span id="embPick" class="pill">king</span></h4>
+      <div id="embNN"></div>
+
+      <h4 style="margin-top:22px">Analogy</h4>
+      <div class="anal">
+        <input id="anA" value="king" />
+        <span>−</span>
+        <input id="anB" value="man" />
+        <span>+</span>
+        <input id="anC" value="woman" />
+        <span>=</span>
+        <button class="primary" id="anGo">solve</button>
+      </div>
+      <div id="anOut" class="ana-out"></div>
+
+      <p class="note">The 2D layout is a projection of 50-dim toy vectors. Distances on screen approximate cosine similarity — words with similar contexts cluster together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POS -->
+<section id="pos" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 14 · POS Tagging</div>
+    <h2>HMM Part-of-Speech Tagging — Viterbi Trellis</h2>
+    <p class="lead">An HMM picks the single most probable tag sequence. The Viterbi algorithm fills a grid of best scores left-to-right, then back-traces the winning path.</p>
+  </header>
+
+  <input id="posInput" class="textbox" value="the dogs chase a cat" />
+  <button class="primary" id="posRun">Run Viterbi</button>
+
+  <h4 style="margin-top:18px">Tagged output</h4>
+  <div id="posOut" class="chips"></div>
+
+  <h4 style="margin-top:18px">Viterbi trellis (best log-prob to reach each state)</h4>
+  <div id="posTrellis" class="trellis"></div>
+
+  <p class="note">Tag set: <code>DET NOUN VERB ADJ</code>. Emission and transition probabilities are toy values you can tweak in <code>app.js</code>. Hover a cell to see its predecessor and the move that produced it.</p>
+</section>
+
+<!-- NER -->
+<section id="ner" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 15 · Named Entity Recognition</div>
+    <h2>Named Entity Recognition</h2>
+    <p class="lead">A rule + gazetteer NER that finds PERSON, LOCATION, ORGANIZATION, DATE and MONEY. Type something; watch entities highlight.</p>
+  </header>
+
+  <textarea id="nerInput" class="textbox" rows="4">In January 2024, Sundar Pichai announced that Google would invest $2 billion in Paris and London. Apple and Microsoft followed, with Tim Cook visiting New York the same week.</textarea>
+
+  <h4>Annotated output</h4>
+  <div id="nerOut" class="ner-out"></div>
+
+  <h4 style="margin-top:18px">Entity list</h4>
+  <div id="nerList" class="grid grid-2"></div>
+</section>
+
+<!-- NEURAL NETWORKS -->
+<section id="nn" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 16 · Neural Networks</div>
+    <h2>A Tiny Feed-Forward Network</h2>
+    <p class="lead">Two inputs, a hidden layer of 4 units, one output. Drag the inputs and watch activations flow through. Edges glow with the size of the weight × activation product.</p>
+  </header>
+
+  <div class="grid grid-2">
+    <div>
+      <canvas id="nnCanvas" width="560" height="420"></canvas>
+    </div>
+    <div>
+      <div class="slider"><label>Input x₁ <span id="nnX1V">0.5</span></label><input type="range" id="nnX1" min="-1" max="1" step="0.01" value="0.5"></div>
+      <div class="slider"><label>Input x₂ <span id="nnX2V">-0.3</span></label><input type="range" id="nnX2" min="-1" max="1" step="0.01" value="-0.3"></div>
+      <button class="primary" id="nnRand">Randomize weights</button>
+
+      <h4 style="margin-top:18px">Activation function</h4>
+      <select id="nnAct">
+        <option value="tanh">tanh</option>
+        <option value="sigmoid">sigmoid</option>
+        <option value="relu">ReLU</option>
+      </select>
+      <div id="nnOut" class="big-pred" style="margin-top:14px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RNN -->
+<section id="rnn" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 18 · Beyond RNNs</div>
+    <h2>RNN Hidden States — step by step</h2>
+    <p class="lead">An Elman RNN processes one token at a time. Each step combines the new input with the previous hidden state through tanh. Press <b>Step</b> and watch the state evolve.</p>
+  </header>
+
+  <input id="rnnInput" class="textbox" value="the cat sat on the mat" />
+  <div class="rnn-ctrl">
+    <button class="primary" id="rnnReset">↺ Reset</button>
+    <button class="primary" id="rnnStep">▶ Step</button>
+    <button class="ghost" id="rnnRun">⏭ Run to end</button>
+  </div>
+
+  <div id="rnnSteps" class="rnn-steps"></div>
+</section>
+
+<!-- TRANSFORMER -->
+<section id="transformer" class="panel">
+  <header class="phead">
+    <div class="kicker">Session 19 · Transformers (Attention Is All You Need)</div>
+    <h2>Self-Attention — visualised</h2>
+    <p class="lead">Every token computes a Query, Key and Value vector. Attention scores between Q and K decide how much of each Value to mix in. The heatmap below is computed from your sentence in the browser.</p>
+  </header>
+
+  <input id="atInput" class="textbox" value="the cat sat on the soft mat" />
+  <button class="primary" id="atRun">Compute attention</button>
+
+  <div class="grid grid-2">
+    <div>
+      <h4>Attention heatmap (head 1)</h4>
+      <div id="atHeat"></div>
+    </div>
+    <div>
+      <h4>How to read it</h4>
+      <p class="note">Row = the token doing the looking (query). Column = the token being looked at (key). A bright cell means "this row is paying a lot of attention to that column when forming its new representation."</p>
+      <h4>Q · K · V</h4>
+      <div id="atQKV" class="qkv"></div>
+    </div>
+  </div>
+
+  <h4 style="margin-top:24px">Transformer block — schematic</h4>
+  <div class="tf-block">
+    <div class="tf-box">Input embedding + positional encoding</div>
+    <div class="tf-arr">↓</div>
+    <div class="tf-box hot">Multi-head self-attention</div>
+    <div class="tf-arr">↓</div>
+    <div class="tf-box">Add &amp; LayerNorm</div>
+    <div class="tf-arr">↓</div>
+    <div class="tf-box">Feed-forward (MLP)</div>
+    <div class="tf-arr">↓</div>
+    <div class="tf-box">Add &amp; LayerNorm</div>
+    <div class="tf-arr">↓</div>
+    <div class="tf-box">Output → next layer</div>
+  </div>
+</section>
+
+<!-- BPE -->
+<section id="bpe" class="panel">
+  <header class="phead">
+    <div class="kicker">Modern tokenization · Beyond Session 03</div>
+    <h2>Byte-Pair Encoding — watch the merges</h2>
+    <p class="lead">BPE is how GPT, BERT and Llama actually split text. Start from characters, then greedily merge the most frequent adjacent pair. After enough merges, common words become single tokens, rare words split into known sub-pieces.</p>
+  </header>
+
+  <textarea id="bpeCorpus" class="textbox" rows="3">low low low low low lowest lowest newer newer newer newer newer newer wider wider wider new new</textarea>
+  <div class="slider"><label>Number of merges <span id="bpeNVal">10</span></label><input type="range" id="bpeN" min="0" max="40" step="1" value="10"></div>
+
+  <div class="grid grid-2">
+    <div>
+      <h4>Learned merges (in order)</h4>
+      <div id="bpeMerges" class="chips"></div>
+    </div>
+    <div>
+      <h4>Final vocabulary</h4>
+      <div id="bpeVocab" class="chips"></div>
+    </div>
+  </div>
+
+  <h4 style="margin-top:22px">Tokenize new text</h4>
+  <input id="bpeTest" class="textbox" value="lowest newer widely" />
+  <div id="bpeTokens" class="chips" style="margin-top:10px"></div>
+
+  <p class="note">Why subwords? Whole-word vocabularies blow up and can't handle unseen words (<code>doomscroll</code>, <code>antivax</code>). Character vocabularies are tiny but sequences become very long. BPE strikes the balance — typical real-world vocab sizes are 30k–100k.</p>
+</section>
+
+<!-- N-GRAM -->
+<section id="ngram" class="panel">
+  <header class="phead">
+    <div class="kicker">Statistical NLP · Pre-neural language modelling</div>
+    <h2>N-gram Language Model</h2>
+    <p class="lead">The original next-word predictor. Count how often each word follows the previous (n−1), then sample from those distributions. Add-one (Laplace) smoothing handles unseen contexts.</p>
+  </header>
+
+  <textarea id="ngCorpus" class="textbox" rows="4">the cat sat on the mat. the cat slept on the mat. the dog sat on the floor. the dog chased the cat. the cat saw the bird. the bird flew over the mat. the dog watched the cat. the cat watched the bird.</textarea>
+
+  <div class="ng-row">
+    <label>n = </label>
+    <select id="ngN">
+      <option value="2">2 (bigram)</option>
+      <option value="3" selected>3 (trigram)</option>
+      <option value="4">4-gram</option>
+    </select>
+    <label style="margin-left:10px">seed:</label>
+    <input id="ngSeed" value="the cat" style="width:160px">
+    <button class="primary" id="ngGen">Generate 15 tokens</button>
+  </div>
+
+  <h4 style="margin-top:20px">Generated text</h4>
+  <div id="ngOut" class="ng-out"></div>
+
+  <h4 style="margin-top:18px">Next-word distribution after current context</h4>
+  <div id="ngDist" class="ng-dist"></div>
+</section>
+
+<!-- EDIT DISTANCE -->
+<section id="edit" class="panel">
+  <header class="phead">
+    <div class="kicker">Foundational · Used in spell-check, MT eval, DNA alignment</div>
+    <h2>Levenshtein Edit Distance</h2>
+    <p class="lead">The minimum number of insertions, deletions and substitutions to turn one string into another. Solved with dynamic programming — the trace through the grid reveals the alignment.</p>
+  </header>
+
+  <div class="ed-row">
+    <label>source: <input id="edA" value="kitten" /></label>
+    <label>target: <input id="edB" value="sitting" /></label>
+  </div>
+
+  <h4 style="margin-top:18px">DP table (red = substitute, blue = insert, green = delete on the optimal path)</h4>
+  <div id="edGrid" class="ed-grid"></div>
+
+  <h4 style="margin-top:18px">Operations</h4>
+  <div id="edOps" class="chips"></div>
+</section>
+
+<!-- LDA TOPIC MODEL -->
+<section id="lda" class="panel">
+  <header class="phead">
+    <div class="kicker">Notebook 07 · Latent Dirichlet Allocation</div>
+    <h2>Topic Modeling — toy LDA</h2>
+    <p class="lead">LDA assumes each document is a mixture of topics and each topic is a distribution over words. We use a simple co-occurrence + clustering heuristic to expose the same idea: documents get assigned to topics, topics surface their characteristic words.</p>
+  </header>
+
+  <textarea id="ldaDocs" class="textbox" rows="8">The cat chased the mouse around the kitchen and ate the cheese.
+Dogs bark loudly when strangers come near the house at night.
+Python is a popular programming language for data science work.
+Neural networks and machine learning power modern AI systems.
+The football team scored three goals in the final match yesterday.
+Basketball players need agility, speed, stamina and good teamwork.
+Cats love to sleep on warm laundry and chase laser dots all day.
+Java and Rust are programming languages used in systems development.
+The match was won by the away team after a dramatic finish.</textarea>
+
+  <div class="ng-row">
+    <label>K (number of topics) =</label>
+    <select id="ldaK"><option>2</option><option selected>3</option><option>4</option></select>
+    <button class="primary" id="ldaRun">Fit topics</button>
+  </div>
+
+  <h4 style="margin-top:20px">Topics (top words by weight)</h4>
+  <div id="ldaTopics" class="grid grid-3"></div>
+
+  <h4 style="margin-top:20px">Document → topic mixture</h4>
+  <div id="ldaDocsOut"></div>
+</section>
+
+<!-- BEAM SEARCH -->
+<section id="beam" class="panel">
+  <header class="phead">
+    <div class="kicker">Notebook 20 · Text Generation</div>
+    <h2>Beam Search</h2>
+    <p class="lead">Greedy decoding picks the single best next token; beam search keeps the <b>k</b> best running sequences and prunes at every step. Higher beam width = better text, at quadratic cost.</p>
+  </header>
+
+  <div class="ng-row">
+    <label>beam width =</label>
+    <select id="beamK"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select>
+    <label>seed:</label>
+    <input id="beamSeed" value="the cat" style="width:140px">
+    <label>steps:</label>
+    <select id="beamSteps"><option>3</option><option selected>4</option><option>5</option><option>6</option></select>
+    <button class="primary" id="beamRun">Decode</button>
+  </div>
+
+  <h4 style="margin-top:18px">Beam expansion tree</h4>
+  <div id="beamTree" class="beam-tree"></div>
+
+  <h4 style="margin-top:14px">Final beams (sorted by log-probability)</h4>
+  <div id="beamFinal" class="beam-list"></div>
+</section>
+
+<!-- SUMMARIZATION -->
+<section id="summ" class="panel">
+  <header class="phead">
+    <div class="kicker">Notebook 21 · Text Summarization</div>
+    <h2>Extractive Summarization (TextRank-style)</h2>
+    <p class="lead">No language model required. Build a sentence-similarity graph, run PageRank, take the top sentences. Surprisingly effective for news, less so for opinion or dialogue.</p>
+  </header>
+
+  <textarea id="sumText" class="textbox" rows="9">Natural language processing is a subfield of artificial intelligence that focuses on the interaction between computers and human language. It enables machines to read, understand, and generate text. Modern NLP relies heavily on deep learning techniques, particularly transformer architectures. These models are pre-trained on massive text corpora and then fine-tuned for specific tasks. Transformer models like BERT and GPT have set new state-of-the-art results across many benchmarks. They use attention mechanisms to capture relationships between words regardless of distance. The field continues to evolve rapidly with new architectures and training techniques appearing each year. Major challenges remain around bias, hallucination, multilingual support, and the energy cost of training large models.</textarea>
+
+  <div class="ng-row">
+    <label>summary length:</label>
+    <input type="range" id="sumK" min="1" max="5" step="1" value="3" style="flex:0 1 200px;">
+    <span id="sumKVal">3</span> sentences
+  </div>
+
+  <h4>Ranked sentences</h4>
+  <div id="sumOut" class="sum-out"></div>
+
+  <h4 style="margin-top:18px">Generated summary</h4>
+  <div id="sumFinal" class="sum-final"></div>
+</section>
+
+<!-- QA -->
+<section id="qa" class="panel">
+  <header class="phead">
+    <div class="kicker">Notebook 22 · Question Answering</div>
+    <h2>Span-based Question Answering</h2>
+    <p class="lead">SQuAD-style QA finds the answer as a contiguous span inside a given passage. This toy version scores spans by word-overlap and proximity to question keywords — same shape as real start/end pointer networks, far simpler model.</p>
+  </header>
+
+  <textarea id="qaCtx" class="textbox" rows="6">The Transformer architecture was introduced in 2017 by Vaswani and colleagues at Google. It replaced recurrent and convolutional networks with self-attention, which allowed parallel training and longer context modeling. The original paper was titled "Attention Is All You Need" and trained an English-to-German translation model. Today the Transformer is the backbone of large language models like GPT and BERT.</textarea>
+
+  <div class="ng-row">
+    <label>Question:</label>
+    <input id="qaQ" value="Who introduced the Transformer architecture?" style="flex:1; min-width:280px;">
+    <button class="primary" id="qaGo">Find answer</button>
+  </div>
+
+  <h4>Answer</h4>
+  <div id="qaAns" class="qa-ans">—</div>
+
+  <h4 style="margin-top:18px">Top candidate spans</h4>
+  <div id="qaCands"></div>
+</section>
+
+<!-- BLEU -->
+<section id="bleu" class="panel">
+  <header class="phead">
+    <div class="kicker">Evaluation · MT, summarization, captioning</div>
+    <h2>BLEU &amp; ROUGE — generation metrics</h2>
+    <p class="lead">BLEU rewards precision of n-grams against a reference. ROUGE rewards recall. Both are crude approximations of human judgment, but they're the default benchmarks in MT and summarization.</p>
+  </header>
+
+  <div class="ng-row">
+    <label style="display:block; width:100%">Candidate:</label>
+    <input id="bleuC" value="the cat sat on the mat" style="flex:1; min-width:280px;">
+  </div>
+  <div class="ng-row">
+    <label style="display:block; width:100%">Reference:</label>
+    <input id="bleuR" value="the cat is sitting on the mat" style="flex:1; min-width:280px;">
+  </div>
+
+  <div class="grid grid-2" style="margin-top:18px">
+    <div class="card">
+      <h4>BLEU score</h4>
+      <div class="big-pred"><span class="lab" id="bleuScore">—</span></div>
+      <div id="bleuBreak" class="bleu-break"></div>
+    </div>
+    <div class="card">
+      <h4>ROUGE-1 / ROUGE-2 / ROUGE-L</h4>
+      <div id="rougeOut" class="bleu-break"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFUSION MATRIX -->
+<section id="confusion" class="panel">
+  <header class="phead">
+    <div class="kicker">Evaluation · Classification</div>
+    <h2>Confusion Matrix &amp; Per-class metrics</h2>
+    <p class="lead">Live confusion matrix computed from your Naive Bayes classifier (above) — fixed test set, no peeking at training labels. Watch precision/recall/F1 shift as you edit the training data.</p>
+  </header>
+
+  <h4>Test set <button class="mini" id="cmAdd">+ test example</button></h4>
+  <div id="cmTest"></div>
+
+  <div class="grid grid-2" style="margin-top:18px;">
+    <div>
+      <h4>Confusion matrix (predicted × actual)</h4>
+      <div id="cmGrid" class="cm-grid"></div>
+    </div>
+    <div>
+      <h4>Per-class metrics</h4>
+      <div id="cmMetrics" class="cm-metrics"></div>
+      <h4 style="margin-top:14px">Macro-average</h4>
+      <div id="cmMacro" class="cm-metrics"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGES -->
+<section id="challenges" class="panel">
+  <header class="phead">
+    <div class="kicker">Sessions 24–25 · Challenges &amp; Summary</div>
+    <h2>Open challenges in modern NLP</h2>
+    <p class="lead">Even with foundation models, the field still grapples with these. Click any tile to read the core tension.</p>
+  </header>
+
+  <div class="grid grid-3" id="chTiles"></div>
+</section>
+
+<!-- FLASHCARDS -->
+<section id="flashcards" class="panel">
+  <header class="phead">
+    <div class="kicker">Study mode · powered by your nlp.tsv</div>
+    <h2>Course Flashcards</h2>
+    <p class="lead">All <span id="fcCount">—</span> question/answer pairs from your course's Anki deck. Click the card to flip. Filter by tag, shuffle, or shuffle and track which ones you've nailed.</p>
+  </header>
+
+  <div class="fc-controls">
+    <select id="fcTag"><option value="">All tags</option></select>
+    <button class="primary" id="fcShuffle">↻ Shuffle</button>
+    <button class="ghost" id="fcPrev">← prev</button>
+    <button class="ghost" id="fcNext">next →</button>
+    <span class="fc-progress"><span id="fcIdx">0</span> / <span id="fcTotal">0</span></span>
+  </div>
+
+  <div id="fcCard" class="fc-card">
+    <div class="fc-face fc-q" id="fcQ">Loading cards…</div>
+    <div class="fc-face fc-a" id="fcA"></div>
+    <div class="fc-tags" id="fcTags"></div>
+  </div>
+
+  <div class="fc-actions">
+    <button class="ghost" id="fcMiss">✗ Missed it</button>
+    <button class="primary" id="fcKnow">✓ Knew it</button>
+  </div>
+  <div class="fc-stats">
+    <span><b id="fcKnown">0</b> known</span>
+    <span><b id="fcMissed">0</b> missed</span>
+    <span><b id="fcSeen">0</b> seen</span>
+  </div>
+
+  <div class="footer">
+    <p>Built for the <b>AI: Natural Language Processing &amp; Semantic Analysis</b> course. All visualizations run client-side — no backend, no tracking, no dependencies beyond Google Fonts.</p>
+    <p class="muted">Deploy via <code>Settings → Pages → main / docs</code> on GitHub.</p>
+  </div>
+</section>
+
+</main>
+
+<script src="js/app.js"></script>
+</body>
+</html>

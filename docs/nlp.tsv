@@ -1,0 +1,314 @@
+#separator:tab
+#html:true
+#notetype column:1
+#tags column:4
+Basic	What are the two primary functions NLP is divided into?	Natural Language Understanding (NLU), which structures unstructured text, and Natural Language Generation (NLG), which produces language from data.	nlp s1_intro definition
+Basic	What is Semantic Analysis (in NLP)?	The specific process of drawing meaning by analyzing word relationships and grammatical structures in context.	nlp s1_intro definition
+Basic	What is the standard NLP Pipeline (in order)?	Data Collection &amp; cleaning → Preprocessing → Feature Engineering → Modeling → Monitoring.	nlp s1_intro pipeline
+Basic	What is segmentation in text preprocessing?	Breaking documents into their constituent sentences.	nlp s1_intro preprocessing
+Basic	What is tokenization?	Breaking sentences into individual units called "tokens".	nlp s1_intro preprocessing
+Basic	What is the difference between stemming and lemmatization?	Stemming is faster and rule-based (suffix stripping); lemmatization is more accurate, dictionary-based, returns valid words, and is improved by POS tags.	nlp s1_intro comparison
+Basic	What does POS Tagging do, and how does it differ from NER?	POS Tagging labels grammatical categories (noun, verb, etc.); NER identifies specific entities like people, locations, or organizations.	nlp s1_intro comparison
+Basic	Why is mapping speech to text not one-to-one?	Speech is non-categorical, continuous pressure waves, while written text consists of categorical units separated by whitespace.	nlp s2_complinguistics
+Basic	What is Computational Linguistics?	The intersection of linguistics and computer science, developing computational models and algorithms for processing/understanding human language.	nlp s2_complinguistics definition
+Basic	What are the two main components of a Conversational AI Pipeline?	(1) Speech AI: ASR/STT + TTS, and (2) NLP: NLU + NLG.	nlp s2_complinguistics architecture
+Basic	Trace the full Conversational AI flow from user speech to system speech.	Speech → ASR → Text → NLP processing → Text → TTS → Speech output.	nlp s2_complinguistics pipeline
+Basic	How does Computational Linguistics differ from Conversational AI in focus?	Computational Linguistics has a broader theoretical focus on language understanding; Conversational AI is applied, focused on intelligent agents for specific conversational tasks.	nlp s2_complinguistics comparison
+Basic	How does Conversational AI differ from Generative AI?	Conversational AI focuses on human-like interactions and maintaining context; Generative AI focuses on creating original content based on learned patterns.	nlp s2_complinguistics comparison
+Basic	What advantage do natively multimodal speech-to-speech models (e.g., GPT-4o) have over text-based pipelines?	They can directly process and generate audio, enabling understanding of emotion, whisper, singing, and handling interruptions.	nlp s2_complinguistics models
+Basic	What does NLTK's word_tokenize output for "Python is Great! I am using NLTK"?	['Python', 'is', 'Great', '!', 'I', 'am', 'using', 'NLTK']	nlp s2_complinguistics code
+Basic	What does NLTK's sent_tokenize output for "Python is Great! I am using NLTK"?	['Python is Great!', 'I am using NLTK']	nlp s2_complinguistics code
+Basic	What is a homonym, and why is it problematic for NLP?	Words with the same pronunciation but different meanings (e.g., their/there); problematic for speech-to-text systems.	nlp s3_concepts challenges
+Basic	What are the three types of ambiguity in NLP?	Lexical (word as verb/noun/adj), Semantic (context interpretation), and Syntactic (phrase attachment).	nlp s3_concepts challenges
+Basic	Match the linguistic level to its unit: Phonology	Phonemes (sound systems within a particular language).	nlp s3_concepts levels
+Basic	Match the linguistic level to its unit: Morphology	Morphemes — the smallest meaningful units (stems, roots, prefixes, suffixes).	nlp s3_concepts levels
+Basic	Match the linguistic level to its unit: Syntax	Phrases and sentences (rules for sentence structure).	nlp s3_concepts levels
+Basic	Match the linguistic level to its unit: Pragmatics	Meaning in discourse context (conversational implicatures).	nlp s3_concepts levels
+Basic	What does text.concordance("word") do in NLTK?	Shows the word in context with surrounding text.	nlp s3_concepts nltk
+Basic	What does text.similar("word") do?	Returns words appearing in similar contexts.	nlp s3_concepts nltk
+Basic	What does FreqDist(text) compute?	A word frequency distribution — count of each word in the text.	nlp s3_concepts nltk
+Basic	Why convert NLTK's stopword list to a set before filtering?	Sets have much more efficient lookup than lists (O(1) vs O(n)), so no loop is needed for membership checks.	nlp s3_concepts code
+Basic	For PorterStemmer, what does ps.stem('eating') return?	'eat' (the gerund 'ing' rule is applied).	nlp s3_concepts code
+Basic	For WordNetLemmatizer, what does lem.lemmatize('ate', pos='v') return?	'eat' (dictionary lookup with verb POS).	nlp s3_concepts code
+Basic	Why does the POS tag matter for lemmatization?	The lemmatizer uses POS to choose the correct dictionary entry; without it, accuracy drops (e.g., 'ate' as noun vs verb).	nlp s3_concepts code
+Basic	Define Corpus, Vocabulary, Document, and Token.	Corpus (C) = all text data in a dataset; Vocabulary (V) = set of unique words in the corpus; Document (D) = one text record; Token (W) = individual word in the vocabulary.	nlp s4_textrep terminology
+Basic	What is One-Hot Encoding for words?	Each word is a binary vector mapped to the vocabulary, with a single 1 at the word's position and 0s elsewhere.	nlp s4_textrep ohe
+Basic	What size is the One-Hot Encoding matrix for a document?	(P × Q) where P = number of tokens in the document, Q = vocabulary size.	nlp s4_textrep ohe
+Basic	List the disadvantages of One-Hot Encoding.	Feature explosion with large vocabularies; orthogonal vectors give no word relationships; no measure of word importance; sparse, memory-expensive matrices.	nlp s4_textrep ohe
+Basic	What does it mean that One-Hot vectors are "orthogonal"?	They are mathematically independent — the dot product between any two distinct word vectors is 0, so no semantic relationships are captured.	nlp s4_textrep ohe
+Basic	What is a Bag-of-Words (BoW) document representation?	Each document is a frequency vector mapped to the vocabulary; multiple documents form a Document-Term Matrix (DTM).	nlp s4_textrep bow
+Basic	What is the size of the BoW Document-Term Matrix?	(N × V) where N = total number of documents, V = vocabulary size.	nlp s4_textrep bow
+Basic	What is the main limitation of Bag-of-Words?	It ignores word order — "children eat cookies" and "cookies eat children" produce identical vectors.	nlp s4_textrep bow
+Basic	What is an n-gram?	A contiguous sequence of n words; used for next-word prediction.	nlp s4_textrep ngrams
+Basic	Give the unigram, bigram, and trigram split of "I am the king".	Unigram: (I)(am)(the)(king); Bigram: (I am)(am the)(the king); Trigram: (I am the)(am the king).	nlp s4_textrep ngrams
+Basic	What is the bigram probability formula?	P(wᵢ | wᵢ₋₁) = count(wᵢ₋₁, wᵢ) / count(wᵢ₋₁).	nlp s4_textrep formula
+Basic	What is the n-gram tradeoff?	Higher n captures more context but requires exponentially larger corpora; the probability of finding repeated n-grams decreases rapidly as n grows.	nlp s4_textrep ngrams
+Basic	What does TF-IDF measure?	The relevance of a word to a document relative to other documents in the corpus — words frequent in one document but rare across the corpus get higher scores.	nlp s4_textrep tfidf
+Basic	What is the TF formula?	tf(t, d) = (count of t in d) / (number of words in d).	nlp s4_textrep formula
+Basic	What is the IDF formula?	idf(t) = log(N / (df(t) + 1)) where N = total number of documents and df(t) = number of documents containing t.	nlp s4_textrep formula
+Basic	Why does IDF reduce the weight of common words?	Words appearing in many documents have IDF close to zero, so their TF-IDF score is low — they are not useful for distinguishing documents.	nlp s4_textrep tfidf
+Basic	Compare One-Hot, BoW, TF-IDF, and N-grams: which capture word order?	Only N-grams capture local word order (n-1 context); One-Hot, BoW, and TF-IDF do not capture order.	nlp s4_textrep comparison
+Basic	Compare One-Hot, BoW, TF-IDF, and N-grams: which capture importance?	TF-IDF captures corpus-relative importance; BoW captures only frequency; One-Hot and N-grams capture no importance.	nlp s4_textrep comparison
+Basic	What is a Vector Space Model (VSM)?	A mathematical framework that represents document vectors in high-dimensional space to compare them semantically.	nlp s4_textrep vsm
+Basic	What is a Context-Free Grammar (CFG)?	A set of production rules (LHS → RHS) that define all well-formed sentences in a language.	nlp s5_meaning cfg
+Basic	What are the four formal components of a grammar?	Nonterminal symbols (uppercase, expandable), terminal symbols (lowercase, final), a start symbol (S), and production rules.	nlp s5_meaning cfg
+Basic	What does ε denote in a CFG?	An empty string, typically used for grammars with infinite possible outputs.	nlp s5_meaning cfg
+Basic	What are the three goals of a CFG?	(1) Permit ambiguity by allowing all possible parses, (2) Limit ungrammaticality via agreement (number/tense/gender/person), (3) Ensure meaningfulness by disallowing semantically invalid sentences.	nlp s5_meaning cfg
+Basic	What is the difference between syntactic and semantic parsing?	Syntactic (dependency) parsing reveals structure (head → dependent); semantic parsing converts a sentence to a logical representation (e.g., typed lambda calculus) for meaning and reasoning.	nlp s5_meaning comparison
+Basic	What does Semantic Role Labeling (SRL) detect?	"Who did what to whom" centered on the main verb; semantic roles + event = a frame. Used for information extraction.	nlp s5_meaning srl
+Basic	What is Abstract Meaning Representation (AMR)?	A rooted, directed, acyclic graph where nodes = concepts and edges = semantic relations; functional words are omitted; goal is to eliminate syntactic ambiguity and focus on meaning.	nlp s5_meaning amr
+Basic	What does AMR's :arg0, :top, :arg1 convention encode?	Who (:arg0) did what (:top) to whom (:arg1) — the core frame structure.	nlp s5_meaning amr
+Basic	What does AMR handle besides semantic roles?	Entity types, coreference, modality, polarity (negation), and Wikification (linking to Wikipedia).	nlp s5_meaning amr
+Basic	Compare Graph-based and Transition-based AMR parsing.	Graph-based (JAMR): identify concepts first, then relations between them. Transition-based (CAMR): traverse a dependency tree, predict actions at each node/edge to transform it into AMR.	nlp s5_meaning comparison
+Basic	What are spaCy's strengths versus NLTK's?	spaCy is industrial-strength with optimized tokenization, POS, NER, dependency parsing, and word vectors; NLTK is more academic/research-oriented with extensive corpora.	nlp s6_libraries comparison
+Basic	Which library is best for topic modeling (LDA, LSI) and word2vec?	Gensim.	nlp s6_libraries
+Basic	Which library provides pre-trained models like BERT, GPT, T5 via a pipeline interface?	Transformers (Hugging Face) — e.g., from transformers import pipeline.	nlp s6_libraries
+Basic	Which scikit-learn classes are used for text feature extraction?	CountVectorizer (BoW) and TfidfVectorizer (TF-IDF), from sklearn.feature_extraction.text.	nlp s6_libraries code
+Basic	Why is regex preferred over LLMs for data preprocessing?	Regex is deterministic, instant, and free; LLMs are slow, expensive, and non-deterministic for pattern matching.	nlp s7_regex
+Basic	What does the regex /[wW]oodchuck/ match?	"Woodchuck" or "woodchuck" (disjunction matches one out of several characters).	nlp s7_regex
+Basic	What does /[^A-Z]/ match?	Any character that is NOT an uppercase letter (caret inside brackets = negation).	nlp s7_regex
+Basic	What does /^The/ match?	"The" only at the start of a line (^ is the start-of-line anchor).	nlp s7_regex
+Basic	What does \b mean in regex?	A word boundary — e.g., /\bthe\b/ matches "the" but not "other" or "theme".	nlp s7_regex
+Basic	List the three uses of caret (^) in regex.	(1) Match start of line, (2) Negation inside brackets, (3) Literal caret outside brackets.	nlp s7_regex
+Basic	What does \d match, and what is its bracket equivalent?	A single digit; equivalent to [0-9].	nlp s7_regex
+Basic	What does \w match, and what is its bracket equivalent?	A word character (letters, digits, underscore); equivalent to [a-zA-Z_0-9].	nlp s7_regex
+Basic	List the regex quantifiers and their meanings.	X? = zero or one; X* = zero or more; X+ = one or more; X{n} = exactly n; X{n,m} = at least n, at most m.	nlp s7_regex
+Basic	What does the regex /[A-Za-z]{2}\d{3}/ match? Give an example.	Exactly 2 letters (any case) followed by exactly 3 digits — e.g., "CS229" or "cs231".	nlp s7_regex
+Basic	Why use raw strings (r"...") in Python regex?	To avoid double-escaping backslashes; in raw strings, backslashes are not treated as escape characters.	nlp s7_regex code
+Basic	Distinguish re.match, re.search, and re.findall.	re.match: match only at the beginning; re.search: first match anywhere; re.findall: list of all non-overlapping matches.	nlp s7_regex code
+Basic	For sent="This book on tennis cost $3.99 at Walmart" with pattern r"\$\d+\.\d\d", what does re.search return?	A match object with span=(25, 30) and match='$3.99'.	nlp s7_regex code
+Basic	In ((A)(B(C))), how many capture groups exist and what is group 0?	4 capture groups (plus group 0). Group 0 is always the entire match: 'ABC'. Groups 1–4: 'ABC', 'A', 'BC', 'C'.	nlp s8_regex_grouping
+Basic	For pattern r"(\w+) cost (\$\d+\.\d\d)" applied to "tennis cost $3.99", what are group(0), group(1), group(2)?	group(0)='tennis cost $3.99'; group(1)='tennis'; group(2)='$3.99'.	nlp s8_regex_grouping code
+Basic	What does the re.I flag do?	Ignore case during matching.	nlp s8_regex_grouping
+Basic	What does the re.M flag do?	Multi-line mode — ^ and $ match at line boundaries within the string.	nlp s8_regex_grouping
+Basic	What does the re.X flag do?	Verbose mode — allows comments and whitespace in the pattern for readability.	nlp s8_regex_grouping
+Basic	Why use finditer() instead of findall() for capturing groups?	findall() returns a list, so .group() cannot be applied (raises AttributeError). finditer() returns match objects with full group access.	nlp s8_regex_grouping code
+Basic	What does re.sub(r'5', 'five', text) do?	Replaces all occurrences of '5' in text with 'five'.	nlp s8_regex_grouping code
+Basic	What is the goal of text classification?	To automatically assign labels/categories to text — e.g., spam detection, sentiment analysis, topic identification.	nlp s8_regex_grouping classification
+Basic	In logistic regression for text classification, how is the prediction made?	A weighted sum of features is passed through the sigmoid function to produce a probability of class membership in [0, 1].	nlp s8_regex_grouping classification
+Basic	Define Supervised, Unsupervised, and Reinforcement learning.	Supervised: training with labeled data (classification, regression). Unsupervised: training with unlabeled data (clustering). Reinforcement: agent takes actions and receives feedback (decision making).	nlp s9_embeddings ml
+Basic	What is a word embedding?	A numeric vector representation of words/documents where similar meanings yield similar representations; each dimension represents a learned feature.	nlp s9_embeddings definition
+Basic	What semantic property do embeddings capture via vector arithmetic?	Analogies — e.g., King − Man + Woman ≈ Queen; relationships like verb tense, country-capital, age-size are preserved.	nlp s9_embeddings property
+Basic	Classify by semantics: One-hot, BoW, TF-IDF.	No semantics — purely count- or presence-based; no notion of word similarity.	nlp s9_embeddings classification
+Basic	Classify by semantics: Word2Vec, GloVe, FastText.	Static embeddings — one vector per word, regardless of context. FastText additionally handles out-of-vocabulary words via subwords.	nlp s9_embeddings classification
+Basic	Classify by semantics: ELMo, BERT, GPT, T5.	Contextual embeddings — vectors change based on surrounding context. BERT/GPT/T5 are Transformer-based; ELMo/CoVe are not.	nlp s9_embeddings classification
+Basic	What is the Cosine Similarity formula?	cos(A, B) = (A · B) / (||A|| × ||B||) — the cosine of the angle between two vectors.	nlp s9_embeddings formula
+Basic	What does cosine similarity = 1, 0, and −1 mean?	1 = identical direction; 0 = orthogonal (no similarity); −1 = opposite direction.	nlp s9_embeddings interpretation
+Basic	For non-negative word-count vectors, what range does cosine similarity take?	[0, 1] — never negative, since the dot product cannot be negative.	nlp s9_embeddings interpretation
+Basic	What does Euclidean distance measure?	The straight-line (L2-norm) distance between two vectors in n-dimensional space.	nlp s9_embeddings distance
+Basic	What does model.most_similar(positive=['woman','king'], negative=['man'], topn=1) return?	[('queen', ~0.71)] — solving the analogy King − Man + Woman ≈ Queen.	nlp s9_embeddings code
+Basic	What does model.doesnt_match('breakfast cereal dinner lunch'.split()) return?	'cereal' — the odd one out (the others are meals).	nlp s9_embeddings code
+Basic	What is t-SNE used for?	Dimensionality reduction for visualizing high-dimensional embeddings in 2D while preserving similarity (similar words cluster).	nlp s9_embeddings visualization
+Basic	Why do practitioners apply PCA before t-SNE?	PCA reduces to ~50 dimensions first to speed up t-SNE and reduce noise; t-SNE then maps to 2D for visualization.	nlp s9_embeddings visualization
+Basic	What is Information Retrieval (IR)?	The task of identifying and retrieving information system resources relevant to an information need (e.g., web search engines).	nlp s10_ir definition
+Basic	What are the three components of an IR Model?	Document Template (structure), Query Model (user need representation), and Matching Function (compares queries to documents).	nlp s10_ir components
+Basic	State Bayes' Theorem.	P(A|B) = P(B|A) × P(A) / P(B).	nlp s10_naivebayes formula
+Basic	In Bayes' theorem, what are P(A|B), P(B|A), P(A), and P(B) called?	P(A|B) = posterior; P(B|A) = likelihood; P(A) = prior; P(B) = evidence (marginal probability of B).	nlp s10_naivebayes terminology
+Basic	What is the Naive Bayes classification formula for text?	P(C | w₁, …, wₙ) ∝ P(C) × ∏ᵢ P(wᵢ | C); choose the class with the highest score.	nlp s10_naivebayes formula
+Basic	Why is Naive Bayes called "naive"?	It assumes all predictors contribute equally and independently to classification — unrealistic for words but produces good practical results.	nlp s10_naivebayes
+Basic	What problem does Laplace (additive) smoothing solve?	If a word never appears in a class during training, P(word|C) = 0, making the entire product zero. Adding α (typically 1) ensures no probability is zero.	nlp s10_naivebayes
+Basic	What is the Laplace-smoothed probability formula?	P(w|C) = (count(w, C) + α) / (total words in C + α × |V|), where |V| is vocabulary size.	nlp s10_naivebayes formula
+Basic	When is Multinomial NB preferred over Gaussian or Bernoulli NB?	For discrete word counts (frequencies) — ideal for document/text classification. Gaussian = continuous features; Bernoulli = binary present/absent.	nlp s10_naivebayes comparison
+Basic	Define Precision and Recall.	Precision = TP / (TP + FP) — of predicted positives, how many are correct. Recall = TP / (TP + FN) — of actual positives, how many were found.	nlp s10_naivebayes metrics
+Basic	What is Sentiment Analysis (Opinion Mining)?	A text classification NLP task that determines whether the emotional tone of digital text is positive, negative, or neutral.	nlp s11_sentiment definition
+Basic	Distinguish Document-, Sentence-, and Aspect-Based sentiment analysis.	Document-level: classifies the entire text; Sentence-level: per-sentence sentiment; Aspect-Based: sentiment for specific aspects/features mentioned (e.g., performance, design).	nlp s11_sentiment types
+Basic	What is Fine-Grained sentiment analysis?	Categorization into multiple levels on a 0–100 scale (very negative → very positive); 5-star ratings are an example.	nlp s11_sentiment types
+Basic	What is the rule-based (lexicon) sentiment approach? Pros and cons?	Uses predetermined word lists with sentiment scores; sums scores and compares to thresholds. Pro: straightforward setup. Con: hard to scale; may miss cultural variations.	nlp s11_sentiment approach
+Basic	Why is sarcasm a challenge for sentiment analysis?	"Yeah, great. It took three weeks for my order to arrive" may be labeled positive based on "great" without contextual understanding of irony.	nlp s11_sentiment challenges
+Basic	What does TextBlob's polarity range mean?	[-1, 1] where −1 = highly negative, 1 = highly positive.	nlp s11_sentiment textblob
+Basic	What does TextBlob's subjectivity range mean?	[0, 1] where 0 = factual, 1 = personal opinion.	nlp s11_sentiment textblob
+Basic	What is VADER best suited for?	Social media text — short sentences, slang, abbreviations. Less accurate for longer structured text.	nlp s11_sentiment vader
+Basic	What VADER compound score thresholds define positive, neutral, and negative?	Positive: compound ≥ 0.5; Neutral: −0.5 &lt; compound &lt; 0.5; Negative: compound ≤ −0.5.	nlp s11_sentiment vader thresholds
+Basic	What is POS Tagging?	Assigning grammatical categories (noun, verb, adjective, etc.) to each word in a text.	nlp s12_pos definition
+Basic	Give the Penn Treebank tags for noun, verb, adjective, adverb, determiner, preposition.	NN, VB, JJ, RB, DT, IN.	nlp s12_pos tags
+Basic	For the sentence "The quick brown fox jumps over the lazy dog", what POS tags would NLTK return for "quick", "fox", "jumps"?	'quick' → JJ (adjective), 'fox' → NN (noun), 'jumps' → VBZ (verb, 3rd person singular present).	nlp s12_pos code
+Basic	List the four main methods of POS tagging.	Rule-Based, Statistical (HMMs, CRFs), Machine Learning (decision trees, SVMs), Deep Learning (RNNs, LSTMs).	nlp s12_pos methods
+Basic	What is dependency in dependency grammar?	A binary asymmetric relation between a head and its dependents; the sentence head is typically the tensed verb.	nlp s13_dependency_ner definition
+Basic	What approach does dependency parsing use, and what languages does it suit?	Bottom-up; suits languages with less morphological inflection (English, Chinese) and less complex syntax.	nlp s13_dependency_ner
+Basic	What is a projective dependency graph?	One where, when words are written linearly, edges can be drawn above without crossing — equivalently, a word and its descendants form a contiguous substring.	nlp s13_dependency_ner
+Basic	What is Named Entity Recognition (NER)?	The task of (1) finding spans of text that are proper names, and (2) tagging the entity type.	nlp s13_dependency_ner definition
+Basic	List the four common NER entity types and their meanings.	PER (Person), LOC (Location), ORG (Organization), GPE (Geo-Political Entity).	nlp s13_dependency_ner tags
+Basic	Why is segmentation harder for NER than for POS tagging?	POS tagging assigns one tag per word; NER must find and segment multi-word entity spans.	nlp s13_dependency_ner challenges
+Basic	What do the BIO prefix tags mean?	B = beginning of an entity, I = inside an entity, O = outside any entity.	nlp s13_dependency_ner tags
+Basic	What are the limitations of IO and the advantages of BIOES?	IO cannot encode consecutive entities of the same type. BIOES adds E (end) and S (single-token entity) for clearer boundary information.	nlp s13_dependency_ner comparison
+Basic	For n entity types, how many total BIO tags are there?	2n + 1 — one O tag plus B and I tags for each of the n types.	nlp s13_dependency_ner formula
+Basic	List the standard NER algorithms.	Hidden Markov Models (HMM), Conditional Random Fields (CRF) / MEMM, Neural sequence models (RNNs, Transformers), Fine-tuned LLMs (e.g., BERT).	nlp s13_dependency_ner algorithms
+Basic	Distinguish linguistic and pragmatic meaning.	Linguistic = literal content ("It is 8 pm"). Pragmatic = implied intent ("It is time to leave").	nlp s14_vsm comparison
+Basic	Compare sparse (TF-IDF) and dense (Word2Vec) vectors.	Sparse: high-dimensional (vocab size), mostly zeros, count-based, no semantic similarity. Dense: low-dimensional (50–300), all non-zero, learned from context, captures similarity.	nlp s14_vsm comparison
+Basic	What are typical word embedding dimensions?	32, 50, 100, or 300.	nlp s14_vsm
+Basic	Compare CBOW and Skip-gram in Word2Vec.	CBOW: input = context words, predict center word; faster training. Skip-gram: input = single target word, predict surrounding words; better for rare words.	nlp s14_vsm comparison
+Basic	What does GloVe combine?	Word2Vec's local context learning with global word-word co-occurrence statistics.	nlp s14_vsm glove
+Basic	List Predicate Logic, Semantic Network, Conceptual Dependency, and Frame-Based representations of "I have a car".	Predicate Logic: ∃x,y Having(x) ∧ Haver(Speaker, x) ∧ HadThing(y, x) ∧ Car(y). Semantic Network: Having → {Haver→Speaker, HadThing→Car}. Conceptual Dependency: Speaker —POSS-BY→ Car. Frame-Based: Having { Haver: Speaker, HadThing: Car }.	nlp s14_vsm formalisms
+Basic	Name a key embedding limitation involving homophones.	Embeddings cannot distinguish homophones such as brake/break or cell/sell — they share a single representation.	nlp s14_vsm limitation
+Basic	What is WordNet?	A semantically-oriented dictionary of English; NLTK's version includes 155,287 words and 117,659 synsets.	nlp s15_wordnet definition
+Basic	What is a synset and what does the format word.pos.nn mean?	A synset is a collection of synonymous lemmas sharing one meaning; e.g., car.n.01 means the noun sense 01 of "car".	nlp s15_wordnet definition
+Basic	What POS letters does WordNet use?	n=noun, v=verb, r=adverb, a=adjective.	nlp s15_wordnet
+Basic	Define hypernym and hyponym with an example.	Hypernym: more general (IS-A parent), e.g., 'animal' is a hypernym of 'dog'. Hyponym: more specific (IS-A child), e.g., 'dog' and 'cat' are hyponyms of 'animal'.	nlp s15_wordnet relations
+Basic	Define holonym and meronym with an example.	Holonym: the whole containing a part (HAS-A parent), e.g., 'bird' is a holonym of 'feathers'. Meronym: a part of a whole (HAS-A child), e.g., 'feathers' and 'beak' are meronyms of 'bird'.	nlp s15_wordnet relations
+Basic	What does s1.lowest_common_hypernyms(s2) return?	The most specific shared ancestor of s1 and s2 in the hypernym taxonomy — e.g., for dog and cat: carnivore.	nlp s15_wordnet code
+Basic	What does path_similarity measure?	A score in [0, 1] based on the shortest path connecting two synsets in the hypernym/hyponym taxonomy; 1 = identical synsets.	nlp s15_wordnet similarity
+Basic	What does wup_similarity measure?	Wu-Palmer similarity in [0, 1] based on the depth of synsets and their lowest common hypernym in the taxonomy.	nlp s15_wordnet similarity
+Basic	What is the key distinction between classical ML and deep learning for NLP?	Classical ML: feature extraction (BoW, TF-IDF) and modeling (NB, SVM) are separate manual stages. Deep learning: a single neural network performs both jointly via dense embeddings and hidden layers.	nlp s16_dl comparison
+Basic	What is a neural unit's computation?	Two steps: (1) z = w · x + b (weighted sum), (2) y = f(z) (apply nonlinear activation).	nlp s16_dl neural
+Basic	Compare Sigmoid, tanh, and ReLU activations by range and use.	Sigmoid: (0, 1), used in gates. tanh: (−1, 1), zero-centered, preferred over sigmoid in hidden layers. ReLU: [0, ∞), most common, fast, but suffers from "dead neurons".	nlp s16_dl activation
+Basic	What is a Recurrent Neural Network (RNN)?	A neural network with a recurrent loop that passes hidden state from one time step to the next, giving it memory over sequential data.	nlp s16_dl rnn definition
+Basic	What two key properties define RNNs?	(1) They account for previous inputs via hidden state, (2) They share weights/parameters across all time steps.	nlp s16_dl rnn
+Basic	Match RNN architecture types to tasks: Many-to-One.	Sentiment classification — sequence in, single label out from final hidden state.	nlp s16_dl rnn architectures
+Basic	Match RNN architecture types to tasks: One-to-Many.	Music generation, image captioning — single input, sequence of outputs.	nlp s16_dl rnn architectures
+Basic	Match RNN architecture types to tasks: Many-to-Many (Tx ≠ Ty).	Machine translation — encoder reads input, decoder generates output of different length.	nlp s16_dl rnn architectures
+Basic	What is the vanishing gradient problem in RNNs?	During backpropagation through time, gradients are multiplied across time steps; for long sequences they shrink exponentially, preventing learning of long-range dependencies.	nlp s16_dl rnn problem
+Basic	What is the exploding gradient problem?	When weights &gt; 1, gradients grow exponentially during BPTT, causing unstable training and diverging weights.	nlp s16_dl rnn problem
+Basic	How does GRU address vanishing gradients?	By adding an update gate (controls how much previous state to retain) and a reset gate (controls how much to forget when computing the candidate activation).	nlp s16_dl gru
+Basic	What activation functions does a GRU use?	tanh for the candidate hidden state (−1 to +1), sigmoid for gate values (0 to 1), and softmax at the output layer.	nlp s16_dl gru
+Basic	How many gates does an LSTM have, versus GRU?	LSTM: 3 gates (forget, input, output). GRU: 2 gates (update, reset).	nlp s16_dl comparison
+Basic	What is the LSTM cell state update equation?	C_t = f_t ⊙ C_{t−1} + i_t ⊙ C̃_t — old memory scaled by forget gate, plus new candidate scaled by input gate.	nlp s16_dl lstm formula
+Basic	What does the LSTM forget gate do?	Sigmoid layer that decides what information to discard from the previous cell state C_{t−1}; output near 0 = forget, near 1 = keep.	nlp s16_dl lstm
+Basic	What does the LSTM input gate do?	A sigmoid layer (i_t) selects which values to update, paired with a tanh layer that creates candidate values C̃_t.	nlp s16_dl lstm
+Basic	What does the LSTM output gate do?	A sigmoid layer that decides which parts of the cell state to output: H_t = O_t ⊙ tanh(C_t).	nlp s16_dl lstm
+Basic	Compare GRU and LSTM in cell state and parameters.	GRU: no separate cell state, hidden state only, fewer parameters (faster). LSTM: separate cell state C_t + hidden state H_t, ~4× more parameters (greater capacity).	nlp s16_dl comparison
+Basic	In the LSTM Keras snippet model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2]))), what does input_shape represent?	(sequence_length, num_features_per_step) — the second and third dims of the input X.	nlp s16_dl code
+Basic	What does Dropout(0.2) do?	Randomly zeros 20% of inputs during training to prevent overfitting and improve generalization.	nlp s16_dl code
+Basic	What does Dense(y.shape[1], activation='softmax') compute?	A fully connected output layer with one unit per class; softmax produces a probability distribution summing to 1 (multi-class classification).	nlp s16_dl code
+Basic	What loss is used with one-hot encoded multi-class labels?	categorical_crossentropy.	nlp s16_dl code
+Basic	What does the Adam optimizer combine?	Adaptive learning rates from AdaGrad with momentum-like behavior of RMSProp.	nlp s16_dl code
+Basic	Why is sigmoid used in LSTM gates?	It outputs values in (0, 1), acting as a switch: 0 = completely forget, 1 = completely keep.	nlp s17_lstm
+Basic	Why is tanh used for LSTM candidate states?	It outputs values in (−1, 1); its second derivative sustains over a longer range, helping mitigate vanishing gradients.	nlp s17_lstm
+Basic	Compare Standard RNN and LSTM internal state.	RNN: single hidden state h. LSTM: hidden state h + separate cell state c that flows across time with minimal modification.	nlp s17_lstm comparison
+Basic	For stacked LSTMs in Keras, when do you set return_sequences=True?	For all LSTM layers except the last when stacking — earlier layers must output a sequence, while the final layer typically outputs a single vector for the dense head.	nlp s17_lstm code
+Basic	What is pretraining versus fine-tuning?	Pretraining: training a model from scratch with random weights on a very large corpus; expensive (days, GPU clusters); produces a general-purpose LM. Fine-tuning: continued training on a small task-specific dataset using a pretrained model.	nlp s18_transformer comparison
+Basic	What are the three vectors in the self-attention mechanism?	Query (Q): what this token is looking for. Key (K): what this token offers. Value (V): the actual content to be aggregated.	nlp s18_transformer attention
+Basic	State the Scaled Dot-Product Attention formula.	Attention(Q, K, V) = softmax((Q Kᵀ) / √d_k) × V.	nlp s18_transformer formula
+Basic	Why divide by √d_k in scaled dot-product attention?	To prevent dot products from growing too large, which would push softmax into regions with vanishing gradients.	nlp s18_transformer formula
+Basic	What are the original Transformer hyperparameters from "Attention Is All You Need"?	h = 8 heads, d_model = 512, d_k = d_v = 64, N = 6 encoder/decoder layers, FFN inner dim = 2048.	nlp s18_transformer hyperparameters
+Basic	What sub-layers are in a Transformer encoder block?	(1) Multi-head self-attention, (2) Position-wise feed-forward network. Each wrapped with residual connection + layer normalization.	nlp s18_transformer architecture
+Basic	What sub-layers are in a Transformer decoder block?	(1) Masked multi-head self-attention, (2) Multi-head cross-attention over encoder output, (3) Position-wise feed-forward network. Each with residual + LayerNorm.	nlp s18_transformer architecture
+Basic	What does the FFN compute in a Transformer?	FFN(x) = max(0, x W₁ + b₁) W₂ + b₂ — applied per position; inner layer dimension = 2048.	nlp s18_transformer formula
+Basic	List the four steps of self-attention.	(1) Encode position information (positional encoding). (2) Extract Q, K, V via three learned linear layers. (3) Compute attention weighting via scaled dot product. (4) Multiply weights by V to extract features.	nlp s19_transformer steps
+Basic	List the three attention mechanisms in a full Transformer.	(1) Encoder Self-Attention (bidirectional), (2) Decoder Masked Self-Attention (only past positions), (3) Encoder-Decoder Cross-Attention (decoder queries attend to encoder K/V).	nlp s19_transformer attention
+Basic	Match Transformer model type to task: Encoder-only.	Sentence classification, NER — tasks requiring input understanding. Example: BERT.	nlp s19_transformer types
+Basic	Match Transformer model type to task: Decoder-only.	Generative tasks (text generation). Example: GPT.	nlp s19_transformer types
+Basic	Match Transformer model type to task: Encoder-Decoder.	Generative tasks requiring input — translation, summarization. Examples: T5, BART.	nlp s19_transformer types
+Basic	Why are Transformers parallelizable while RNNs are not?	Transformers process the entire input at once via self-attention; RNNs process one token at a time, with each step depending on the previous hidden state.	nlp s19_transformer comparison
+Basic	What does the four-row table of Bag-of-unigrams, Bag-of-bigrams, RNN, Self-Attention, Transformer say about word order and cross-word context?	Only RNN and Transformer capture word order. Only Self-Attention and Transformer capture cross-word context. Transformer is the only one with both.	nlp s20_transformer comparison
+Basic	How are Q, K, V computed from an input embedding X?	q = X · Wq, k = X · Wk, v = X · Wv — using three jointly-learned weight matrices.	nlp s20_transformer formula
+Basic	Why use multiple attention heads?	Each head learns different feature groups per token; the model can attend to information from different representation subspaces simultaneously.	nlp s20_transformer multihead
+Basic	What problem does positional encoding solve?	Self-attention is permutation-invariant — it has no inherent notion of word order. Positional encoding injects sequence position info into input embeddings.	nlp s20_transformer positional
+Basic	What functions are used for positional encoding, and why two?	Sinusoidal functions: sin for even dimensions (2i), cos for odd dimensions (2i+1). Lower dimensions oscillate rapidly; higher dimensions slowly — encoding both fine and coarse position info.	nlp s20_transformer positional
+Basic	What is the positional encoding formula for even indices?	PE(pos, 2i) = sin(pos / 10000^(2i / d_model)).	nlp s20_transformer formula
+Basic	What is the limitation of learned positional embeddings (vs sinusoidal)?	The maximum sequence length must be known in advance — the embedding matrix has a fixed size.	nlp s20_transformer positional
+Basic	What is teacher forcing?	During training, the decoder receives the ground-truth previous tokens rather than its own predictions; loss is computed via cross-entropy at each position.	nlp s20_transformer training
+Basic	What architecture does GPT use?	Decoder-only — only the decoder stack from the original Transformer; the encoder-decoder cross-attention layer is removed.	nlp s21_gpt architecture
+Basic	What does each GPT decoder block contain?	Masked Self-Attention → Feed Forward Neural Network. (No cross-attention block, since there is no encoder.)	nlp s21_gpt architecture
+Basic	Compare BERT and GPT: architecture, attention, training objective.	BERT: encoder-only, bidirectional self-attention, MLM + Next Sentence Prediction. GPT: decoder-only, masked (causal) self-attention, autoregressive next-token prediction.	nlp s21_gpt comparison
+Basic	What are BERT and GPT each best at?	BERT: understanding/classification tasks. GPT: text generation/continuation tasks.	nlp s21_gpt comparison
+Basic	What is GPT-3's parameter count, sequence length, and embedding dimension?	175B parameters, sequence length 2048, embedding dimension 12,288.	nlp s21_gpt versions
+Basic	What is the GPT-2 token embedding (wte) matrix shape?	(vocab_size × embedding_dim) = (50,257 × embedding_size); embedding size depends on variant (768 / 1024 / 1280 / 1600).	nlp s21_gpt architecture
+Basic	How does GPT generate text autoregressively?	(1) Feed current sequence through all decoder layers. (2) Multiply final-position output by Wᵀ_wte to produce logits over the vocabulary. (3) Sample a token. (4) Append and repeat.	nlp s21_gpt generation
+Basic	What is the masking process for masked self-attention?	(1) Compute Q × Kᵀ score matrix. (2) Set positions above the diagonal to −∞. (3) Apply softmax row-wise — −∞ becomes 0. (4) Multiply by V.	nlp s21_gpt masking
+Basic	Compare Self-Attention and Masked Self-Attention.	Self-Attention: token attends to all positions (past + future), used in encoders (BERT). Masked Self-Attention: token attends only to current and past positions, used in decoders (GPT); upper-triangle is set to −∞ before softmax.	nlp s21_gpt comparison
+Basic	What is GPT's training objective and loss function?	Next-token prediction. Loss: L = −Σₜ log P(xₜ | x_{&lt;t}; θ).	nlp s21_gpt training
+Basic	List four GPT risks.	Data Privacy (training on user data), IP/Copyright (reproducing protected content), Hallucinations (confident but fabricated outputs), Model Bias (encoding discriminatory views from training data).	nlp s21_gpt risks
+Basic	What is Question Answering (QA)?	A subfield of NLP focused on building models that automatically answer natural-language questions with precise natural-language answers. Core components: question parser, knowledge base, answer generator.	nlp s22_qa definition
+Basic	List the four QA types.	Factoid (single concrete fact), List (list of facts), Definition (conceptual definition), Scenario (narrative or hypothesis).	nlp s22_qa types
+Basic	Compare Extractive QA, Open Generative QA, and Closed Generative QA.	Extractive: external context, extracts a span (BERT-like). Open Generative: external context, generates answer (T5, BART). Closed Generative: no context, generates from parameters (GPT-3).	nlp s22_qa comparison
+Basic	What are the three components of a QA system, and what do Reader-only and Reader+Retriever correspond to?	Retriever (gets context), Reader (selects span from question + context), Generator (generates free text). Reader alone = Reading Comprehension; Reader + Retriever = Open-Domain QA.	nlp s22_qa components
+Basic	What are the steps of a QA pipeline?	(1) Text preprocessing, (2) Question understanding (NER, dep parsing, POS), (3) Information retrieval, (4) Answer generation, (5) Ranking by relevance/confidence.	nlp s22_qa pipeline
+Basic	What is the default Hugging Face QA model, and what does it return?	distilbert-base-cased-distilled-squad (extractive open QA). Returns: answer text, start position, end position, confidence score.	nlp s22_qa code
+Basic	For qa_model(question="Where is the ball?", context="The chair is near the table, and the ball is behind the chair."), what is the answer?	'behind the chair' (start=45, end=61, score≈0.811).	nlp s22_qa code
+Basic	What is a logit in QA?	Raw, unnormalized model output scores before softmax; the QA model outputs start logits and end logits per token, converted to probabilities.	nlp s22_qa logits
+Basic	How is the answer span selected?	score[start, end] = start_probabilities[start] × end_probabilities[end]; invalid spans (end &lt; start) are masked; the highest-scoring span wins.	nlp s22_qa span
+Basic	What is SQuAD?	Stanford Question Answering Dataset — primary benchmark for extractive QA: 100,000+ Q-A pairs over 500+ Wikipedia articles; every answer is a text span from the passage.	nlp s22_qa dataset
+Basic	What does SQuAD v2 add over v1.1?	50,000+ unanswerable questions designed to look similar to answerable ones. Evaluated using Exact Match (EM) and F1.	nlp s22_qa dataset
+Basic	What truncation strategy preserves the question and truncates only the context?	truncation="only_second" — truncates only the second input (the context).	nlp s22_qa code
+Basic	What is the sliding window strategy for long contexts?	Split the context into overlapping chunks using return_overflowing_tokens=True and a stride parameter; process each chunk independently and select the best-scoring span across all chunks.	nlp s22_qa code
+Cloze	NLP is divided into {{c1::Natural Language Understanding (NLU)}}, which structures unstructured text, and {{c2::Natural Language Generation (NLG)}}, which produces language from data.		nlp s1_intro
+Cloze	The standard NLP Pipeline: Data Collection → {{c1::Preprocessing}} → {{c2::Feature Engineering}} → Modeling → Monitoring.		nlp s1_intro pipeline
+Cloze	Stemming is {{c1::rule-based}} (faster, less accurate), while Lemmatization is {{c2::dictionary-based}} (slower, more accurate, returns valid words).		nlp s1_intro comparison
+Cloze	A Conversational AI Pipeline has two parts: {{c1::Speech AI}} (ASR + TTS) and {{c2::NLP}} (NLU + NLG).		nlp s2_complinguistics
+Cloze	NLTK's {{c1::word_tokenize}} splits a string into tokens; {{c2::sent_tokenize}} splits it into sentences.		nlp s2_complinguistics code
+Cloze	The three types of ambiguity are: {{c1::Lexical}} (word as verb/noun/adj), {{c2::Semantic}} (context interpretation), and {{c3::Syntactic}} (phrase attachment).		nlp s3_concepts
+Cloze	The six levels of language are: {{c1::Phonetics}}, {{c2::Phonology}}, {{c3::Morphology}}, {{c4::Syntax}}, {{c5::Semantics}}, {{c6::Pragmatics}}.		nlp s3_concepts levels
+Cloze	The smallest meaningful units of a language are called {{c1::morphemes}}; the smallest sound units within a particular language are {{c2::phonemes}}.		nlp s3_concepts levels
+Cloze	{{c1::FreqDist(text)}} returns a word frequency distribution; {{c2::text.collocations()}} returns frequently co-occurring word pairs.		nlp s3_concepts nltk
+Cloze	WordNetLemmatizer accepts POS tags: {{c1::'n'}} (noun), {{c2::'v'}} (verb), {{c3::'a'}} (adjective), {{c4::'r'}} (adverb).		nlp s3_concepts code
+Cloze	A {{c1::Corpus}} is all text data in a dataset; a {{c2::Vocabulary}} is the set of unique words; a {{c3::Document}} is one text record; a {{c4::Token}} is an individual word.		nlp s4_textrep terminology
+Cloze	One-Hot Encoding produces an (P × Q) matrix where P = {{c1::number of tokens in the document}} and Q = {{c2::vocabulary size}}.		nlp s4_textrep ohe
+Cloze	The Bag-of-Words Document-Term Matrix has size (N × V) where N = {{c1::total number of documents}} and V = {{c2::vocabulary size}}.		nlp s4_textrep bow
+Cloze	The bigram probability formula: P(wᵢ | wᵢ₋₁) = {{c1::count(wᵢ₋₁, wᵢ) / count(wᵢ₋₁)}}.		nlp s4_textrep formula
+Cloze	Term Frequency: tf(t, d) = {{c1::count of t in d / total words in d}}.		nlp s4_textrep formula
+Cloze	Inverse Document Frequency: idf(t) = {{c1::log(N / (df(t) + 1))}}.		nlp s4_textrep formula
+Cloze	TF-IDF is computed as: tf-idf(t, d) = {{c1::tf(t, d) × idf(t)}}.		nlp s4_textrep formula
+Cloze	Of the four methods (One-Hot, BoW, TF-IDF, N-grams), only {{c1::N-grams}} captures local word order, and only {{c2::TF-IDF}} captures corpus-relative importance.		nlp s4_textrep comparison
+Cloze	A CFG has four components: {{c1::nonterminal symbols}} (uppercase), {{c2::terminal symbols}} (lowercase), a {{c3::start symbol}} (S), and {{c4::production rules}}.		nlp s5_meaning cfg
+Cloze	In CFG notation, {{c1::ε}} denotes an empty string, used for grammars with infinite possible outputs.		nlp s5_meaning cfg
+Cloze	AMR is a {{c1::rooted, directed, acyclic}} graph where nodes are {{c2::concepts}} and edges are {{c3::semantic relations}}.		nlp s5_meaning amr
+Cloze	AMR encodes "who did what to whom" via {{c1:::arg0}} (who), {{c2:::top}} (what), and {{c3:::arg1}} (to whom).		nlp s5_meaning amr
+Cloze	{{c1::Graph-based}} AMR parsing (JAMR) identifies concepts first, then relations; {{c2::Transition-based}} parsing (CAMR) traverses a dependency tree predicting actions.		nlp s5_meaning comparison
+Cloze	{{c1::Gensim}} is the Python library specializing in topic modeling (LDA, LSI), document similarity, and word2vec.		nlp s6_libraries
+Cloze	In regex, {{c1::^}} matches start of line, {{c2::$}} matches end of line, {{c3::\b}} matches a word boundary.		nlp s7_regex
+Cloze	Regex predefined classes: {{c1::\d}} = a digit ([0-9]), {{c2::\s}} = whitespace, {{c3::\w}} = word character ([a-zA-Z_0-9]).		nlp s7_regex
+Cloze	Regex quantifiers: {{c1::?}} = 0 or 1, {{c2::*}} = 0 or more, {{c3::+}} = 1 or more, {{c4::{n} }} = exactly n times.		nlp s7_regex
+Cloze	{{c1::re.match}} matches only at the beginning of a string; {{c2::re.search}} returns the first match anywhere; {{c3::re.findall}} returns a list of all non-overlapping matches.		nlp s7_regex code
+Cloze	In Python regex, {{c1::raw strings (r"...")}} are used to avoid double-escaping backslashes.		nlp s7_regex code
+Cloze	Regex flags: {{c1::re.I}} = ignore case, {{c2::re.M}} = multi-line, {{c3::re.S}} = dot matches all (incl. newline), {{c4::re.X}} = verbose.		nlp s8_regex_grouping
+Cloze	Use {{c1::finditer()}} (not findall()) when you need to call .group() on each match — findall returns a list of strings, not match objects.		nlp s8_regex_grouping code
+Cloze	{{c1::re.sub(pattern, repl, text)}} substitutes all occurrences of the pattern in text with repl.		nlp s8_regex_grouping code
+Cloze	The three ML paradigms: {{c1::Supervised}} (labeled data, classification/regression), {{c2::Unsupervised}} (unlabeled, clustering), {{c3::Reinforcement}} (action-feedback, decision making).		nlp s9_embeddings ml
+Cloze	The classic embedding analogy: {{c1::Queen}} ≈ King − Man + Woman; and {{c2::France}} ≈ Germany − Berlin + Paris.		nlp s9_embeddings analogy
+Cloze	By semantic capability: One-hot/BoW/TF-IDF capture {{c1::no semantics}}; Word2Vec/GloVe/FastText are {{c2::static embeddings}}; ELMo/BERT/GPT/T5 are {{c3::contextual embeddings}}.		nlp s9_embeddings classification
+Cloze	Cosine Similarity: cos(A, B) = {{c1::A · B / (||A|| × ||B||)}}; range [{{c2::−1}}, {{c3::1}}] generally.		nlp s9_embeddings formula
+Cloze	For non-negative count vectors, cosine similarity has range [{{c1::0}}, {{c2::1}}].		nlp s9_embeddings interpretation
+Cloze	{{c1::CBOW}} predicts the center word from context (faster); {{c2::Skip-gram}} predicts surrounding words from a target word (better for rare words).		nlp s9_embeddings comparison
+Cloze	{{c1::t-SNE}} is a dimensionality reduction technique that compresses high-dim embeddings to 2D while preserving similarity, often run after {{c2::PCA}} to ~50 dims for speed.		nlp s9_embeddings visualization
+Cloze	Bayes' Theorem: P(A|B) = {{c1::P(B|A) × P(A) / P(B)}}.		nlp s10_naivebayes formula
+Cloze	In Bayes' theorem: {{c1::P(A|B)}} = posterior, {{c2::P(B|A)}} = likelihood, {{c3::P(A)}} = prior, {{c4::P(B)}} = evidence.		nlp s10_naivebayes terminology
+Cloze	The Naive Bayes classification rule: P(C | w₁, …, wₙ) ∝ {{c1::P(C) × ∏ᵢ P(wᵢ | C)}}; choose the class with the highest score.		nlp s10_naivebayes formula
+Cloze	Naive Bayes is "naive" because it assumes predictors contribute {{c1::equally and independently}} to classification.		nlp s10_naivebayes
+Cloze	Laplace smoothing: P(w|C) = {{c1::(count(w, C) + α) / (total words in C + α × |V|)}}, typically α = 1.		nlp s10_naivebayes formula
+Cloze	Naive Bayes types: {{c1::Gaussian}} for continuous Gaussian features, {{c2::Bernoulli}} for binary features, {{c3::Multinomial}} for word counts (ideal for text).		nlp s10_naivebayes types
+Cloze	Precision = {{c1::TP / (TP + FP)}}; Recall = {{c2::TP / (TP + FN)}}.		nlp s10_naivebayes metrics
+Cloze	Sentiment Analysis types: {{c1::Document-Level}} (whole text), {{c2::Sentence-Level}} (per sentence), {{c3::Aspect-Based}} (per feature), {{c4::Entity-Level}} (per entity).		nlp s11_sentiment types
+Cloze	TextBlob's {{c1::polarity}} is in [−1, 1], and {{c2::subjectivity}} is in [0, 1].		nlp s11_sentiment textblob
+Cloze	VADER thresholds: Positive ≥ {{c1::0.5}}; Negative ≤ {{c2::−0.5}}; Neutral is between these.		nlp s11_sentiment vader
+Cloze	{{c1::VADER}} is best suited for social media text; {{c2::TextBlob}} returns polarity and subjectivity.		nlp s11_sentiment tools
+Cloze	Penn Treebank POS tags: {{c1::NN}} = noun, {{c2::VB}} = verb, {{c3::JJ}} = adjective, {{c4::RB}} = adverb, {{c5::DT}} = determiner.		nlp s12_pos tags
+Cloze	The four POS tagging methods are: {{c1::Rule-Based}}, {{c2::Statistical}} (HMMs/CRFs), {{c3::Machine Learning}}, and {{c4::Deep Learning}} (RNNs/LSTMs).		nlp s12_pos methods
+Cloze	Common NER entity types: {{c1::PER}} (Person), {{c2::LOC}} (Location), {{c3::ORG}} (Organization), {{c4::GPE}} (Geo-Political Entity).		nlp s13_dependency_ner tags
+Cloze	NER prefix tags in BIOES: {{c1::B}} = beginning, {{c2::I}} = inside, {{c3::O}} = outside, {{c4::E}} = end, {{c5::S}} = single token.		nlp s13_dependency_ner tags
+Cloze	For n entity types, the BIO scheme uses {{c1::2n + 1}} total tags.		nlp s13_dependency_ner formula
+Cloze	The {{c1::IO}} scheme cannot encode consecutive entities of the same type; the {{c2::BIO}} scheme is the standard choice.		nlp s13_dependency_ner comparison
+Cloze	Standard NER algorithms: {{c1::HMMs}}, {{c2::CRFs}} / MEMMs, neural sequence models (RNNs, Transformers), and fine-tuned LLMs like BERT.		nlp s13_dependency_ner algorithms
+Cloze	WordNet relations: {{c1::Hypernym}} = more general (animal → dog); {{c2::Hyponym}} = more specific; {{c3::Holonym}} = whole containing part (bird → feathers); {{c4::Meronym}} = part of a whole.		nlp s15_wordnet relations
+Cloze	Synset format: {{c1::word.pos.nn}} (e.g., car.n.01); POS letters: n=noun, v=verb, {{c2::r}}=adverb, {{c3::a}}=adjective.		nlp s15_wordnet
+Cloze	{{c1::path_similarity}} uses shortest-path distance in the taxonomy; {{c2::wup_similarity}} (Wu-Palmer) uses synset depth and the lowest common hypernym.		nlp s15_wordnet similarity
+Cloze	Sigmoid range: ({{c1::0, 1}}); tanh range: ({{c2::−1, 1}}); ReLU range: [{{c3::0, ∞}}).		nlp s16_dl activation
+Cloze	GRU has {{c1::2}} gates ({{c2::update, reset}}); LSTM has {{c3::3}} gates ({{c4::forget, input, output}}).		nlp s16_dl comparison
+Cloze	LSTM cell state update: C_t = {{c1::f_t ⊙ C_{t−1} + i_t ⊙ C̃_t}}.		nlp s16_dl lstm formula
+Cloze	LSTM hidden state: H_t = {{c1::O_t ⊙ tanh(C_t)}}.		nlp s16_dl lstm formula
+Cloze	LSTMs use {{c1::sigmoid}} for gates (0–1 switch behavior) and {{c2::tanh}} for candidate states (mitigates vanishing gradient).		nlp s17_lstm
+Cloze	RNNs suffer from {{c1::vanishing gradients}} when weights &lt; 1, and {{c2::exploding gradients}} when weights &gt; 1, due to BPTT multiplication across time steps.		nlp s17_lstm problem
+Cloze	LSTM has ~{{c1::4×}} more parameters than a standard RNN due to four gate layers.		nlp s17_lstm comparison
+Cloze	Self-attention's three vectors: {{c1::Query}} (what I'm looking for), {{c2::Key}} (what I offer), {{c3::Value}} (the actual content).		nlp s18_transformer attention
+Cloze	Scaled Dot-Product Attention: Attention(Q, K, V) = {{c1::softmax(Q Kᵀ / √d_k) × V}}.		nlp s18_transformer formula
+Cloze	Division by {{c1::√d_k}} prevents dot products from growing too large, which would push softmax into low-gradient regions.		nlp s18_transformer formula
+Cloze	Original Transformer hyperparameters: h = {{c1::8}} heads, d_model = {{c2::512}}, d_k = d_v = {{c3::64}}, N = {{c4::6}} stacked layers.		nlp s18_transformer hyperparameters
+Cloze	Encoder block sub-layers: {{c1::multi-head self-attention}} → Add &amp; Norm → {{c2::feed-forward network}} → Add &amp; Norm.		nlp s18_transformer architecture
+Cloze	Decoder block sub-layers: {{c1::masked self-attention}} → Add &amp; Norm → {{c2::encoder-decoder cross-attention}} → Add &amp; Norm → feed-forward → Add &amp; Norm.		nlp s18_transformer architecture
+Cloze	Q = {{c1::X · Wq}}, K = {{c2::X · Wk}}, V = {{c3::X · Wv}} — all weight matrices are jointly learned during training.		nlp s20_transformer formula
+Cloze	The four steps of self-attention: (1) {{c1::Encode position}}, (2) {{c2::Extract Q, K, V}}, (3) {{c3::Compute attention weighting via scaled dot product}}, (4) {{c4::Multiply weights by V}}.		nlp s20_transformer steps
+Cloze	The three attention mechanisms in a Transformer: {{c1::Encoder Self-Attention}}, {{c2::Decoder Masked Self-Attention}}, {{c3::Encoder-Decoder Cross-Attention}}.		nlp s20_transformer attention
+Cloze	Positional encoding uses {{c1::sin}} for even indices (2i) and {{c2::cos}} for odd indices (2i+1), with denominator {{c3::10000^(2i / d_model)}}.		nlp s20_transformer positional
+Cloze	{{c1::BERT}} is encoder-only with bidirectional attention; {{c2::GPT}} is decoder-only with masked (causal) attention; {{c3::T5/BART}} is encoder-decoder.		nlp s21_gpt comparison
+Cloze	GPT is trained with {{c1::next-token prediction}} (autoregressive); BERT is trained with {{c2::Masked Language Modeling (MLM)}} + Next Sentence Prediction.		nlp s21_gpt training
+Cloze	GPT-3: {{c1::175B}} parameters, sequence length {{c2::2048}}, embedding dim {{c3::12,288}}, {{c4::96}} attention heads, {{c5::96}} decoder layers.		nlp s21_gpt versions
+Cloze	GPT-2 token embedding (wte) shape: (vocab_size × embedding_dim) = ({{c1::50,257}} × embedding_size).		nlp s21_gpt architecture
+Cloze	Masked self-attention sets positions {{c1::above the diagonal}} to {{c2::−∞}} before softmax, so they become 0 after normalization.		nlp s21_gpt masking
+Cloze	GPT loss function: L = {{c1::−Σₜ log P(xₜ | x_{&lt;t}; θ)}}.		nlp s21_gpt training formula
+Cloze	The four GPT risks: {{c1::Data Privacy}}, {{c2::IP/Copyright}}, {{c3::Hallucinations}}, {{c4::Model Bias}}.		nlp s21_gpt risks
+Cloze	The four QA types: {{c1::Factoid}}, {{c2::List}}, {{c3::Definition}}, {{c4::Scenario}}.		nlp s22_qa types
+Cloze	QA components: {{c1::Retriever}} (gets context), {{c2::Reader}} (selects span), {{c3::Generator}} (generates free text). Reader alone = {{c4::Reading Comprehension}}; Reader + Retriever = {{c5::Open-Domain QA}}.		nlp s22_qa components
+Cloze	Extractive QA uses {{c1::BERT-like}} models; Open Generative QA uses {{c2::T5/BART}}; Closed Generative QA uses {{c3::GPT-3}}.		nlp s22_qa comparison
+Cloze	{{c1::SQuAD}} is the primary benchmark for extractive QA: {{c2::100,000+}} Q-A pairs over {{c3::500+}} Wikipedia articles.		nlp s22_qa dataset
+Cloze	SQuAD v2 adds {{c1::50,000+ unanswerable questions}}; evaluation metrics are {{c2::Exact Match (EM)}} and {{c3::F1}}.		nlp s22_qa dataset
+Cloze	For long contexts in HF QA, use {{c1::truncation="only_second"}} to keep the question intact, and a {{c2::sliding window with stride}} (return_overflowing_tokens=True) to process overlapping chunks.		nlp s22_qa code
+Cloze	QA answer span score: score[start, end] = {{c1::start_probabilities[start] × end_probabilities[end]}}; invalid spans where end &lt; start are masked.		nlp s22_qa span
