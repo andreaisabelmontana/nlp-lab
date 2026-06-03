@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Course Structure — AI: NLP & Semantic Analysis</title>
+<meta name="description" content="Full syllabus-driven course structure for AI: Natural Language Processing & Semantic Analysis (BCSAI, IE University): objectives, methodology, assessment, all 30 sessions, glossary and bibliography." />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- KaTeX (optional, for crisp formulas; falls back to plain text if it fails to load) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+<style>
+/* ============================================================
+   course.html — page-local styles (extends the shared design
+   system in css/style.css; reuses --vars, .panel, .phead, etc.)
+   ============================================================ */
+
+/* --- Page header / hero band --- */
+.course-hero { padding: 30px 0 30px; }
+.crumbs { font-size: 12.5px; color: var(--muted); margin-bottom: 18px; }
+.crumbs a { color: var(--accent); text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+.crumbs .sep { margin: 0 8px; opacity: .5; }
+
+.topnav {
+  position: sticky; top: 0; z-index: 30;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  margin: -48px -56px 36px;
+  padding: 12px 56px;
+  display: flex; flex-wrap: wrap; gap: 6px 4px; align-items: center;
+}
+.topnav .home {
+  font-weight: 700; color: var(--text); text-decoration: none;
+  display: flex; align-items: center; gap: 8px; margin-right: 14px;
+}
+.topnav .home .logo { width: 30px; height: 30px; font-size: 12px; border-radius: 8px; }
+.topnav a.tn {
+  color: var(--muted); text-decoration: none; font-size: 13px;
+  padding: 6px 10px; border-radius: 7px; font-weight: 500; transition: all .15s;
+}
+.topnav a.tn:hover { background: var(--bg-3); color: var(--text); }
+.topnav .spacer { flex: 1; }
+.topnav .pdf {
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px;
+  font-size: 12.5px; color: var(--accent-2); text-decoration: none; font-weight: 600;
+}
+.topnav .pdf:hover { border-color: var(--accent-2); }
+.topnav .tt { background: var(--bg-3); color: var(--text); border: 1px solid var(--line);
+  padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 12.5px; }
+
+/* --- Meta grid --- */
+.meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 26px; }
+.meta-cell { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; }
+.meta-cell .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.meta-cell .v { font-size: 15px; font-weight: 700; margin-top: 4px; }
+.meta-cell .v.sm { font-size: 13px; font-weight: 600; }
+
+/* --- Objective list --- */
+.obj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 22px; }
+.obj-grid .obj { display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.obj-grid .obj .n { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+.obj-grid .obj .t { font-size: 14px; }
+.obj-grid .obj .t b { color: var(--text); }
+.obj-grid .obj .t span { color: var(--muted); }
+
+/* --- Methodology / weighting bars --- */
+.bars { display: flex; flex-direction: column; gap: 12px; margin-top: 6px; }
+.bar-row { display: grid; grid-template-columns: 220px 1fr 86px; gap: 14px; align-items: center; }
+.bar-row .bl { font-size: 13px; color: var(--text); }
+.bar-row .bl small { display: block; color: var(--muted); font-size: 11px; }
+.bar-track { height: 12px; background: var(--bg-3); border-radius: 6px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 6px; }
+.bar-row .bv { text-align: right; font-family: 'JetBrains Mono', monospace; color: var(--accent-2); font-weight: 600; font-size: 13px; }
+
+/* --- Assessment cards --- */
+.assess-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 8px; }
+.assess { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; position: relative; overflow: hidden; }
+.assess::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--accent), var(--accent-2)); }
+.assess .pct { font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+.assess h4 { font-size: 15px; margin: 2px 0 8px; }
+.assess p { color: var(--muted); font-size: 13px; margin: 0; }
+
+.rules { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.rule { background: var(--bg-2); border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 0 10px 10px 0; padding: 12px 14px; }
+.rule h5 { margin: 0 0 4px; font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--warn); }
+.rule p { margin: 0; font-size: 13px; color: var(--muted); }
+
+/* --- Module blocks --- */
+.module { margin-top: 30px; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--bg-2); }
+.module-head { padding: 20px 22px; background: linear-gradient(135deg, rgba(124,92,255,.14), rgba(0,212,255,.04)); border-bottom: 1px solid var(--line); }
+.module-head .mtag { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.module-head h3 { font-size: 21px; margin: 6px 0 8px; }
+.module-head p { color: var(--muted); font-size: 14px; margin: 0; max-width: 860px; }
+.module-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.module-meta .tagchip { font-size: 11.5px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; color: var(--muted); }
+.outcomes { margin: 14px 0 0; padding: 12px 14px; background: rgba(40,209,124,.06); border-left: 3px solid var(--good); border-radius: 0 8px 8px 0; }
+.outcomes .ot { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--good); font-weight: 700; margin-bottom: 6px; }
+.outcomes ul { margin: 0; padding-left: 18px; }
+.outcomes li { font-size: 13px; color: var(--muted); margin: 3px 0; }
+.outcomes li b { color: var(--text); }
+
+/* --- Session timeline --- */
+.sessions { padding: 8px 22px 22px; }
+.sess { position: relative; padding: 20px 0 20px 54px; border-left: 2px solid var(--line); margin-left: 14px; }
+.sess:last-child { border-left-color: transparent; }
+.sess .dot { position: absolute; left: -16px; top: 18px; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--bg-3); border: 2px solid var(--accent); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;
+  font-family: 'JetBrains Mono', monospace; }
+.sess.live .dot { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; border-color: transparent; }
+.sess-title { font-size: 17px; font-weight: 700; margin: 0 0 2px; }
+.sess-kind { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.sess-obj { font-size: 13.5px; color: var(--muted); margin: 8px 0 12px; max-width: 820px; }
+.sess-obj b { color: var(--text); }
+.topics { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+.topic { display: grid; grid-template-columns: 150px 1fr; gap: 14px; font-size: 13px; padding: 7px 0; border-top: 1px dashed var(--line); }
+.topic .tk { color: var(--accent); font-weight: 600; }
+.topic .td { color: var(--muted); }
+.topic .td code { color: var(--accent-2); background: var(--bg-3); padding: 1px 5px; border-radius: 4px; font-size: .92em; }
+
+.concept { margin: 12px 0; padding: 13px 15px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 10px; }
+.concept .ct { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent-2); font-weight: 700; margin-bottom: 6px; }
+.concept .formula { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 8px 0; overflow-x: auto; }
+.concept p { margin: 6px 0 0; font-size: 13px; color: var(--muted); }
+
+.keyidea { margin: 12px 0; padding: 12px 14px; border-left: 3px solid var(--accent); background: rgba(124,92,255,.06); border-radius: 0 8px 8px 0; font-size: 13.5px; }
+.keyidea b { color: var(--accent); text-transform: uppercase; font-size: 11px; letter-spacing: .08em; display: block; margin-bottom: 4px; }
+
+.readings { margin: 12px 0 0; }
+.readings .rt { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+.readings li { font-size: 13px; color: var(--muted); margin: 4px 0; }
+.readings li b { color: var(--text); }
+
+.demolinks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.demolinks a { font-size: 12px; text-decoration: none; padding: 5px 11px; border-radius: 999px;
+  background: rgba(0,212,255,.1); border: 1px solid rgba(0,212,255,.3); color: var(--accent-2); font-weight: 500; transition: all .15s; }
+.demolinks a:hover { background: rgba(0,212,255,.2); transform: translateY(-1px); }
+.demolinks a.fc { background: rgba(124,92,255,.12); border-color: rgba(124,92,255,.35); color: var(--accent); }
+.demolinks .lbl { font-size: 11px; color: var(--muted); align-self: center; margin-right: 2px; }
+
+/* --- Glossary --- */
+.gloss { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.gterm { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.gterm dt { font-weight: 700; color: var(--accent); font-size: 14px; margin-bottom: 4px; }
+.gterm dd { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+.gterm dd code { color: var(--accent-2); background: var(--bg-3); padding: 1px 5px; border-radius: 4px; }
+
+/* --- Bibliography --- */
+.biblio { display: flex; flex-direction: column; gap: 12px; }
+.ref { display: grid; grid-template-columns: 80px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+.ref:first-child { border-top: 0; }
+.ref .badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; align-self: start;
+  padding: 4px 8px; border-radius: 6px; text-align: center; }
+.ref .badge.req { background: rgba(255,93,108,.16); color: var(--bad); border: 1px solid rgba(255,93,108,.3); }
+.ref .badge.rec { background: rgba(40,209,124,.14); color: var(--good); border: 1px solid rgba(40,209,124,.3); }
+.ref .cite { font-size: 14px; }
+.ref .cite b { color: var(--text); }
+.ref .cite .meta { color: var(--muted); }
+.ref .cite .annot { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
+.ref .cite .annot b { color: var(--accent-2); }
+
+.toc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 22px; margin-top: 18px; }
+.toc a { display: flex; gap: 10px; align-items: baseline; text-decoration: none; color: var(--muted); font-size: 13.5px; padding: 6px 0; border-bottom: 1px solid var(--line); transition: color .15s; }
+.toc a:hover { color: var(--text); }
+.toc a .tn { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+@media (max-width: 900px) {
+  .topnav { margin: -28px -22px 24px; padding: 10px 22px; }
+  .meta-grid { grid-template-columns: 1fr 1fr; }
+  .obj-grid, .assess-grid, .rules, .gloss, .toc { grid-template-columns: 1fr; }
+  .bar-row { grid-template-columns: 1fr; gap: 4px; }
+  .bar-row .bv { text-align: left; }
+  .topic { grid-template-columns: 1fr; gap: 2px; }
+  .ref { grid-template-columns: 1fr; gap: 6px; }
+}
+</style>
+</head>
+<body>
+
+<main class="content" style="max-width:1100px; margin:0 auto;">
+
+  <!-- ============ TOP NAV ============ -->
+  <nav class="topnav">
+    <a class="home" href="index.html"><span class="logo" style="display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;">NL<span style="opacity:.75">P</span></span> NLP Lab</a>
+    <a class="tn" href="index.html#overview">Demos</a>
+    <a class="tn" href="index.html#flashcards">Flashcards</a>
+    <a class="tn" href="#overview">Overview</a>
+    <a class="tn" href="#objectives">Objectives</a>
+    <a class="tn" href="#methodology">Methodology</a>
+    <a class="tn" href="#assessment">Assessment</a>
+    <a class="tn" href="#program">Program</a>
+    <a class="tn" href="#glossary">Concepts</a>
+    <a class="tn" href="#bibliography">Bibliography</a>
+    <span class="spacer"></span>
+    <a class="pdf" href="./SYLLABUS.pdf" target="_blank" rel="noopener">↓ Syllabus PDF</a>
+    <button class="tt" id="themeToggle">◐ Theme</button>
+  </nav>
+
+  <!-- ============ OVERVIEW ============ -->
+  <section id="overview" class="panel">
+    <div class="course-hero">
+      <div class="crumbs"><a href="index.html">NLP Lab</a><span class="sep">/</span>Course structure</div>
+      <div class="hero-eyebrow">Syllabus-driven course map · 25–26</div>
+      <h1>AI: Natural Language<br/>Processing <span class="grad">& Semantic Analysis</span></h1>
+      <p class="lead">The complete structure of the course — five modules, thirty live sessions, and the statistical-to-neural arc of modern NLP — laid out session by session with the core concept behind each one, and cross-linked to the 23 interactive demos and flashcards in this lab.</p>
+
+      <div class="hero-stats">
+        <div class="stat"><div class="num">5</div><div class="lbl">Modules</div></div>
+        <div class="stat"><div class="num">30</div><div class="lbl">Sessions</div></div>
+        <div class="stat"><div class="num">6.0</div><div class="lbl">ECTS credits</div></div>
+        <div class="stat"><div class="num">150h</div><div class="lbl">Student workload</div></div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-cell"><div class="k">Code</div><div class="v">AINLP-CSAI.3.M.A</div></div>
+        <div class="meta-cell"><div class="k">Programme</div><div class="v sm">BCSAI — Computer Science & AI</div></div>
+        <div class="meta-cell"><div class="k">Area</div><div class="v sm">Computer Science</div></div>
+        <div class="meta-cell"><div class="k">Category</div><div class="v sm">Compulsory</div></div>
+        <div class="meta-cell"><div class="k">Year / Semester</div><div class="v sm">Third · 2ª</div></div>
+        <div class="meta-cell"><div class="k">Language</div><div class="v sm">English</div></div>
+        <div class="meta-cell"><div class="k">Professor</div><div class="v sm">Juan José Manjarín Colón</div></div>
+        <div class="meta-cell"><div class="k">Contact</div><div class="v sm">jjmanjarin@faculty.ie.edu</div></div>
+      </div>
+    </div>
+
+    <header class="phead" style="margin-top:14px;">
+      <div class="kicker">Subject description</div>
+      <h2>What this course is about</h2>
+    </header>
+    <p class="lead" style="max-width:880px;">Natural Language Processing sits at the centre of today's technology revolution — the breakthroughs behind ChatGPT, Bard and their successors are just the starting line. Over the next few years NLP and text analysis will permeate every sector, reshaping data-driven decisions and letting us decode human communication in ways we never thought possible. This course turns that promise into skill: it walks the full arc from rule-based and statistical methods through machine learning to the deep-learning and transformer architectures that power modern language models, always pairing theory with hands-on practice so you can apply these tools to real data-science problems.</p>
+
+    <div class="grid grid-3" style="margin-top:24px;">
+      <a class="card-link" href="#mod1"><div class="micro">Module 1</div><h3>Foundations & History</h3><p>From ELIZA and n-grams to vector space models and the Python NLP toolchain.</p></a>
+      <a class="card-link" href="#mod2"><div class="micro">Module 2</div><h3>ML for Text</h3><p>Regex, TF-IDF, information retrieval, Naive Bayes and logistic regression.</p></a>
+      <a class="card-link" href="#mod3"><div class="micro">Module 3</div><h3>Representations</h3><p>Sentiment, cosine similarity, word embeddings, feed-forward nets, POS & NER.</p></a>
+      <a class="card-link" href="#mod4"><div class="micro">Module 4</div><h3>Deep Learning</h3><p>RNNs, LSTMs, transformers, pre-trained models and question answering.</p></a>
+      <a class="card-link" href="#mod5"><div class="micro">Module 5</div><h3>Integration</h3><p>Ethics & bias, cutting-edge trends, group projects, review and final exam.</p></a>
+      <a class="card-link" href="index.html#overview"><div class="micro">Companion</div><h3>Interactive demos →</h3><p>Every concept below has a live, client-side visualization in the lab.</p></a>
+    </div>
+  </section>
+
+  <!-- ============ LEARNING OBJECTIVES ============ -->
+  <section id="objectives" class="panel">
+    <header class="phead">
+      <div class="kicker">Learning objectives</div>
+      <h2>What you will be able to do</h2>
+      <p class="lead">The course is organised around ten thematic strands. By the end you should be fluent in moving a problem across all of them — from raw text to a deployed, evaluated model.</p>
+    </header>
+
+    <div class="obj-grid">
+      <div class="obj"><span class="n">01</span><span class="t"><b>Introduction & history of NLP</b> <span>— situate the field, its applications and its evolution from rules to foundation models.</span></span></div>
+      <div class="obj"><span class="n">02</span><span class="t"><b>NLP tools & resources</b> <span>— work confidently with NLTK, spaCy, Gensim and Hugging Face Transformers.</span></span></div>
+      <div class="obj"><span class="n">03</span><span class="t"><b>Text processing & statistics</b> <span>— tokenize, normalize and quantify text with TF-IDF and frequency measures.</span></span></div>
+      <div class="obj"><span class="n">04</span><span class="t"><b>Information retrieval & sentiment</b> <span>— rank documents and detect opinion polarity.</span></span></div>
+      <div class="obj"><span class="n">05</span><span class="t"><b>Machine learning for text</b> <span>— classify text with Naive Bayes and logistic regression.</span></span></div>
+      <div class="obj"><span class="n">06</span><span class="t"><b>Word representations</b> <span>— understand vector space models and learned embeddings (Word2Vec).</span></span></div>
+      <div class="obj"><span class="n">07</span><span class="t"><b>Advanced NLP with neural networks</b> <span>— build feed-forward, recurrent and LSTM language models.</span></span></div>
+      <div class="obj"><span class="n">08</span><span class="t"><b>Transformers & pre-trained models</b> <span>— use self-attention, BERT and GPT via transfer learning.</span></span></div>
+      <div class="obj"><span class="n">09</span><span class="t"><b>Linguistic features in NLP</b> <span>— apply POS tagging and Named Entity Recognition.</span></span></div>
+      <div class="obj"><span class="n">10</span><span class="t"><b>Question answering systems</b> <span>— design extractive and generative QA pipelines.</span></span></div>
+    </div>
+  </section>
+
+  <!-- ============ METHODOLOGY ============ -->
+  <section id="methodology" class="panel">
+    <header class="phead">
+      <div class="kicker">Teaching methodology</div>
+      <h2>How the course is taught</h2>
+      <p class="lead">IE University's method is collaborative, active and applied: the professor leads and guides while students build knowledge through a mix of lectures, hands-on practice, projects and peer learning. The table below shows how the 150-hour workload is distributed across learning activities.</p>
+    </header>
+
+    <div class="bars">
+      <div class="bar-row"><div class="bl">Lectures<small>Interactive lectures with worked examples</small></div><div class="bar-track"><div class="bar-fill" style="width:26.7%"></div></div><div class="bv">26.7%</div></div>
+      <div class="bar-row"><div class="bl">Exercises, async sessions & field work<small>Largest single block — applied work</small></div><div class="bar-track"><div class="bar-fill" style="width:36.7%"></div></div><div class="bv">36.7%</div></div>
+      <div class="bar-row"><div class="bl">Group work<small>Collaborative project building</small></div><div class="bar-track"><div class="bar-fill" style="width:16.7%"></div></div><div class="bv">16.7%</div></div>
+      <div class="bar-row"><div class="bl">Discussions<small>In-class debate & reflection</small></div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><div class="bv">10.0%</div></div>
+      <div class="bar-row"><div class="bl">Individual studying<small>Pre/post-work and review</small></div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><div class="bv">10.0%</div></div>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:26px;">
+      <div class="card"><h3>Lectures & hands-on practice</h3><p style="color:var(--muted);font-size:13.5px;margin:6px 0 0;">Concepts are introduced in interactive lectures, then immediately practiced — students write, run and debug code in class, working in groups and sharing knowledge.</p></div>
+      <div class="card"><h3>Project-based learning</h3><p style="color:var(--muted);font-size:13.5px;margin:6px 0 0;">A semester-long group project applies course techniques to a real NLP problem: identify, design, implement, then present to the class for feedback.</p></div>
+      <div class="card"><h3>Critical GenAI use</h3><p style="color:var(--muted);font-size:13.5px;margin:6px 0 0;">Generative AI is <b>encouraged</b> — but you must verify its output, never take it at face value, and acknowledge its use. Acknowledging AI never lowers your grade; failing to is an integrity violation.</p></div>
+    </div>
+
+    <div class="note"><b>Pre and post-work.</b> Necessary readings are announced before each session, and selected exercises are indicated at the end of each session. The program below is tentative — pace adapts to group performance, so some variation in topics may occur.</div>
+  </section>
+
+  <!-- ============ ASSESSMENT ============ -->
+  <section id="assessment" class="panel">
+    <header class="phead">
+      <div class="kicker">Evaluation criteria</div>
+      <h2>How you are graded</h2>
+      <p class="lead">Five components make up the final grade. The final exam and the group project together carry the most weight; continuous work (exercises, quizzes, participation) rewards steady engagement across the semester.</p>
+    </header>
+
+    <div class="bars" style="margin-bottom:24px;">
+      <div class="bar-row"><div class="bl">Final exam</div><div class="bar-track"><div class="bar-fill" style="width:35%"></div></div><div class="bv">35%</div></div>
+      <div class="bar-row"><div class="bl">Group project</div><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div><div class="bv">30%</div></div>
+      <div class="bar-row"><div class="bl">Exercises</div><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div><div class="bv">20%</div></div>
+      <div class="bar-row"><div class="bl">Quizzes</div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><div class="bv">10%</div></div>
+      <div class="bar-row"><div class="bl">Participation</div><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div><div class="bv">5%</div></div>
+    </div>
+
+    <div class="assess-grid">
+      <div class="assess"><div class="pct">35%</div><h4>Final exam</h4><p>A comprehensive Blackboard quiz on all course content, combining multiple-choice and open-ended questions.</p></div>
+      <div class="assess"><div class="pct">30%</div><h4>Group project</h4><p>Implement an NLP application or research a studied tool in depth; submit via Turnitin and deliver a 15-minute class presentation.</p></div>
+      <div class="assess"><div class="pct">20%</div><h4>Exercises</h4><p>In-class exercises submitted individually through Turnitin — one week from the start of each exercise to submit.</p></div>
+      <div class="assess"><div class="pct">10%</div><h4>Quizzes</h4><p>A quiz after each module, completed before the next synchronous session.</p></div>
+      <div class="assess"><div class="pct">5%</div><h4>Participation</h4><p>Active engagement in in-class activities, discussions and exercises — central to an applied course.</p></div>
+      <div class="assess"><div class="pct">+</div><h4>Note: 100% total</h4><p>35 + 30 + 20 + 10 + 5 = 100%. The exam and project alone account for 65% of the grade.</p></div>
+    </div>
+
+    <div class="rules">
+      <div class="rule"><h5>Attendance</h5><p>Students who do not meet the <b>80% attendance rule</b> fail both the ordinary and extraordinary calls for the year and must re-enroll the following academic year.</p></div>
+      <div class="rule"><h5>Late assignments</h5><p>Penalised <b>5% per 24-hour period</b> from the due date. Changes to due dates must be agreed with the professor <b>before</b> the deadline.</p></div>
+      <div class="rule"><h5>Re-sit / re-take (June–July)</h5><p>A single comprehensive exam; continuous evaluation is not counted. Pass mark is <b>5</b>, capped at <b>8.0</b> ("notable"). Students who failed on attendance cannot re-sit.</p></div>
+      <div class="rule"><h5>Calls & retakers</h5><p>Four allowed calls over two academic years. Retake (3rd call) is capped at 10.0. Failing &gt;18 ECTS in a year after re-sits means leaving the programme.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAM ============ -->
+  <section id="program" class="panel">
+    <header class="phead">
+      <div class="kicker">Full program · 30 sessions</div>
+      <h2>The course, session by session</h2>
+      <p class="lead">All sessions are live in-person. Each carries a core NLP concept — many with the underlying formula — a key idea to take away, and links to the matching interactive demo and flashcards. Jump to a module:</p>
+    </header>
+
+    <div class="toc">
+      <a href="#mod1"><span class="tn">M1</span> Foundations of NLP & Historical Overview <span style="color:var(--muted)">· S1–S5</span></a>
+      <a href="#mod2"><span class="tn">M2</span> Machine Learning & Text Analysis <span style="color:var(--muted)">· S6–S10</span></a>
+      <a href="#mod3"><span class="tn">M3</span> Advanced Representations in NLP <span style="color:var(--muted)">· S11–S16</span></a>
+      <a href="#mod4"><span class="tn">M4</span> Deep Learning for NLP <span style="color:var(--muted)">· S17–S24</span></a>
+      <a href="#mod5"><span class="tn">M5</span> Conclusion & Integrative Practices <span style="color:var(--muted)">· S25–S30</span></a>
+    </div>
+
+    <!-- ===== MODULE 1 ===== -->
+    <div class="module" id="mod1">
+      <div class="module-head">
+        <div class="mtag">Module 1 · Sessions 1–5</div>
+        <h3>Foundations of NLP and Historical Overview</h3>
+        <p>The on-ramp to the field: what NLP is, where it came from, the mathematical building blocks (perceptrons, n-grams, backpropagation), the vector-space view of meaning, and the Python toolchain you'll use all semester.</p>
+        <div class="module-meta">
+          <span class="tagchip">History & motivation</span>
+          <span class="tagchip">n-grams</span>
+          <span class="tagchip">Perceptron / MLP</span>
+          <span class="tagchip">Vector space models</span>
+          <span class="tagchip">NLTK · spaCy · Gensim · HF</span>
+        </div>
+        <div class="outcomes"><div class="ot">By the end of this module you can</div>
+          <ul>
+            <li>Explain <b>what NLP is</b> and recognise its presence in everyday technology.</li>
+            <li>Trace the field's <b>history</b> from ELIZA to modern statistical and neural methods.</li>
+            <li>Build a basic <b>n-gram</b> next-word predictor and reason about perceptrons and backpropagation.</li>
+            <li>Represent text in a <b>vector space</b> (LSA/HAL) and reduce dimensions with PCA.</li>
+            <li>Preprocess raw text using mainstream <b>Python NLP libraries</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sessions">
+        <div class="sess live">
+          <div class="dot">1</div>
+          <div class="sess-kind">Live in-person · Module 1</div>
+          <h4 class="sess-title">Introduction to the Course</h4>
+          <p class="sess-obj"><b>Objective:</b> open the door to NLP — what it encompasses, its applications, and its role in bridging human–machine communication (chatbots, voice assistants, automated translation).</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">What is NLP</div><div class="td">The interdisciplinary field at the intersection of linguistics, computer science and AI that lets machines read, understand and generate language.</div></div>
+            <div class="topic"><div class="tk">Applications</div><div class="td">Machine translation, search, recommendation, conversational agents, summarization — the systems you already use daily.</div></div>
+            <div class="topic"><div class="tk">Course logistics</div><div class="td">Slots: 10 min introductions · 40 min course introduction · 30 min class discussion.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>NLP is everywhere; this opening discussion is revisited in the final session so you can measure how far you've come.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#pipeline">The NLP Pipeline →</a><a href="index.html#overview">Lab overview →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">2</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">The Dawn of Computational Linguistics</h4>
+          <p class="sess-obj"><b>Objective:</b> trace NLP's formative phases — from its embryonic stages to landmarks like ELIZA, one of the first programs to mimic human conversation — and chart the key shifts that shaped the field.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">ELIZA & early systems</div><div class="td">Pattern-matching "chatbots" that revealed how shallow rules can feel surprisingly conversational.</div></div>
+            <div class="topic"><div class="tk">Rule-based era</div><div class="td">Hand-written grammars and symbolic methods that dominated before statistics took over.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Each student picks a pivotal historical NLP model and prepares a 5-minute overview video.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>The history of NLP is a swing from hand-crafted rules → statistics → learned representations → foundation models.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#history">From Rules to Foundation Models →</a><a href="index.html#flashcards" class="fc">★ History flashcards</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">3</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Fundamental Concepts</h4>
+          <p class="sess-obj"><b>Objective:</b> unpack the foundational pillars — perceptrons and Multi-Layer Perceptrons, n-grams, and the backpropagation algorithm — the building blocks under much of today's NLP.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Perceptron / MLP</div><div class="td">A weighted sum passed through a non-linearity; stacking layers yields a universal function approximator.</div></div>
+            <div class="topic"><div class="tk">n-grams</div><div class="td">Estimate the next word from the previous (n−1) words by counting. Practice: build an n-gram model and predict the next word.</div></div>
+            <div class="topic"><div class="tk">Backpropagation</div><div class="td">The chain rule applied layer by layer to compute gradients for learning.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · n-gram probability</div>
+            <div class="formula">$P(w_i \mid w_{i-(n-1)},\dots,w_{i-1}) = \dfrac{\text{count}(w_{i-(n-1)},\dots,w_i)}{\text{count}(w_{i-(n-1)},\dots,w_{i-1})}$</div>
+            <p>An n-gram model makes the Markov assumption: the next word depends only on the previous n−1 words, not the whole history.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Counting works until contexts get sparse — which is exactly why we later need smoothing, then learned representations.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#ngram">N-gram Language Model →</a><a href="index.html#nn">Feed-Forward Network →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">4</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Advanced Concepts in NLP</h4>
+          <p class="sess-obj"><b>Objective:</b> go deeper into Vector Space Models (VSMs) through Latent Semantic Analysis (LSA) and the Hyperspace Analogue to Language (HAL), exploring their principles and applications.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Vector space models</div><div class="td">Represent documents/words as vectors so that geometry encodes meaning.</div></div>
+            <div class="topic"><div class="tk">LSA & HAL</div><div class="td">LSA factorizes a term-document matrix (SVD) to surface latent topics; HAL builds word vectors from co-occurrence windows.</div></div>
+            <div class="topic"><div class="tk">Practice · PCA</div><div class="td">Visualise high-dimensional text data by reducing dimensions with Principal Component Analysis.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · cosine similarity</div>
+            <div class="formula">$\cos(\theta) = \dfrac{\mathbf{a}\cdot\mathbf{b}}{\lVert\mathbf{a}\rVert\,\lVert\mathbf{b}\rVert}$</div>
+            <p>Similarity between two text vectors is the cosine of the angle between them — independent of document length.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>"You shall know a word by the company it keeps" — meaning emerges from co-occurrence statistics.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#embeddings">Walk the Vector Space →</a><a href="index.html#tfidf">TF-IDF & Cosine Similarity →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">5</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">NLP Libraries and Resources in Python</h4>
+          <p class="sess-obj"><b>Objective:</b> meet the workhorse libraries — NLTK, spaCy, Gensim and Hugging Face Transformers — the backbone of most text-processing and modelling tasks.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">NLTK</div><div class="td">The classic teaching toolkit: tokenizers, stemmers, corpora and classic algorithms.</div></div>
+            <div class="topic"><div class="tk">spaCy</div><div class="td">Production-grade pipelines for tokenization, POS, NER and dependency parsing.</div></div>
+            <div class="topic"><div class="tk">Gensim · Hugging Face</div><div class="td">Gensim for topic models & embeddings; Hugging Face for pre-trained transformer models. Practice: clean and preprocess a raw dataset.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Choosing the right library is half the battle — NLTK to learn, spaCy to ship, Hugging Face to reach the state of the art.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#preprocessing">Text Preprocessing Playground →</a><a href="index.html#bpe">BPE Tokenizer →</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MODULE 2 ===== -->
+    <div class="module" id="mod2">
+      <div class="module-head">
+        <div class="mtag">Module 2 · Sessions 6–10</div>
+        <h3>Machine Learning and Text Analysis Techniques</h3>
+        <p>From precise pattern matching to learned classifiers: regular expressions, the statistics that drive search (TF-IDF), information retrieval, and the two canonical text classifiers — Naive Bayes and logistic regression.</p>
+        <div class="module-meta">
+          <span class="tagchip">Regex</span>
+          <span class="tagchip">TF-IDF</span>
+          <span class="tagchip">Information retrieval</span>
+          <span class="tagchip">Naive Bayes</span>
+          <span class="tagchip">Logistic regression</span>
+        </div>
+        <div class="outcomes"><div class="ot">By the end of this module you can</div>
+          <ul>
+            <li>Write <b>regex</b> patterns to extract structured data from raw text.</li>
+            <li>Compute <b>TF-IDF</b> weights and use them to rank documents.</li>
+            <li>Build a small <b>search engine</b> grounded in vector space models.</li>
+            <li>Train and interpret a <b>Naive Bayes</b> text classifier.</li>
+            <li>Use <b>logistic regression</b> for binary sentiment classification.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sessions">
+        <div class="sess live">
+          <div class="dot">6</div>
+          <div class="sess-kind">Live in-person · Module 2</div>
+          <h4 class="sess-title">Regular Expressions in NLP</h4>
+          <p class="sess-obj"><b>Objective:</b> master regular expressions ("regex") — precise, efficient patterns for searching, extracting and manipulating text.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Pattern syntax</div><div class="td">Character classes, quantifiers, anchors and groups — e.g. <code>\b\w+@\w+\.\w+\b</code> for an email.</div></div>
+            <div class="topic"><div class="tk">Extraction</div><div class="td">Practice: craft patterns for phone numbers, emails, URLs and monetary values.</div></div>
+            <div class="topic"><div class="tk">Role in pipelines</div><div class="td">Regex underlies tokenization, cleaning and scraping in almost every NLP system.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Regex is deterministic and explainable — when a rule is enough, you don't need a model.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#regex">Regex Playground →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">7</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Text-Based Statistics</h4>
+          <p class="sess-obj"><b>Objective:</b> see how statistics underpin language processing — TF-IDF, lexical density and word-frequency distributions — and why they matter for analysing text.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Term frequency</div><div class="td">How often a term appears in a document.</div></div>
+            <div class="topic"><div class="tk">Inverse document frequency</div><div class="td">Down-weights terms common across the whole corpus, up-weights distinctive ones.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Compute TF-IDF scores across documents and find the most relevant document for a query.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · TF-IDF</div>
+            <div class="formula">$\text{tfidf}(t,d) = \text{tf}(t,d)\times \log\dfrac{N}{\text{df}(t)}$</div>
+            <p>A term scores high when it is frequent in a document but rare across the corpus — the signal that makes a word a good index term.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Distinctiveness, not raw frequency, is what makes a word informative.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#tfidf">TF-IDF & Cosine Similarity →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">8</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Information Retrieval</h4>
+          <p class="sess-obj"><b>Objective:</b> introduce Information Retrieval (IR) — fetching relevant data from large repositories — and the central role vector space models play in accuracy and efficiency.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">IR fundamentals</div><div class="td">Indexing, query matching, ranking and relevance.</div></div>
+            <div class="topic"><div class="tk">VSM ranking</div><div class="td">Score documents by cosine similarity between query and document vectors.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Build a rudimentary search engine that returns the closest articles to a query.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · cosine ranking</div>
+            <div class="formula">$\text{score}(q,d) = \cos(\mathbf{q},\mathbf{d}) = \dfrac{\sum_t q_t d_t}{\lVert\mathbf{q}\rVert\,\lVert\mathbf{d}\rVert}$</div>
+            <p>Rank documents by the cosine between their TF-IDF vectors and the query vector.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Search = represent query and documents in the same vector space, then sort by similarity.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#tfidf">Mini search engine →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">9</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Introduction to Naive Bayes</h4>
+          <p class="sess-obj"><b>Objective:</b> learn the mathematics behind Naive Bayes — a fundamental, efficient text classifier — and use it to categorise content.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Bayes' theorem</div><div class="td">Posterior ∝ prior × likelihood.</div></div>
+            <div class="topic"><div class="tk">Conditional independence</div><div class="td">The "naive" assumption that features (words) are independent given the class.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Classify news articles into categories with multinomial Naive Bayes.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · Naive Bayes</div>
+            <div class="formula">$\hat{c} = \arg\max_c\; P(c)\prod_{i} P(w_i \mid c)$</div>
+            <p>Pick the class that maximises the prior times the product of per-word likelihoods (Laplace-smoothed to handle unseen words).</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>A "wrong" independence assumption can still classify remarkably well — and stays fully interpretable.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#bayes">Naive Bayes Classifier →</a><a href="index.html#confusion">Confusion Matrix →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">10</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Logistic Regression in Text Analysis</h4>
+          <p class="sess-obj"><b>Objective:</b> demystify logistic regression and apply it to text — especially binary classification problems.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">The sigmoid</div><div class="td">Squashes any real score into a probability in (0,1).</div></div>
+            <div class="topic"><div class="tk">Decision boundary</div><div class="td">A linear boundary in feature space; weights set its orientation.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Build a sentiment tool that labels movie reviews positive or negative.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · logistic model</div>
+            <div class="formula">$P(y{=}1\mid \mathbf{x}) = \sigma(\mathbf{w}^\top\mathbf{x}+b),\quad \sigma(z)=\dfrac{1}{1+e^{-z}}$</div>
+            <p>Unlike Naive Bayes (generative), logistic regression is discriminative — it models the boundary directly and relaxes feature independence.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Generative vs discriminative: Naive Bayes models how data is generated; logistic regression models the decision directly.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#logistic">Logistic Regression boundary →</a><a href="index.html#sentiment">Sentiment Scorer →</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MODULE 3 ===== -->
+    <div class="module" id="mod3">
+      <div class="module-head">
+        <div class="mtag">Module 3 · Sessions 11–16</div>
+        <h3>Advanced Representations in NLP</h3>
+        <p>How meaning becomes geometry. This module covers sentiment analysis, the deep theory of vector space models and cosine similarity, learned word embeddings (Word2Vec), the first neural language models, and the two key linguistic-feature tasks: POS tagging and NER.</p>
+        <div class="module-meta">
+          <span class="tagchip">Sentiment</span>
+          <span class="tagchip">Cosine similarity</span>
+          <span class="tagchip">Word2Vec embeddings</span>
+          <span class="tagchip">Feed-forward LMs</span>
+          <span class="tagchip">POS tagging</span>
+          <span class="tagchip">NER</span>
+        </div>
+        <div class="outcomes"><div class="ot">By the end of this module you can</div>
+          <ul>
+            <li>Run an end-to-end <b>sentiment analysis</b> on real social data.</li>
+            <li>Measure <b>document similarity</b> with cosine similarity over VSMs.</li>
+            <li>Train and interpret <b>Word2Vec</b> embeddings and solve word analogies.</li>
+            <li>Build a <b>feed-forward neural</b> text classifier.</li>
+            <li>Apply <b>POS tagging</b> and <b>Named Entity Recognition</b> to extract structure from text.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sessions">
+        <div class="sess live">
+          <div class="dot">11</div>
+          <div class="sess-kind">Live in-person · Module 3</div>
+          <h4 class="sess-title">Sentiment Analysis</h4>
+          <p class="sess-obj"><b>Objective:</b> read the subtle cues and emotions in text to gauge whether opinion is positive, negative or neutral.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Polarity</div><div class="td">Scoring text on a positive–negative axis (and sometimes intensity).</div></div>
+            <div class="topic"><div class="tk">Lexicon vs ML</div><div class="td">Valence dictionaries (with negation/booster handling) vs learned classifiers.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Collect real-time posts on a topic from a social network and analyse overall sentiment.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · lexicon scoring</div>
+            <div class="formula">$\text{sentiment} = \sum_i \nu(w_i)\cdot \text{neg}_i \cdot \text{boost}_i$</div>
+            <p>Each word's valence ν is flipped by nearby negators and amplified by intensifiers, then summed.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Context matters: "not good" must score negative even though "good" is positive.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#sentiment">Lexicon Sentiment Scorer →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">12</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Deep Dive into Vector Space Models</h4>
+          <p class="sess-obj"><b>Objective:</b> understand why VSMs are a cornerstone of NLP — how they represent text and capture relations between pieces of text.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Document vectors</div><div class="td">Bag-of-words / TF-IDF representations as points in high-dimensional space.</div></div>
+            <div class="topic"><div class="tk">Cosine similarity</div><div class="td">Angle-based closeness, robust to document length.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Build a tool that measures how similar two documents are.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · cosine similarity</div>
+            <div class="formula">$\cos(\theta) = \dfrac{\mathbf{a}\cdot\mathbf{b}}{\lVert\mathbf{a}\rVert\,\lVert\mathbf{b}\rVert} \in [-1,1]$</div>
+            <p>1 means identical direction (same content mix), 0 means orthogonal (no shared terms).</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Direction encodes meaning; magnitude (length) is mostly noise — so we compare angles.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#tfidf">Cosine similarity →</a><a href="index.html#embeddings">Vector space →</a><a href="index.html#edit">Edit Distance →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">13</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Introduction to Word Embeddings</h4>
+          <p class="sess-obj"><b>Objective:</b> meet Word Embeddings starting with the groundbreaking Word2Vec — and see how it changed the way machines interpret words.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Distributional semantics</div><div class="td">Dense vectors learned so that nearby words share contexts.</div></div>
+            <div class="topic"><div class="tk">Skip-gram / CBOW</div><div class="td">Predict context from a word (skip-gram) or a word from context (CBOW).</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Map and visualise Word2Vec embeddings of emotion words in 2D.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · analogy arithmetic</div>
+            <div class="formula">$\mathbf{v}_{\text{king}} - \mathbf{v}_{\text{man}} + \mathbf{v}_{\text{woman}} \approx \mathbf{v}_{\text{queen}}$</div>
+            <p>Embeddings place words in a space where linear directions encode relations like gender, tense or plurality.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Dense learned vectors beat sparse counts: similar words sit close together and relationships become vector arithmetic.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#embeddings">Walk the Vector Space + analogies →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">14</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Feedforward Neural Language Models</h4>
+          <p class="sess-obj"><b>Objective:</b> enter neural networks for language — understand how these networks "think" and process language data.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Architecture</div><div class="td">Input embeddings → hidden layer(s) → softmax over the vocabulary.</div></div>
+            <div class="topic"><div class="tk">Activations</div><div class="td">Non-linearities (tanh, ReLU, sigmoid) let the network learn complex functions.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Build a text classifier using a simple feed-forward network.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · softmax output</div>
+            <div class="formula">$P(w_i) = \dfrac{e^{z_i}}{\sum_j e^{z_j}}$</div>
+            <p>Bengio's neural LM replaced sparse n-gram counts with dense embeddings fed through an MLP — the conceptual ancestor of every modern LM.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Learn the representation and the predictor jointly, instead of hand-engineering features.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#nn">Tiny Feed-Forward Network →</a><a href="index.html#ngram">vs N-gram LM →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">15</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Part-of-Speech (POS) Tagging</h4>
+          <p class="sess-obj"><b>Objective:</b> identify the grammatical role of each word — noun, verb, adjective and more — from its context and meaning.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Tag sets</div><div class="td">DET, NOUN, VERB, ADJ… (Universal or Penn Treebank tags).</div></div>
+            <div class="topic"><div class="tk">HMM & Viterbi</div><div class="td">Find the most probable tag sequence by dynamic programming.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Tag an article and list all nouns, verbs and adjectives.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · Viterbi recursion</div>
+            <div class="formula">$\delta_t(j) = \max_i\big[\delta_{t-1}(i)\,a_{ij}\big]\,b_j(o_t)$</div>
+            <p>Each cell holds the best score of reaching tag j at position t; back-tracking recovers the winning path.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>POS tagging is sequence labelling — the tag of a word depends on its neighbours, not just itself.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#pos">HMM POS Tagging (Viterbi) →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">16</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Named Entity Recognition (NER)</h4>
+          <p class="sess-obj"><b>Objective:</b> extract specific information — people, places, organizations — by spotlighting the words that stand out because of their importance.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Entity types</div><div class="td">PERSON, LOCATION, ORGANIZATION, DATE, MONEY and more.</div></div>
+            <div class="topic"><div class="tk">BIO tagging</div><div class="td">Mark Beginning / Inside / Outside of each entity span.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Analyse a news article and label every named entity it contains.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · span labelling (BIO)</div>
+            <div class="formula">Tim/B-PER Cook/I-PER visited/O New/B-LOC York/I-LOC</div>
+            <p>NER turns free text into structured records — the bridge from language to a knowledge base.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Entities are the nouns that matter; finding them is the first step in turning text into data.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#ner">Named Entity Recognition →</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MODULE 4 ===== -->
+    <div class="module" id="mod4">
+      <div class="module-head">
+        <div class="mtag">Module 4 · Sessions 17–24</div>
+        <h3>Deep Learning for NLP</h3>
+        <p>The modern stack. Recurrent networks and LSTMs for sequences, the transformer architecture and self-attention that replaced them, pre-trained models (BERT, GPT) and transfer learning, advanced sequence applications, and question-answering systems.</p>
+        <div class="module-meta">
+          <span class="tagchip">RNNs</span>
+          <span class="tagchip">LSTMs</span>
+          <span class="tagchip">Transformers · attention</span>
+          <span class="tagchip">BERT · GPT</span>
+          <span class="tagchip">Transfer learning</span>
+          <span class="tagchip">Seq2Seq</span>
+          <span class="tagchip">Question answering</span>
+        </div>
+        <div class="outcomes"><div class="ot">By the end of this module you can</div>
+          <ul>
+            <li>Explain and step through an <b>RNN</b> and an <b>LSTM</b> for sequential data.</li>
+            <li>Describe <b>self-attention</b> and fine-tune a <b>transformer</b> for classification.</li>
+            <li>Use <b>pre-trained models</b> (BERT, GPT) and the idea of transfer learning.</li>
+            <li>Apply Seq2Seq models to <b>translation</b> and build a GPT-based chatbot.</li>
+            <li>Design <b>extractive and generative QA</b> systems and fine-tune them.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sessions">
+        <div class="sess live">
+          <div class="dot">17</div>
+          <div class="sess-kind">Live in-person · Module 4</div>
+          <h4 class="sess-title">Introduction to RNNs</h4>
+          <p class="sess-obj"><b>Objective:</b> explore Recurrent Neural Networks — built for sequential data, with memory components that carry information from previous inputs.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Hidden state</div><div class="td">A running summary of the sequence so far, updated at each step.</div></div>
+            <div class="topic"><div class="tk">Weight sharing</div><div class="td">The same parameters are reused at every time step.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Use an RNN to predict the next word in a sentence.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · recurrence</div>
+            <div class="formula">$h_t = \tanh(W_{hh}\,h_{t-1} + W_{xh}\,x_t + b)$</div>
+            <p>The new hidden state mixes the previous state with the current input through a non-linearity.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Recurrence gives a network memory — but vanilla RNNs forget quickly over long sequences.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#rnn">RNN Hidden States step-by-step →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">18</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Deep Dive into LSTMs</h4>
+          <p class="sess-obj"><b>Objective:</b> study Long Short-Term Memory networks — RNNs that remember long-range dependencies and resist the vanishing-gradient problem.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Cell state</div><div class="td">A protected memory channel that carries information across many steps.</div></div>
+            <div class="topic"><div class="tk">Gates</div><div class="td">Forget, input and output gates decide what to keep, add and emit.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Predict the next word with an LSTM and compare against the plain RNN.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · gating</div>
+            <div class="formula">$f_t=\sigma(W_f[h_{t-1},x_t]),\;\; C_t=f_t\odot C_{t-1}+i_t\odot \tilde{C}_t$</div>
+            <p>Gates (sigmoids in 0–1) control the additive flow of the cell state, keeping gradients alive over long ranges.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Gates let the network choose what to remember and what to forget — solving the RNN's short memory.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#rnn">Compare with the RNN demo →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">19</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Transformers in NLP</h4>
+          <p class="sess-obj"><b>Objective:</b> meet Transformers — the architecture that revolutionised NLP — and their self-attention mechanism for capturing intricate patterns.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Self-attention</div><div class="td">Every token attends to every other; no recurrence needed, so training parallelises.</div></div>
+            <div class="topic"><div class="tk">Multi-head & positional encoding</div><div class="td">Several attention "views" plus a sense of word order.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Fine-tune a transformer model for a text-classification task.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · scaled dot-product attention</div>
+            <div class="formula">$\text{Attention}(Q,K,V) = \text{softmax}\!\left(\dfrac{QK^\top}{\sqrt{d_k}}\right)V$</div>
+            <p>Query–key dot products (scaled by √d) become attention weights that mix the value vectors. From "Attention Is All You Need" (Vaswani et al., 2017).</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Attention replaces recurrence — any token can directly influence any other, in parallel.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#transformer">Self-Attention visualised →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">20</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Pre-Trained Language Models (PLMs)</h4>
+          <p class="sess-obj"><b>Objective:</b> understand PLMs like BERT and GPT — their ability to understand and generate human-like text — and the concept of transfer learning.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Pre-training objectives</div><div class="td">Masked language modelling (BERT) vs autoregressive next-token prediction (GPT).</div></div>
+            <div class="topic"><div class="tk">Transfer learning</div><div class="td">Adapt a giant pre-trained model to your task without training from scratch.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Extract sentence embeddings with BERT and visualise them.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · pre-train then fine-tune</div>
+            <div class="formula">$\theta^\ast = \text{fine-tune}\big(\text{pretrain}(\theta_0,\,\mathcal{D}_{\text{large}}),\,\mathcal{D}_{\text{task}}\big)$</div>
+            <p>Learn general language knowledge once on huge corpora, then specialise cheaply on a small labelled set.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Transfer learning is why a few hundred labelled examples can now beat models trained on millions.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#transformer">Transformer block →</a><a href="index.html#flashcards" class="fc">★ BERT/GPT flashcards</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">21</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Advanced Applications of RNNs and LSTMs</h4>
+          <p class="sess-obj"><b>Objective:</b> see how RNNs and LSTMs solve real-world problems, from time-series prediction to language modelling.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Seq2Seq</div><div class="td">Encoder compresses the input sequence; decoder generates the output sequence.</div></div>
+            <div class="topic"><div class="tk">Applications</div><div class="td">Machine translation, summarization, time-series forecasting.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Design a mini translator using Seq2Seq LSTM models.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · encoder–decoder</div>
+            <div class="formula">$\mathbf{c}=\text{Enc}(x_{1:n}),\quad y_t=\text{Dec}(y_{<t},\mathbf{c})$</div>
+            <p>The encoder produces a context vector; the decoder generates one token at a time conditioned on it.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Seq2Seq reframed translation as "read the whole input, then write the whole output" — and motivated attention.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#beam">Beam Search decoding →</a><a href="index.html#bleu">BLEU/ROUGE eval →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">22</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Advanced Applications of Transformers and PLMs</h4>
+          <p class="sess-obj"><b>Objective:</b> unravel the transformative power of transformers in real-world applications, backed by self-attention.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Generative models</div><div class="td">GPT-style decoders that produce coherent, context-aware text.</div></div>
+            <div class="topic"><div class="tk">Prompting</div><div class="td">Steer a frozen model's behaviour through carefully designed inputs.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Use GPT models to design a chatbot for course-content inquiries.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · autoregressive generation</div>
+            <div class="formula">$P(x_{1:n}) = \prod_{t=1}^{n} P(x_t \mid x_{<t})$</div>
+            <p>A language model factorises the probability of a sequence into a product of next-token predictions.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>The same next-token objective, scaled up, gives the emergent abilities behind modern chatbots.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#beam">Beam Search →</a><a href="index.html#summ">Summarization →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">23</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Introduction to Question Answering (QA)</h4>
+          <p class="sess-obj"><b>Objective:</b> understand the principles behind QA systems — architected to extract precise answers from large volumes of data.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Extractive QA</div><div class="td">Find the answer as a contiguous span inside a passage (SQuAD-style).</div></div>
+            <div class="topic"><div class="tk">Start/end pointers</div><div class="td">The model predicts where the answer begins and ends.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Build a rudimentary QA system over a fixed FAQ-style dataset.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · span selection</div>
+            <div class="formula">$(\hat{s},\hat{e}) = \arg\max_{s\le e}\; P_{\text{start}}(s)\,P_{\text{end}}(e)$</div>
+            <p>Score each possible (start, end) pair and pick the most probable valid span.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Extractive QA doesn't invent answers — it locates them, which makes it verifiable.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#qa">Span-based QA →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">24</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Advanced QA Techniques and Strategies</h4>
+          <p class="sess-obj"><b>Objective:</b> navigate state-of-the-art QA strategies as the demands of information retrieval evolve.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Retrieval-augmented QA</div><div class="td">Retrieve relevant passages first, then read them to answer (open-domain QA / RAG).</div></div>
+            <div class="topic"><div class="tk">Fine-tuning</div><div class="td">Adapt a transformer specifically for the QA objective.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Fine-tune a transformer to enhance the chatbot from the previous session.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · retrieve-then-read</div>
+            <div class="formula">$P(a\mid q) = \sum_{d} P(d\mid q)\,P(a\mid q,d)$</div>
+            <p>Combine a retriever (find the right documents) with a reader (extract/generate the answer) — the backbone of RAG.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Grounding answers in retrieved evidence reduces hallucination and keeps knowledge current.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#qa">QA demo →</a><a href="index.html#tfidf">Retrieval (TF-IDF) →</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MODULE 5 ===== -->
+    <div class="module" id="mod5">
+      <div class="module-head">
+        <div class="mtag">Module 5 · Sessions 25–30</div>
+        <h3>Conclusion and Integrative Practices</h3>
+        <p>Stepping back from the math: the ethical stakes of NLP, the open research frontier, and the integrative work that closes the course — group presentations, a full review, and the final exam.</p>
+        <div class="module-meta">
+          <span class="tagchip">Ethics & bias</span>
+          <span class="tagchip">Privacy</span>
+          <span class="tagchip">Open problems</span>
+          <span class="tagchip">Group project</span>
+          <span class="tagchip">Review & exam</span>
+        </div>
+        <div class="outcomes"><div class="ot">By the end of this module you can</div>
+          <ul>
+            <li>Critically audit an NLP system for <b>bias and ethical risk</b>.</li>
+            <li>Discuss <b>open problems</b> and emerging trends in the field.</li>
+            <li>Present an <b>NLP application</b> or case study you built and researched.</li>
+            <li>Consolidate the whole course and sit the comprehensive <b>final exam</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sessions">
+        <div class="sess live">
+          <div class="dot">25</div>
+          <div class="sess-kind">Live in-person · Module 5</div>
+          <h4 class="sess-title">Ethics, Bias, and Real-world Challenges in NLP</h4>
+          <p class="sess-obj"><b>Objective:</b> confront the critical issues — biases in models and their implications, the environmental footprint of large-scale training, and privacy concerns around language data.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Bias</div><div class="td">Models inherit and amplify the biases in their training data.</div></div>
+            <div class="topic"><div class="tk">Environmental & privacy cost</div><div class="td">The energy of training huge models; the risks of leaking personal data.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Critically examine a given NLP model/application for bias and ethical issues.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>A model is only as fair as its data — measuring and mitigating bias is part of building it.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#challenges">Open challenges in NLP →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">26</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Cutting-edge Trends and Open Problems in NLP</h4>
+          <p class="sess-obj"><b>Objective:</b> survey the latest breakthroughs, the open problems the research community is tackling, and the future trajectory of NLP.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Frontier topics</div><div class="td">Scaling laws, multimodality, retrieval-augmentation, alignment and efficiency.</div></div>
+            <div class="topic"><div class="tk">Open problems</div><div class="td">Hallucination, factuality, reasoning, low-resource languages.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Group discussion: propose how an emerging trend could solve a real-world challenge.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>The field moves fast — what matters most is the ability to read, evaluate and adapt new ideas.</div>
+          <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#challenges">Challenges & summary →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">27</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Group Presentations — Session 1</h4>
+          <p class="sess-obj"><b>Objective:</b> present the group project — NLP applications you've built or case studies you've researched (15 minutes per group).</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Format</div><div class="td">15 minutes per group, followed by Q&A and peer feedback.</div></div>
+            <div class="topic"><div class="tk">Scope</div><div class="td">An implemented NLP application or an in-depth study of a studied tool.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Communicating a result clearly is as much a skill as building it.</div>
+          <div class="demolinks"><span class="lbl">Relates to:</span><a href="#assessment">Group project (30%) →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">28</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Group Presentations — Session 2</h4>
+          <p class="sess-obj"><b>Objective:</b> the second round of group project presentations (15 minutes per group).</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Format</div><div class="td">Remaining groups present; continued peer and instructor feedback.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Seeing many projects side by side reveals the breadth of what NLP can do.</div>
+          <div class="demolinks"><span class="lbl">Relates to:</span><a href="#assessment">Group project (30%) →</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">29</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Review Session</h4>
+          <p class="sess-obj"><b>Objective:</b> recap the entire course and clarify any remaining doubts before the exam.</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Synthesis</div><div class="td">Tie together the statistical → neural → transformer arc of the course.</div></div>
+            <div class="topic"><div class="tk">Q&A</div><div class="td">Targeted review of the hardest concepts.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>The whole course is one story — from counting words to attention.</div>
+          <div class="demolinks"><span class="lbl">Study with:</span><a href="index.html#flashcards" class="fc">★ All course flashcards</a></div>
+        </div>
+
+        <div class="sess live">
+          <div class="dot">30</div>
+          <div class="sess-kind">Live in-person</div>
+          <h4 class="sess-title">Final Exam</h4>
+          <p class="sess-obj"><b>Objective:</b> the comprehensive final exam — a Blackboard quiz covering all course content, with multiple-choice and open-ended questions (35% of the grade).</p>
+          <div class="topics">
+            <div class="topic"><div class="tk">Coverage</div><div class="td">All five modules, from preprocessing and TF-IDF to transformers and QA.</div></div>
+            <div class="topic"><div class="tk">Format</div><div class="td">Multiple-choice + open-ended questions on the Blackboard platform.</div></div>
+          </div>
+          <div class="keyidea"><b>Key idea</b>Mastery = being able to move a problem across the whole pipeline, not just recall definitions.</div>
+          <div class="demolinks"><span class="lbl">Review:</span><a href="#objectives">Learning objectives →</a><a href="index.html#flashcards" class="fc">★ Flashcards</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GLOSSARY ============ -->
+  <section id="glossary" class="panel">
+    <header class="phead">
+      <div class="kicker">Key concepts</div>
+      <h2>Glossary of core terms</h2>
+      <p class="lead">A quick reference for the recurring vocabulary of the course — roughly in the order it appears.</p>
+    </header>
+
+    <dl class="gloss">
+      <div class="gterm"><dt>Tokenization</dt><dd>Splitting text into units (words, subwords or characters). The first step of almost every pipeline.</dd></div>
+      <div class="gterm"><dt>Stemming vs Lemmatization</dt><dd>Stemming chops suffixes (<code>jumping→jump</code>); lemmatization maps to dictionary forms using POS (<code>was→be</code>).</dd></div>
+      <div class="gterm"><dt>Stopwords</dt><dd>Very common words (<code>the</code>, <code>of</code>) often removed because they carry little distinguishing signal.</dd></div>
+      <div class="gterm"><dt>n-gram</dt><dd>A contiguous sequence of n tokens; the basis of count-based language models under the Markov assumption.</dd></div>
+      <div class="gterm"><dt>Regular expression</dt><dd>A formal pattern language for matching and extracting text — emails, dates, URLs, etc.</dd></div>
+      <div class="gterm"><dt>Bag of words</dt><dd>A representation that counts word occurrences while ignoring order.</dd></div>
+      <div class="gterm"><dt>TF-IDF</dt><dd>Term frequency × inverse document frequency — weights words by how distinctive they are to a document.</dd></div>
+      <div class="gterm"><dt>Vector space model</dt><dd>Representing text as vectors so that geometric closeness reflects semantic similarity.</dd></div>
+      <div class="gterm"><dt>Cosine similarity</dt><dd>The cosine of the angle between two vectors; a length-independent similarity measure.</dd></div>
+      <div class="gterm"><dt>Information retrieval</dt><dd>Finding documents relevant to a query from a large collection (the science behind search).</dd></div>
+      <div class="gterm"><dt>Naive Bayes</dt><dd>A generative classifier applying Bayes' theorem with a conditional-independence assumption between features.</dd></div>
+      <div class="gterm"><dt>Logistic regression</dt><dd>A discriminative linear classifier whose sigmoid output is a class probability.</dd></div>
+      <div class="gterm"><dt>Sentiment analysis</dt><dd>Classifying the opinion/emotion of text as positive, negative or neutral.</dd></div>
+      <div class="gterm"><dt>Word embedding</dt><dd>A dense, learned vector for a word where geometry encodes meaning (e.g. Word2Vec).</dd></div>
+      <div class="gterm"><dt>Word2Vec</dt><dd>Skip-gram/CBOW model that learns embeddings from context; famous for analogy arithmetic.</dd></div>
+      <div class="gterm"><dt>Softmax</dt><dd>Turns a vector of scores into a probability distribution; the standard output for classification.</dd></div>
+      <div class="gterm"><dt>Backpropagation</dt><dd>Computing gradients of the loss via the chain rule to train neural networks.</dd></div>
+      <div class="gterm"><dt>POS tagging</dt><dd>Labelling each word with its part of speech (noun, verb, adjective…).</dd></div>
+      <div class="gterm"><dt>Viterbi algorithm</dt><dd>Dynamic programming to find the most probable hidden-state (tag) sequence in an HMM.</dd></div>
+      <div class="gterm"><dt>Named Entity Recognition</dt><dd>Detecting and classifying entity spans — PERSON, LOCATION, ORGANIZATION, DATE, MONEY.</dd></div>
+      <div class="gterm"><dt>RNN</dt><dd>A network with a recurrent hidden state for processing sequences one step at a time.</dd></div>
+      <div class="gterm"><dt>LSTM</dt><dd>A gated RNN with a protected cell state that captures long-range dependencies.</dd></div>
+      <div class="gterm"><dt>Self-attention</dt><dd>A mechanism where each token weighs all others via <code>softmax(QKᵀ/√d)V</code> to build its representation.</dd></div>
+      <div class="gterm"><dt>Transformer</dt><dd>An attention-based architecture (no recurrence) that parallelises training; basis of modern LLMs.</dd></div>
+      <div class="gterm"><dt>Positional encoding</dt><dd>Information added to embeddings so a transformer knows word order.</dd></div>
+      <div class="gterm"><dt>Pre-trained language model</dt><dd>A model (BERT, GPT) trained on large corpora, then adapted to tasks.</dd></div>
+      <div class="gterm"><dt>Transfer learning</dt><dd>Reusing knowledge from a pre-trained model to solve a new task with little data.</dd></div>
+      <div class="gterm"><dt>BERT vs GPT</dt><dd>BERT is a masked-LM encoder (understanding); GPT is an autoregressive decoder (generation).</dd></div>
+      <div class="gterm"><dt>Seq2Seq</dt><dd>An encoder–decoder model mapping an input sequence to an output sequence (e.g. translation).</dd></div>
+      <div class="gterm"><dt>Beam search</dt><dd>Decoding that keeps the k best partial sequences at each step instead of just the top one.</dd></div>
+      <div class="gterm"><dt>Question answering</dt><dd>Returning a precise answer to a question, by extracting a span or generating text.</dd></div>
+      <div class="gterm"><dt>BLEU / ROUGE</dt><dd>n-gram precision (BLEU) and recall (ROUGE) metrics for generation tasks.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============ BIBLIOGRAPHY ============ -->
+  <section id="bibliography" class="panel">
+    <header class="phead">
+      <div class="kicker">Bibliography</div>
+      <h2>Readings</h2>
+      <p class="lead">Specific session readings are announced beforehand; these are the course's foundational texts.</p>
+    </header>
+
+    <div class="biblio">
+      <div class="ref"><div class="badge req">Compulsory</div><div class="cite"><b>Jurafsky, D., &amp; Martin, J. H.</b> (2008). <i>Speech and Language Processing: An introduction to speech recognition, computational linguistics.</i> <span class="meta">Prentice Hall. ISBN 9780131873216.</span><span class="annot"><b>Why it matters:</b> the definitive NLP textbook — the spine of this course, covering everything from n-grams and HMMs to neural models.</span></div></div>
+
+      <div class="ref"><div class="badge req">Compulsory</div><div class="cite"><b>de la Cruz Echeandía, M., Elhaddad, Y. R. SH., Awinat, S., &amp; Ortega, A.</b> (2018). <i>Handbook of Grammatical Evolution</i> — chapter "GE and Semantics". <span class="meta">Springer. ISBN 9783030087722.</span><span class="annot"><b>Why it matters:</b> explains the semantic context in formal language theory and how Grammatical Evolution is extended to handle semantics — direct support for the "semantic analysis" half of the course.</span></div></div>
+
+      <div class="ref"><div class="badge rec">Recommended</div><div class="cite"><b>Manning, C., &amp; Schütze, H.</b> (1999). <i>Foundations of Statistical Natural Language Processing.</i> <span class="meta">MIT Press. ISBN 9780262133609.</span><span class="annot"><b>Why it matters:</b> the classic reference for the statistical methods (Modules 1–2) — n-grams, smoothing, classification.</span></div></div>
+
+      <div class="ref"><div class="badge rec">Recommended</div><div class="cite"><b>Manning, C. D., Raghavan, P., &amp; Schütze, H.</b> (2012). <i>Introduction to Information Retrieval.</i> <span class="meta">Cambridge University Press. ISBN 9780511809071.</span><span class="annot"><b>Why it matters:</b> the go-to text for the IR and TF-IDF material in Module 2 (Sessions 7–8).</span></div></div>
+
+      <div class="ref"><div class="badge rec">Recommended</div><div class="cite"><b>Bird, S., Klein, E., &amp; Loper, E.</b> (2009). <i>Natural Language Processing with Python: Analyzing Text with the Natural Language Toolkit.</i> <span class="meta">O'Reilly Media. ISBN 9780596516499.</span><span class="annot"><b>Why it matters:</b> the hands-on NLTK companion for the Python practice work, especially Session 5.</span></div></div>
+    </div>
+
+    <div class="footer">
+      <p>Built for the <b>AI: Natural Language Processing &amp; Semantic Analysis</b> course (BCSAI, IE University · 25–26) — Prof. Juan José Manjarín Colón. This page is a study companion to the <a href="index.html" style="color:var(--accent-2)">interactive NLP Lab</a>; the official reference is the <a href="./SYLLABUS.pdf" style="color:var(--accent-2)" target="_blank" rel="noopener">course syllabus (PDF)</a>.</p>
+      <p class="muted">Disclaimer: the program is tentative and may vary with group pace, per the syllabus. All content runs client-side — no backend, no tracking.</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* Theme toggle — mirrors index.html behaviour (data-theme on <html>) */
+(function () {
+  var btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', function () {
+    var cur = document.documentElement.getAttribute('data-theme');
+    document.documentElement.setAttribute('data-theme', cur === 'light' ? '' : 'light');
+  });
+  /* Render KaTeX if it loaded; otherwise the $...$ source stays as readable plain text */
+  window.addEventListener('load', function () {
+    if (window.renderMathInElement) {
+      try {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: '$', right: '$', display: false }],
+          throwOnError: false
+        });
+      } catch (e) { /* leave plain text */ }
+    }
+  });
+})();
+</script>
+</body>
+</html>
