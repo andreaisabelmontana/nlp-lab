@@ -236,6 +236,10 @@
     </header>
     <p class="lead" style="max-width:880px;">Natural Language Processing sits at the centre of today's technology revolution — the breakthroughs behind ChatGPT, Bard and their successors are just the starting line. Over the next few years NLP and text analysis will permeate every sector, reshaping data-driven decisions and letting us decode human communication in ways we never thought possible. This course turns that promise into skill: it walks the full arc from rule-based and statistical methods through machine learning to the deep-learning and transformer architectures that power modern language models, always pairing theory with hands-on practice so you can apply these tools to real data-science problems.</p>
 
+    <div class="note" style="margin-top:22px;"><b>Prerequisites &amp; how this course connects.</b> You should arrive comfortable with <b>Python</b> (functions, NumPy, pandas), <b>linear algebra</b> (vectors, dot products, matrices — the language of embeddings and attention), <b>probability</b> (conditional probability and Bayes' rule, used in n-grams and Naive Bayes) and <b>calculus</b> (the chain rule, which <i>is</i> backpropagation). The course builds directly on the BCSAI <i>Machine Learning</i> and <i>Mathematics for AI</i> strands and feeds forward into <i>Deep Learning</i>, <i>Generative AI</i> and any capstone that touches text. Conceptually it is one continuous story — counting words → weighting them → embedding them → attending over them — so each module is a prerequisite for the next.</div>
+
+    <div class="note" style="border-left-color:var(--accent-2);"><b>Weekly study-load (6 ECTS ≈ 150 h).</b> Across ~15 teaching weeks that is roughly <b>10 hours per week</b>: about 2.7 h of live lecture, ~3.7 h of in-class/asynchronous exercises and field work, ~1.7 h of group-project work, ~1 h of discussion and ~1 h of individual study and review. The single largest block is <b>applied exercise work (36.7 %)</b> — this is a build-it course, not a lecture course. Budget extra time in the deep-learning weeks (Module 4), where the conceptual density per session peaks.</div>
+
     <div class="grid grid-3" style="margin-top:24px;">
       <a class="card-link" href="#mod1"><div class="micro">Module 1</div><h3>Foundations & History</h3><p>From ELIZA and n-grams to vector space models and the Python NLP toolchain.</p></a>
       <a class="card-link" href="#mod2"><div class="micro">Module 2</div><h3>ML for Text</h3><p>Regex, TF-IDF, information retrieval, Naive Bayes and logistic regression.</p></a>
@@ -324,6 +328,22 @@
       <div class="rule"><h5>Re-sit / re-take (June–July)</h5><p>A single comprehensive exam; continuous evaluation is not counted. Pass mark is <b>5</b>, capped at <b>8.0</b> ("notable"). Students who failed on attendance cannot re-sit.</p></div>
       <div class="rule"><h5>Calls & retakers</h5><p>Four allowed calls over two academic years. Retake (3rd call) is capped at 10.0. Failing &gt;18 ECTS in a year after re-sits means leaving the programme.</p></div>
     </div>
+
+    <header class="phead" style="margin-top:34px;">
+      <div class="kicker">Per-component rubric</div>
+      <h2>What "good" looks like</h2>
+      <p class="lead">Each component rewards a different skill. Use these criteria as a checklist before you submit.</p>
+    </header>
+
+    <div class="topics" style="margin-top:6px;">
+      <div class="topic"><div class="tk">Final exam · 35%</div><div class="td"><b>Format:</b> Blackboard quiz, multiple-choice + open-ended, covering all five modules. <b>Graded on:</b> conceptual accuracy, ability to read a formula and say what it does, and reasoning across the pipeline (not rote recall). <b>Tips:</b> for each method know <i>generative vs discriminative</i>, the core formula, one failure mode, and which demo in the lab illustrates it. Practise mapping a raw problem end-to-end.</div></div>
+      <div class="topic"><div class="tk">Group project · 30%</div><div class="td"><b>Format:</b> implement an NLP application <i>or</i> research a studied tool in depth; submit via Turnitin + a 15-minute class presentation. <b>Graded on:</b> problem framing, soundness of method, quality of evaluation (use a real metric — accuracy/F1, BLEU/ROUGE, perplexity — not just "it looks good"), reproducibility, and clarity of the talk. <b>Tips:</b> scope small but evaluate properly; show a baseline before your model; acknowledge any GenAI use explicitly.</div></div>
+      <div class="topic"><div class="tk">Exercises · 20%</div><div class="td"><b>Format:</b> in-class exercises submitted individually through Turnitin; one week from the start of each to submit. <b>Graded on:</b> correctness, clean reproducible code, and a short written interpretation of the result. <b>Tips:</b> commit working code early, then refine; a labelled plot or confusion matrix beats a wall of numbers.</div></div>
+      <div class="topic"><div class="tk">Quizzes · 10%</div><div class="td"><b>Format:</b> a short quiz after each module, completed <i>before</i> the next synchronous session. <b>Graded on:</b> recall of the module's key definitions and formulas. <b>Tips:</b> take the quiz while the material is fresh; treat it as low-stakes spaced repetition — the flashcards in the lab map onto it directly.</div></div>
+      <div class="topic"><div class="tk">Participation · 5%</div><div class="td"><b>Format:</b> active engagement in activities, discussions and exercises. <b>Graded on:</b> consistent, substantive contribution — questions, peer help, discussion. <b>Tips:</b> small steady contributions across the semester beat one big push; helping a peer debug counts.</div></div>
+    </div>
+
+    <div class="note" style="margin-top:18px;"><b>Acknowledging GenAI.</b> Use of generative AI is <b>encouraged</b> but must be disclosed. The syllabus's suggested format: <i>"I acknowledge the use of [tool] to [how]. The prompts used include [list]. The output was used to [how it entered your work]."</i> If you used none: <i>"No content generated by AI technologies has been used in this assignment."</i> Disclosure never lowers your grade; omitting it is an integrity violation.</div>
   </section>
 
   <!-- ============ PROGRAM ============ -->
@@ -373,11 +393,13 @@
           <h4 class="sess-title">Introduction to the Course</h4>
           <p class="sess-obj"><b>Objective:</b> open the door to NLP — what it encompasses, its applications, and its role in bridging human–machine communication (chatbots, voice assistants, automated translation).</p>
           <div class="topics">
-            <div class="topic"><div class="tk">What is NLP</div><div class="td">The interdisciplinary field at the intersection of linguistics, computer science and AI that lets machines read, understand and generate language.</div></div>
-            <div class="topic"><div class="tk">Applications</div><div class="td">Machine translation, search, recommendation, conversational agents, summarization — the systems you already use daily.</div></div>
-            <div class="topic"><div class="tk">Course logistics</div><div class="td">Slots: 10 min introductions · 40 min course introduction · 30 min class discussion.</div></div>
+            <div class="topic"><div class="tk">What is NLP</div><div class="td">The interdisciplinary field at the intersection of linguistics, computer science and AI that lets machines read, understand and generate language. It is hard because language is <i>ambiguous</i> ("I saw the man with the telescope"), <i>compositional</i> (meaning builds from parts) and <i>context-dependent</i> (the same word shifts meaning across sentences). NLP gives machines representations and algorithms to cope with all three.</div></div>
+            <div class="topic"><div class="tk">Applications</div><div class="td">Machine translation, search, recommendation, conversational agents, summarization, spam filtering and autocomplete — the systems you already use daily. A useful framing: most tasks reduce to <i>classification</i> (sentiment), <i>sequence labelling</i> (POS/NER), <i>generation</i> (translation, chat) or <i>retrieval</i> (search, QA). Recognising which family a problem belongs to tells you which tool to reach for.</div></div>
+            <div class="topic"><div class="tk">Course logistics</div><div class="td">Slots: 10 min introductions · 40 min course introduction · 30 min class discussion. <b>Practice:</b> list your own daily encounters with NLP (voice commands, recommendations, support chatbots) to feel its omnipresence.</div></div>
           </div>
           <div class="keyidea"><b>Key idea</b>NLP is everywhere; this opening discussion is revisited in the final session so you can measure how far you've come.</div>
+          <div class="keyidea" style="border-left-color:var(--accent-2);background:rgba(0,212,255,.06);"><b style="color:var(--accent-2)">Connects to…</b>Every later session is one of these four task families dressed in different mathematics. Hold the map in your head — it is the scaffold the whole course hangs on.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>NLP turns messy human language into structured, computable objects — and the choice of <i>representation</i> is what makes everything downstream possible.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#pipeline">The NLP Pipeline →</a><a href="index.html#overview">Lab overview →</a></div>
         </div>
 
@@ -387,11 +409,14 @@
           <h4 class="sess-title">The Dawn of Computational Linguistics</h4>
           <p class="sess-obj"><b>Objective:</b> trace NLP's formative phases — from its embryonic stages to landmarks like ELIZA, one of the first programs to mimic human conversation — and chart the key shifts that shaped the field.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">ELIZA & early systems</div><div class="td">Pattern-matching "chatbots" that revealed how shallow rules can feel surprisingly conversational.</div></div>
-            <div class="topic"><div class="tk">Rule-based era</div><div class="td">Hand-written grammars and symbolic methods that dominated before statistics took over.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Each student picks a pivotal historical NLP model and prepares a 5-minute overview video.</div></div>
+            <div class="topic"><div class="tk">ELIZA & early systems</div><div class="td">Weizenbaum's ELIZA (1966) matched simple patterns and reflected the user's words back ("I am sad" → "Why are you sad?"). It held no model of meaning, yet users felt understood — the <i>ELIZA effect</i>, our tendency to over-attribute intelligence to fluent output. A cautionary tale that is strikingly relevant in the LLM era.</div></div>
+            <div class="topic"><div class="tk">Rule-based era</div><div class="td">Hand-written grammars and symbolic methods (SHRDLU, expert systems, the 1954 Georgetown–IBM translation demo) dominated into the 1980s. They were precise and explainable but brittle: every exception needs a new rule, so coverage never scales. The 1990s "statistical turn" replaced rules with probabilities learned from corpora.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Each student picks a pivotal historical NLP model (ELIZA, SHRDLU, IBM Models, Word2Vec, the Transformer…) and prepares a concise 5-minute overview video on its contribution and lasting impact.</div></div>
           </div>
           <div class="keyidea"><b>Key idea</b>The history of NLP is a swing from hand-crafted rules → statistics → learned representations → foundation models.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>The ELIZA effect never went away — fluent text is <i>not</i> evidence of understanding. Keep this in mind when you reach LLMs in Module 4.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Each era didn't erase the last: regex (Session 6) and HMMs (Session 15) are living descendants of the rule-based and statistical eras you still use today.</div>
+          <div class="readings"><div class="rt">Reading</div><ul><li><b>Jurafsky & Martin</b>, <i>Speech and Language Processing</i> — Ch. 1 (introduction & brief history). <span style="color:var(--accent-2)">Why:</span> sets the timeline and vocabulary for the whole course.</li></ul></div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#history">From Rules to Foundation Models →</a><a href="index.html#flashcards" class="fc">★ History flashcards</a></div>
         </div>
 
@@ -401,15 +426,20 @@
           <h4 class="sess-title">Fundamental Concepts</h4>
           <p class="sess-obj"><b>Objective:</b> unpack the foundational pillars — perceptrons and Multi-Layer Perceptrons, n-grams, and the backpropagation algorithm — the building blocks under much of today's NLP.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Perceptron / MLP</div><div class="td">A weighted sum passed through a non-linearity; stacking layers yields a universal function approximator.</div></div>
-            <div class="topic"><div class="tk">n-grams</div><div class="td">Estimate the next word from the previous (n−1) words by counting. Practice: build an n-gram model and predict the next word.</div></div>
-            <div class="topic"><div class="tk">Backpropagation</div><div class="td">The chain rule applied layer by layer to compute gradients for learning.</div></div>
+            <div class="topic"><div class="tk">Perceptron / MLP</div><div class="td">A perceptron computes $\hat{y}=f(\mathbf{w}^\top\mathbf{x}+b)$ — a weighted sum through a step/non-linear function. A single one can only draw a straight boundary (it famously cannot learn XOR), but <i>stacking</i> layers with non-linearities yields a Multi-Layer Perceptron, a universal function approximator that can represent any continuous mapping given enough hidden units.</div></div>
+            <div class="topic"><div class="tk">n-grams</div><div class="td">Estimate the next word from the previous (n−1) words by counting how often sequences co-occur. A bigram (n=2) conditions on one prior word; a trigram on two. <b>Practice:</b> build an n-gram model from provided sentences and predict the subsequent word.</div></div>
+            <div class="topic"><div class="tk">Backpropagation</div><div class="td">The chain rule applied layer by layer: compute the loss, then propagate its gradient backwards so each weight learns how it contributed to the error. With gradient descent, $w \leftarrow w-\eta\,\partial L/\partial w$, this is how every neural net in the course is trained.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · n-gram probability</div>
             <div class="formula">$P(w_i \mid w_{i-(n-1)},\dots,w_{i-1}) = \dfrac{\text{count}(w_{i-(n-1)},\dots,w_i)}{\text{count}(w_{i-(n-1)},\dots,w_{i-1})}$</div>
             <p>An n-gram model makes the Markov assumption: the next word depends only on the previous n−1 words, not the whole history.</p>
           </div>
+          <div class="concept"><div class="ct">Worked mini-example · a bigram</div>
+            <p style="margin-top:0">Corpus: <i>"I like NLP. I like cats."</i> Count: "I like" appears 2×, "like NLP" 1×, "like cats" 1×. So $P(\text{NLP}\mid\text{like})=\tfrac{1}{2}=0.5$ and $P(\text{cats}\mid\text{like})=\tfrac{1}{2}=0.5$ — the model is equally torn. A word never seen after "like" gets probability 0, which is exactly the sparsity problem <b>Laplace (add-one) smoothing</b> fixes by pretending every word was seen once more.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>Counting works until contexts get sparse — which is exactly why we later need smoothing, then learned representations.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>Raising n captures more context but explodes the count table and starves it of data (the curse of dimensionality). Most words never co-occur, so most counts are zero — the motivation for the dense embeddings of Session 13.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Two ideas seeded here run the whole course: <i>predict the next token</i> (n-grams → RNNs → GPT) and <i>learn weights by backprop</i> (MLP → transformers).</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#ngram">N-gram Language Model →</a><a href="index.html#nn">Feed-Forward Network →</a></div>
         </div>
 
@@ -419,15 +449,20 @@
           <h4 class="sess-title">Advanced Concepts in NLP</h4>
           <p class="sess-obj"><b>Objective:</b> go deeper into Vector Space Models (VSMs) through Latent Semantic Analysis (LSA) and the Hyperspace Analogue to Language (HAL), exploring their principles and applications.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Vector space models</div><div class="td">Represent documents/words as vectors so that geometry encodes meaning.</div></div>
-            <div class="topic"><div class="tk">LSA & HAL</div><div class="td">LSA factorizes a term-document matrix (SVD) to surface latent topics; HAL builds word vectors from co-occurrence windows.</div></div>
-            <div class="topic"><div class="tk">Practice · PCA</div><div class="td">Visualise high-dimensional text data by reducing dimensions with Principal Component Analysis.</div></div>
+            <div class="topic"><div class="tk">Vector space models</div><div class="td">Represent documents/words as vectors in a high-dimensional space so that <i>geometry encodes meaning</i> — texts about similar things point in similar directions. Each dimension is typically a vocabulary term; the whole corpus becomes a term–document matrix.</div></div>
+            <div class="topic"><div class="tk">LSA & HAL</div><div class="td">LSA applies <b>SVD</b> ($A \approx U\Sigma V^\top$) to a term–document matrix, keeping the top-k singular values to surface <i>latent topics</i> and merge synonyms (car/automobile collapse to one direction). HAL instead slides a window over text and counts word co-occurrences to build word vectors directly — two routes to the same distributional insight.</div></div>
+            <div class="topic"><div class="tk">Practice · PCA</div><div class="td">Visualise high-dimensional text data by projecting onto the directions of greatest variance with Principal Component Analysis — a cousin of LSA's SVD that turns thousands of dimensions into a readable 2-D scatter.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · cosine similarity</div>
             <div class="formula">$\cos(\theta) = \dfrac{\mathbf{a}\cdot\mathbf{b}}{\lVert\mathbf{a}\rVert\,\lVert\mathbf{b}\rVert}$</div>
             <p>Similarity between two text vectors is the cosine of the angle between them — independent of document length.</p>
           </div>
-          <div class="keyidea"><b>Key idea</b>"You shall know a word by the company it keeps" — meaning emerges from co-occurrence statistics.</div>
+          <div class="concept"><div class="ct">Worked mini-example · cosine</div>
+            <p style="margin-top:0">Let $\mathbf{a}=(1,1,0)$ and $\mathbf{b}=(1,0,1)$ over vocabulary {dog, cat, fish}. Dot product $=1$; each norm $=\sqrt2$. So $\cos\theta = 1/(\sqrt2\cdot\sqrt2)=0.5$ — the documents share one of two terms each, a 60° angle. Same direction ⇒ 1, no shared terms ⇒ 0.</p>
+          </div>
+          <div class="keyidea"><b>Key idea</b>"You shall know a word by the company it keeps" (Firth, 1957) — meaning emerges from co-occurrence statistics.</div>
+          <div class="keyidea" style="border-left-color:var(--accent-2);background:rgba(0,212,255,.06);"><b style="color:var(--accent-2)">Connects to…</b>LSA/HAL are the <i>count-based</i> ancestors of Word2Vec (Session 13), which learns the same geometry by prediction instead of factorisation — and to the IR ranking of Session 8.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Once meaning is geometry, "similar" becomes "close" and you can compute it — the single most reused idea in the course.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#embeddings">Walk the Vector Space →</a><a href="index.html#tfidf">TF-IDF & Cosine Similarity →</a></div>
         </div>
 
@@ -437,11 +472,14 @@
           <h4 class="sess-title">NLP Libraries and Resources in Python</h4>
           <p class="sess-obj"><b>Objective:</b> meet the workhorse libraries — NLTK, spaCy, Gensim and Hugging Face Transformers — the backbone of most text-processing and modelling tasks.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">NLTK</div><div class="td">The classic teaching toolkit: tokenizers, stemmers, corpora and classic algorithms.</div></div>
-            <div class="topic"><div class="tk">spaCy</div><div class="td">Production-grade pipelines for tokenization, POS, NER and dependency parsing.</div></div>
-            <div class="topic"><div class="tk">Gensim · Hugging Face</div><div class="td">Gensim for topic models & embeddings; Hugging Face for pre-trained transformer models. Practice: clean and preprocess a raw dataset.</div></div>
+            <div class="topic"><div class="tk">NLTK</div><div class="td">The classic teaching toolkit: tokenizers, stemmers (Porter), lemmatizers (WordNet), built-in corpora and textbook algorithms. Transparent and great for learning, but slower and less suited to production.</div></div>
+            <div class="topic"><div class="tk">spaCy</div><div class="td">Production-grade, opinionated pipelines: fast tokenization, POS, dependency parsing and NER out of the box, with a clean <code>Doc → Token</code> object model. The default when you need to <i>ship</i> a robust pipeline.</div></div>
+            <div class="topic"><div class="tk">Gensim · Hugging Face</div><div class="td">Gensim specialises in topic models (LDA) and Word2Vec/Doc2Vec embeddings at scale. Hugging Face <code>transformers</code> gives one-line access to thousands of pre-trained models (BERT, GPT, T5) via a <code>pipeline()</code> API. <b>Practice:</b> clean and preprocess a raw dataset using one or more of these.</div></div>
           </div>
           <div class="keyidea"><b>Key idea</b>Choosing the right library is half the battle — NLTK to learn, spaCy to ship, Hugging Face to reach the state of the art.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>Mixing libraries' tokenizers silently breaks pipelines — a spaCy token boundary ≠ an NLTK one ≠ a transformer's subword. Standardise the tokenizer end-to-end, and match it to the model you'll feed.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Preprocessing choices (lowercasing, stopword removal, stemming) are not neutral — they trade recall for precision and should be decided with the downstream task in mind.</div>
+          <div class="readings"><div class="rt">Reading</div><ul><li><b>Bird, Klein & Loper</b>, <i>NLP with Python (NLTK book)</i> — Ch. 1–3. <span style="color:var(--accent-2)">Why:</span> the hands-on companion for this session's preprocessing work.</li></ul></div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#preprocessing">Text Preprocessing Playground →</a><a href="index.html#bpe">BPE Tokenizer →</a></div>
         </div>
       </div>
@@ -478,11 +516,13 @@
           <h4 class="sess-title">Regular Expressions in NLP</h4>
           <p class="sess-obj"><b>Objective:</b> master regular expressions ("regex") — precise, efficient patterns for searching, extracting and manipulating text.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Pattern syntax</div><div class="td">Character classes, quantifiers, anchors and groups — e.g. <code>\b\w+@\w+\.\w+\b</code> for an email.</div></div>
-            <div class="topic"><div class="tk">Extraction</div><div class="td">Practice: craft patterns for phone numbers, emails, URLs and monetary values.</div></div>
-            <div class="topic"><div class="tk">Role in pipelines</div><div class="td">Regex underlies tokenization, cleaning and scraping in almost every NLP system.</div></div>
+            <div class="topic"><div class="tk">Pattern syntax</div><div class="td">The building blocks: character classes (<code>\d \w \s</code>), quantifiers (<code>* + ? {n,m}</code>), anchors (<code>^ $ \b</code>), alternation (<code>|</code>) and capture groups (<code>(...)</code>). Compose them into a small grammar — e.g. <code>\b\w+@\w+\.\w+\b</code> matches a simple email.</div></div>
+            <div class="topic"><div class="tk">Extraction</div><div class="td"><b>Practice:</b> craft patterns for phone numbers, emails, URLs and monetary values. Worked example: <code>[$]\d{1,3}(,\d{3})*(\.\d{2})?</code> matches a currency amount like <i>1,250.00</i> (with a leading dollar sign) — thousands-separated, optional cents.</div></div>
+            <div class="topic"><div class="tk">Role in pipelines</div><div class="td">Regex underlies tokenization, cleaning, normalisation and scraping in almost every NLP system — it is the unglamorous layer that turns raw text into something a model can ingest.</div></div>
           </div>
           <div class="keyidea"><b>Key idea</b>Regex is deterministic and explainable — when a rule is enough, you don't need a model.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>Greedy quantifiers (<code>.*</code>) over-match across boundaries; use the lazy form (<code>.*?</code>). And never try to parse nested structure (HTML, balanced brackets) with regex — it is mathematically a regular language and cannot count nesting.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Reach for the simplest tool that solves the problem; a precise rule beats a fragile model when the pattern is genuinely regular.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#regex">Regex Playground →</a></div>
         </div>
 
@@ -492,15 +532,21 @@
           <h4 class="sess-title">Text-Based Statistics</h4>
           <p class="sess-obj"><b>Objective:</b> see how statistics underpin language processing — TF-IDF, lexical density and word-frequency distributions — and why they matter for analysing text.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Term frequency</div><div class="td">How often a term appears in a document.</div></div>
-            <div class="topic"><div class="tk">Inverse document frequency</div><div class="td">Down-weights terms common across the whole corpus, up-weights distinctive ones.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Compute TF-IDF scores across documents and find the most relevant document for a query.</div></div>
+            <div class="topic"><div class="tk">Term frequency</div><div class="td">How often a term appears in a document, often dampened by a log ($1+\log\text{tf}$) so a word seen 100× isn't 100× as important as one seen once.</div></div>
+            <div class="topic"><div class="tk">Inverse document frequency</div><div class="td">$\log(N/\text{df})$ down-weights terms common across the whole corpus (<i>the</i>, <i>data</i> in a CS corpus) and up-weights distinctive ones — the part that makes a word a good <i>index term</i>.</div></div>
+            <div class="topic"><div class="tk">Lexical density & Zipf</div><div class="td">Word frequencies follow Zipf's law — a few words dominate, a long tail is rare; IDF is essentially a correction for that skew. Lexical density (content words ÷ total) gauges how "information-rich" a text is.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Compute TF-IDF scores across a set of documents and find the most relevant document for a query.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · TF-IDF</div>
             <div class="formula">$\text{tfidf}(t,d) = \text{tf}(t,d)\times \log\dfrac{N}{\text{df}(t)}$</div>
             <p>A term scores high when it is frequent in a document but rare across the corpus — the signal that makes a word a good index term.</p>
           </div>
+          <div class="concept"><div class="ct">Worked mini-example · IDF</div>
+            <p style="margin-top:0">Corpus of $N=1000$ documents. The word "the" appears in all 1000, so $\text{idf}=\log(1000/1000)=0$ — it contributes nothing. "transformer" appears in 10, so $\text{idf}=\log(1000/10)=\log 100 \approx 2$. If "transformer" occurs 3× in a document, its weight is $3\times2=6$, while "the" scores 0 no matter how often it appears. Distinctiveness wins.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>Distinctiveness, not raw frequency, is what makes a word informative.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>TF-IDF is bag-of-words: it ignores order and synonymy, so "good" and "great" share nothing. That gap is exactly what embeddings (Session 13) close.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>TF-IDF is the workhorse baseline for search and classification — cheap, interpretable, and surprisingly hard to beat on short factual queries (it underlies BM25 and the retriever in RAG).</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#tfidf">TF-IDF & Cosine Similarity →</a></div>
         </div>
 
@@ -510,15 +556,19 @@
           <h4 class="sess-title">Information Retrieval</h4>
           <p class="sess-obj"><b>Objective:</b> introduce Information Retrieval (IR) — fetching relevant data from large repositories — and the central role vector space models play in accuracy and efficiency.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">IR fundamentals</div><div class="td">Indexing, query matching, ranking and relevance.</div></div>
-            <div class="topic"><div class="tk">VSM ranking</div><div class="td">Score documents by cosine similarity between query and document vectors.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Build a rudimentary search engine that returns the closest articles to a query.</div></div>
+            <div class="topic"><div class="tk">IR fundamentals</div><div class="td">The pipeline: <i>index</i> the corpus (often an <b>inverted index</b> mapping each term → the documents containing it), <i>match</i> the query, <i>rank</i> by relevance and return the top-k. The inverted index is what makes search fast at web scale.</div></div>
+            <div class="topic"><div class="tk">VSM ranking</div><div class="td">Score each document by the cosine between its TF-IDF vector and the query vector. The modern refinement, <b>BM25</b>, adds term-frequency saturation and document-length normalisation and is still the default lexical ranker in production search.</div></div>
+            <div class="topic"><div class="tk">Evaluation</div><div class="td">Quality is measured with <b>precision@k</b>, <b>recall</b> and <b>MAP/nDCG</b> against human relevance judgements — you cannot improve search you do not measure.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Build a rudimentary search engine that sifts a collection of articles and returns those closest to a user query.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · cosine ranking</div>
             <div class="formula">$\text{score}(q,d) = \cos(\mathbf{q},\mathbf{d}) = \dfrac{\sum_t q_t d_t}{\lVert\mathbf{q}\rVert\,\lVert\mathbf{d}\rVert}$</div>
             <p>Rank documents by the cosine between their TF-IDF vectors and the query vector.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Search = represent query and documents in the same vector space, then sort by similarity.</div>
+          <div class="keyidea" style="border-left-color:var(--accent-2);background:rgba(0,212,255,.06);"><b style="color:var(--accent-2)">Connects to…</b>Replace TF-IDF vectors with dense embeddings and cosine ranking becomes <i>semantic / vector search</i> — the retriever half of retrieval-augmented QA in Session 24.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Lexical (BM25) and semantic (embedding) retrieval are complementary; hybrid search combines both for the strongest results.</div>
+          <div class="readings"><div class="rt">Reading</div><ul><li><b>Manning, Raghavan & Schütze</b>, <i>Introduction to Information Retrieval</i> — Ch. 6 (scoring & the vector space model). <span style="color:var(--accent-2)">Why:</span> the canonical treatment of TF-IDF ranking.</li></ul></div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#tfidf">Mini search engine →</a></div>
         </div>
 
@@ -528,15 +578,21 @@
           <h4 class="sess-title">Introduction to Naive Bayes</h4>
           <p class="sess-obj"><b>Objective:</b> learn the mathematics behind Naive Bayes — a fundamental, efficient text classifier — and use it to categorise content.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Bayes' theorem</div><div class="td">Posterior ∝ prior × likelihood.</div></div>
-            <div class="topic"><div class="tk">Conditional independence</div><div class="td">The "naive" assumption that features (words) are independent given the class.</div></div>
+            <div class="topic"><div class="tk">Bayes' theorem</div><div class="td">$P(c\mid d)=\dfrac{P(d\mid c)\,P(c)}{P(d)}$ — posterior ∝ prior × likelihood. Since $P(d)$ is the same for every class, we drop it and just compare numerators.</div></div>
+            <div class="topic"><div class="tk">Conditional independence</div><div class="td">The "naive" assumption: features (words) are independent <i>given the class</i>, so $P(d\mid c)=\prod_i P(w_i\mid c)$. False in reality ("New" and "York" are not independent) — yet the classifier still works well.</div></div>
+            <div class="topic"><div class="tk">Laplace smoothing</div><div class="td">A word unseen in a class would give probability 0 and zero out the whole product; add-one smoothing $P(w\mid c)=\tfrac{\text{count}(w,c)+1}{\text{count}(c)+|V|}$ prevents that.</div></div>
             <div class="topic"><div class="tk">Practice</div><div class="td">Classify news articles into categories with multinomial Naive Bayes.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · Naive Bayes</div>
             <div class="formula">$\hat{c} = \arg\max_c\; P(c)\prod_{i} P(w_i \mid c)$</div>
             <p>Pick the class that maximises the prior times the product of per-word likelihoods (Laplace-smoothed to handle unseen words).</p>
           </div>
+          <div class="concept"><div class="ct">Worked mini-example · spam</div>
+            <p style="margin-top:0">Priors $P(\text{spam})=P(\text{ham})=0.5$. Suppose $P(\text{"free"}\mid\text{spam})=0.4$, $P(\text{"free"}\mid\text{ham})=0.05$. For the message "free": spam score $=0.5\times0.4=0.20$ vs ham $=0.5\times0.05=0.025$. Spam wins 8-to-1. In practice we sum <i>logs</i> ($\log P(c)+\sum\log P(w_i\mid c)$) to avoid floating-point underflow when multiplying many small probabilities.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>A "wrong" independence assumption can still classify remarkably well — and stays fully interpretable.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>Because words are treated as independent, correlated features (synonyms, phrases) get double-counted, making Naive Bayes <i>over-confident</i> — its probabilities are good for ranking but poorly calibrated.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Naive Bayes is <i>generative</i> (it models how documents are produced); next session's logistic regression is its <i>discriminative</i> counterpart — the same features, a different philosophy.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#bayes">Naive Bayes Classifier →</a><a href="index.html#confusion">Confusion Matrix →</a></div>
         </div>
 
@@ -546,15 +602,21 @@
           <h4 class="sess-title">Logistic Regression in Text Analysis</h4>
           <p class="sess-obj"><b>Objective:</b> demystify logistic regression and apply it to text — especially binary classification problems.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">The sigmoid</div><div class="td">Squashes any real score into a probability in (0,1).</div></div>
-            <div class="topic"><div class="tk">Decision boundary</div><div class="td">A linear boundary in feature space; weights set its orientation.</div></div>
+            <div class="topic"><div class="tk">The sigmoid</div><div class="td">$\sigma(z)=1/(1+e^{-z})$ squashes any real score into a probability in (0,1); at $z=0$ it gives exactly 0.5, the decision threshold.</div></div>
+            <div class="topic"><div class="tk">Decision boundary</div><div class="td">A linear hyperplane $\mathbf{w}^\top\mathbf{x}+b=0$ in feature space; the weights set its orientation, the bias its offset. Each weight is the (log-odds) contribution of one word — directly readable.</div></div>
+            <div class="topic"><div class="tk">Training</div><div class="td">Fit weights by minimising <b>cross-entropy</b> loss $-\sum[y\log\hat{y}+(1-y)\log(1-\hat{y})]$ via gradient descent, usually with L2 regularisation to curb over-fitting on rare words.</div></div>
             <div class="topic"><div class="tk">Practice</div><div class="td">Build a sentiment tool that labels movie reviews positive or negative.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · logistic model</div>
             <div class="formula">$P(y{=}1\mid \mathbf{x}) = \sigma(\mathbf{w}^\top\mathbf{x}+b),\quad \sigma(z)=\dfrac{1}{1+e^{-z}}$</div>
             <p>Unlike Naive Bayes (generative), logistic regression is discriminative — it models the boundary directly and relaxes feature independence.</p>
           </div>
+          <div class="concept"><div class="ct">Worked mini-example · scoring a review</div>
+            <p style="margin-top:0">Suppose learned weights give "great" $w=+1.5$, "boring" $w=-2.0$, bias $b=0$. A review with both: $z=1.5-2.0=-0.5$, so $\hat{y}=\sigma(-0.5)\approx0.38$ → predicted <i>negative</i> (below 0.5). Flip "boring" to "fun" ($w=+1.2$): $z=2.7$, $\hat{y}\approx0.94$ → confidently positive.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>Generative vs discriminative: Naive Bayes models how data is generated; logistic regression models the decision directly.</div>
+          <div class="keyidea" style="border-left-color:var(--accent-2);background:rgba(0,212,255,.06);"><b style="color:var(--accent-2)">Connects to…</b>Logistic regression <i>is</i> a single-neuron network: $\sigma(\mathbf{w}^\top\mathbf{x}+b)$. Stack neurons and add hidden layers and you get the feed-forward net of Session 14 — a softmax over many classes generalises the sigmoid.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>With enough data, the discriminative model usually edges out the generative one; with little data, Naive Bayes's stronger assumptions can win.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#logistic">Logistic Regression boundary →</a><a href="index.html#sentiment">Sentiment Scorer →</a></div>
         </div>
       </div>
@@ -592,15 +654,20 @@
           <h4 class="sess-title">Sentiment Analysis</h4>
           <p class="sess-obj"><b>Objective:</b> read the subtle cues and emotions in text to gauge whether opinion is positive, negative or neutral.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Polarity</div><div class="td">Scoring text on a positive–negative axis (and sometimes intensity).</div></div>
-            <div class="topic"><div class="tk">Lexicon vs ML</div><div class="td">Valence dictionaries (with negation/booster handling) vs learned classifiers.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Collect real-time posts on a topic from a social network and analyse overall sentiment.</div></div>
+            <div class="topic"><div class="tk">Polarity</div><div class="td">Scoring text on a positive–negative axis (and sometimes intensity/arousal). Granularity ranges from document-level (whole review) to <i>aspect-based</i> (the food was great but the service was slow → +food, −service).</div></div>
+            <div class="topic"><div class="tk">Lexicon vs ML</div><div class="td">Valence dictionaries (VADER, SentiWordNet) sum per-word scores with negation/booster rules — fast and transparent but brittle on slang and sarcasm. Learned classifiers (the logistic regression of Session 10, or a fine-tuned transformer) adapt to the domain but need labelled data.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Collect real-time posts on a chosen topic from a social network and analyse the overall sentiment of the collected posts.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · lexicon scoring</div>
             <div class="formula">$\text{sentiment} = \sum_i \nu(w_i)\cdot \text{neg}_i \cdot \text{boost}_i$</div>
             <p>Each word's valence ν is flipped by nearby negators and amplified by intensifiers, then summed.</p>
           </div>
+          <div class="concept"><div class="ct">Worked mini-example · negation</div>
+            <p style="margin-top:0">Valence of "good" $=+2$. Phrase "not good": the negator within a 1–3 word window flips the sign → $-2$. "Really not good": the booster "really" scales by ~1.5 → $-3$. This is why a naive bag-of-words that sees only the token "good" mislabels the phrase as positive.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>Context matters: "not good" must score negative even though "good" is positive.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>Sarcasm ("oh great, another bug"), comparatives and domain shift (a "small" phone = good, a "small" portion = bad) defeat lexicons. These are precisely the long-range, contextual cases where transformers later shine.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Sentiment is the canonical text-classification task — every classifier in the course (NB, LR, FFN, BERT) can be pointed at it, so it is a perfect benchmark for comparing them.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#sentiment">Lexicon Sentiment Scorer →</a></div>
         </div>
 
@@ -610,15 +677,17 @@
           <h4 class="sess-title">Deep Dive into Vector Space Models</h4>
           <p class="sess-obj"><b>Objective:</b> understand why VSMs are a cornerstone of NLP — how they represent text and capture relations between pieces of text.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Document vectors</div><div class="td">Bag-of-words / TF-IDF representations as points in high-dimensional space.</div></div>
-            <div class="topic"><div class="tk">Cosine similarity</div><div class="td">Angle-based closeness, robust to document length.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Build a tool that measures how similar two documents are.</div></div>
+            <div class="topic"><div class="tk">Document vectors</div><div class="td">Bag-of-words / TF-IDF representations as points in a space with one axis per vocabulary term. These vectors are <i>sparse</i> (mostly zeros) and very high-dimensional (|V| can be 50k+), which has consequences for both storage and similarity.</div></div>
+            <div class="topic"><div class="tk">Cosine similarity</div><div class="td">Angle-based closeness, robust to document length — a long article and a short tweet on the same topic still point the same way. Compare with <b>edit distance</b> (string-level) and <b>Jaccard</b> (set overlap): each measures a different notion of "similar".</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Build a tool that measures how similar two documents are using cosine similarity over their vectors.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · cosine similarity</div>
             <div class="formula">$\cos(\theta) = \dfrac{\mathbf{a}\cdot\mathbf{b}}{\lVert\mathbf{a}\rVert\,\lVert\mathbf{b}\rVert} \in [-1,1]$</div>
             <p>1 means identical direction (same content mix), 0 means orthogonal (no shared terms).</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Direction encodes meaning; magnitude (length) is mostly noise — so we compare angles.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>The <i>curse of dimensionality</i>: in very high-dimensional sparse spaces, distances concentrate and almost everything looks equally far. Dense low-dimensional embeddings (next session) restore meaningful neighbourhoods.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Pick the similarity measure that matches your unit of meaning — cosine for topical content, edit distance for typos/spelling, Jaccard for set membership.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#tfidf">Cosine similarity →</a><a href="index.html#embeddings">Vector space →</a><a href="index.html#edit">Edit Distance →</a></div>
         </div>
 
@@ -628,15 +697,22 @@
           <h4 class="sess-title">Introduction to Word Embeddings</h4>
           <p class="sess-obj"><b>Objective:</b> meet Word Embeddings starting with the groundbreaking Word2Vec — and see how it changed the way machines interpret words.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Distributional semantics</div><div class="td">Dense vectors learned so that nearby words share contexts.</div></div>
-            <div class="topic"><div class="tk">Skip-gram / CBOW</div><div class="td">Predict context from a word (skip-gram) or a word from context (CBOW).</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Map and visualise Word2Vec embeddings of emotion words in 2D.</div></div>
+            <div class="topic"><div class="tk">Distributional semantics</div><div class="td">Dense, low-dimensional vectors (typically 100–300 dims) learned so that words appearing in similar contexts get similar vectors — the distributional hypothesis made computable, and far more compact than the sparse |V|-dim count vectors of earlier sessions.</div></div>
+            <div class="topic"><div class="tk">Skip-gram / CBOW</div><div class="td">Word2Vec's two training objectives: <b>skip-gram</b> predicts the surrounding context words from a centre word (better on rare words); <b>CBOW</b> predicts the centre word from its context (faster). Both learn the embedding as a by-product of getting the prediction right.</div></div>
+            <div class="topic"><div class="tk">Negative sampling</div><div class="td">The full softmax over |V| is too costly, so Word2Vec trains a few "is this a real context pair?" binary tasks against random negatives — the trick that made it fast enough to scale.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Map and visualise Word2Vec embeddings of emotion words in 2D (via PCA/t-SNE) and inspect which words cluster.</div></div>
+          </div>
+          <div class="concept"><div class="ct">Core concept · skip-gram objective</div>
+            <div class="formula">$P(w_O\mid w_I) = \dfrac{\exp(\mathbf{v}'_{w_O}\!\cdot\mathbf{v}_{w_I})}{\sum_{w\in V}\exp(\mathbf{v}'_{w}\!\cdot\mathbf{v}_{w_I})}$</div>
+            <p>A softmax over the vocabulary: maximise the dot product between a centre word's input vector and its true context words' output vectors. Words sharing contexts are pushed together.</p>
           </div>
           <div class="concept"><div class="ct">Core concept · analogy arithmetic</div>
             <div class="formula">$\mathbf{v}_{\text{king}} - \mathbf{v}_{\text{man}} + \mathbf{v}_{\text{woman}} \approx \mathbf{v}_{\text{queen}}$</div>
-            <p>Embeddings place words in a space where linear directions encode relations like gender, tense or plurality.</p>
+            <p>Embeddings place words in a space where linear directions encode relations like gender, tense or plurality — solved by nearest-neighbour search after the arithmetic.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Dense learned vectors beat sparse counts: similar words sit close together and relationships become vector arithmetic.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>A Word2Vec vector is <i>static</i> — "bank" gets one vector for both river and money senses. Embeddings also absorb social bias from the corpus (man:doctor :: woman:nurse). Contextual models (BERT, Session 20) fix the first; bias (Session 25) remains a live concern.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Word2Vec replaced counting (LSA/HAL) with prediction and won — the conceptual leap that set up every neural model that follows.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#embeddings">Walk the Vector Space + analogies →</a></div>
         </div>
 
@@ -646,15 +722,22 @@
           <h4 class="sess-title">Feedforward Neural Language Models</h4>
           <p class="sess-obj"><b>Objective:</b> enter neural networks for language — understand how these networks "think" and process language data.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Architecture</div><div class="td">Input embeddings → hidden layer(s) → softmax over the vocabulary.</div></div>
-            <div class="topic"><div class="tk">Activations</div><div class="td">Non-linearities (tanh, ReLU, sigmoid) let the network learn complex functions.</div></div>
+            <div class="topic"><div class="tk">Architecture</div><div class="td">Concatenate the embeddings of the previous (n−1) words → one or more hidden layers → softmax over the whole vocabulary. Bengio et al. (2003) showed this beats n-grams precisely because embeddings let unseen contexts borrow strength from similar seen ones.</div></div>
+            <div class="topic"><div class="tk">Activations</div><div class="td">Non-linearities are what make depth worthwhile: <b>ReLU</b> $\max(0,z)$ (cheap, default), <b>tanh</b> (zero-centred), <b>sigmoid</b> (gates). Without them, stacked linear layers collapse to a single linear map.</div></div>
+            <div class="topic"><div class="tk">Evaluation · perplexity</div><div class="td">Language models are scored by <b>perplexity</b> — the exponential of the average per-word cross-entropy; lower is better. It is the standard yardstick from n-grams through to GPT.</div></div>
             <div class="topic"><div class="tk">Practice</div><div class="td">Build a text classifier using a simple feed-forward network.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · softmax output</div>
             <div class="formula">$P(w_i) = \dfrac{e^{z_i}}{\sum_j e^{z_j}}$</div>
             <p>Bengio's neural LM replaced sparse n-gram counts with dense embeddings fed through an MLP — the conceptual ancestor of every modern LM.</p>
           </div>
+          <div class="concept"><div class="ct">Core concept · perplexity</div>
+            <div class="formula">$\text{PPL} = \exp\!\Big(-\tfrac{1}{N}\textstyle\sum_{i=1}^{N}\log P(w_i\mid w_{<i})\Big)$</div>
+            <p>Intuition: perplexity is the model's average "branching factor" — how many equally-likely words it is choosing among at each step. A PPL of 1 is a perfect predictor; uniform over a 10k vocabulary gives PPL 10,000.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>Learn the representation and the predictor jointly, instead of hand-engineering features.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>A feed-forward LM still uses a <i>fixed-size</i> context window, just like an n-gram — it cannot model arbitrarily long dependencies. That limitation is exactly what RNNs (Session 17) set out to remove.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>The softmax-over-vocabulary output head here is the <i>same</i> head GPT uses — only the body (MLP → RNN → transformer) changes across the course.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#nn">Tiny Feed-Forward Network →</a><a href="index.html#ngram">vs N-gram LM →</a></div>
         </div>
 
@@ -664,15 +747,20 @@
           <h4 class="sess-title">Part-of-Speech (POS) Tagging</h4>
           <p class="sess-obj"><b>Objective:</b> identify the grammatical role of each word — noun, verb, adjective and more — from its context and meaning.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Tag sets</div><div class="td">DET, NOUN, VERB, ADJ… (Universal or Penn Treebank tags).</div></div>
-            <div class="topic"><div class="tk">HMM & Viterbi</div><div class="td">Find the most probable tag sequence by dynamic programming.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Tag an article and list all nouns, verbs and adjectives.</div></div>
+            <div class="topic"><div class="tk">Tag sets</div><div class="td">DET, NOUN, VERB, ADJ… — the 17-tag Universal set or the finer ~36-tag Penn Treebank. Tagging resolves ambiguity from context: "book" is a NOUN in "read a book" but a VERB in "book a flight".</div></div>
+            <div class="topic"><div class="tk">HMM & Viterbi</div><div class="td">A Hidden Markov Model has <b>transition</b> probabilities $a_{ij}$ (tag→tag) and <b>emission</b> probabilities $b_j(o)$ (tag→word). Viterbi finds the single most probable tag sequence in $O(T\cdot|S|^2)$ time by dynamic programming instead of enumerating $|S|^T$ paths.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Tag an article and list all its nouns, verbs and adjectives.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · Viterbi recursion</div>
             <div class="formula">$\delta_t(j) = \max_i\big[\delta_{t-1}(i)\,a_{ij}\big]\,b_j(o_t)$</div>
             <p>Each cell holds the best score of reaching tag j at position t; back-tracking recovers the winning path.</p>
           </div>
+          <div class="concept"><div class="ct">Worked mini-example · "they fish"</div>
+            <p style="margin-top:0">Tags {PRON, NOUN, VERB}. "they" is almost surely PRON. For "fish", compare two paths: PRON→VERB (high transition, fish-as-verb emission) vs PRON→NOUN. Because a pronoun is far more often followed by a verb, $\delta(\text{VERB})$ wins and "fish" is tagged VERB — a decision driven by the <i>neighbour</i>, not the word alone.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>POS tagging is sequence labelling — the tag of a word depends on its neighbours, not just itself.</div>
+          <div class="keyidea" style="border-left-color:var(--accent-2);background:rgba(0,212,255,.06);"><b style="color:var(--accent-2)">Connects to…</b>Viterbi is the same dynamic-programming idea as beam search in decoding (Session 21); both find a best path through a lattice. NER (next session) is sequence labelling too, usually solved today with a CRF or transformer instead of an HMM.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Many NLP tasks are "label every token in order" — once you see a problem as sequence labelling, Viterbi/CRF/transformer-tagging all become available.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#pos">HMM POS Tagging (Viterbi) →</a></div>
         </div>
 
@@ -682,8 +770,9 @@
           <h4 class="sess-title">Named Entity Recognition (NER)</h4>
           <p class="sess-obj"><b>Objective:</b> extract specific information — people, places, organizations — by spotlighting the words that stand out because of their importance.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Entity types</div><div class="td">PERSON, LOCATION, ORGANIZATION, DATE, MONEY and more.</div></div>
-            <div class="topic"><div class="tk">BIO tagging</div><div class="td">Mark Beginning / Inside / Outside of each entity span.</div></div>
+            <div class="topic"><div class="tk">Entity types</div><div class="td">PERSON, LOCATION, ORGANIZATION, DATE, MONEY and more. Domain-specific NER adds custom types — genes in biomedicine, tickers in finance, products in e-commerce.</div></div>
+            <div class="topic"><div class="tk">BIO tagging</div><div class="td">Encode multi-word spans by marking each token <b>B</b>egin / <b>I</b>nside / <b>O</b>utside an entity. This recasts a span-finding problem as per-token classification — the same sequence-labelling frame as POS.</div></div>
+            <div class="topic"><div class="tk">Evaluation</div><div class="td">Scored by <b>span-level precision/recall/F1</b>: a prediction counts only if the <i>whole</i> span and its type are exactly right — partial overlaps don't earn credit.</div></div>
             <div class="topic"><div class="tk">Practice</div><div class="td">Analyse a news article and label every named entity it contains.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · span labelling (BIO)</div>
@@ -691,6 +780,8 @@
             <p>NER turns free text into structured records — the bridge from language to a knowledge base.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Entities are the nouns that matter; finding them is the first step in turning text into data.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>Ambiguity bites: "Washington" can be PERSON, LOCATION or ORG; "Apple" the company vs the fruit. Resolution needs context — and after detection, <i>entity linking</i> (mapping "Tim Cook" → a knowledge-base ID) is a separate, harder step.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>NER + relation extraction is how unstructured text becomes a queryable database — the foundation of knowledge graphs and information extraction pipelines.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#ner">Named Entity Recognition →</a></div>
         </div>
       </div>
@@ -729,15 +820,17 @@
           <h4 class="sess-title">Introduction to RNNs</h4>
           <p class="sess-obj"><b>Objective:</b> explore Recurrent Neural Networks — built for sequential data, with memory components that carry information from previous inputs.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Hidden state</div><div class="td">A running summary of the sequence so far, updated at each step.</div></div>
-            <div class="topic"><div class="tk">Weight sharing</div><div class="td">The same parameters are reused at every time step.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Use an RNN to predict the next word in a sentence.</div></div>
+            <div class="topic"><div class="tk">Hidden state</div><div class="td">A fixed-size vector $h_t$ that is a running summary of everything seen so far, re-computed at each step from the previous state and the new input. Unlike an n-gram or feed-forward LM, the context window is in principle <i>unbounded</i>.</div></div>
+            <div class="topic"><div class="tk">Weight sharing</div><div class="td">The same parameter matrices are reused at every time step, so the model handles sequences of any length with a fixed parameter count — and is trained by <b>backpropagation through time</b> (unrolling the recurrence, then back-propagating).</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Use an RNN to predict the upcoming word in a given sentence.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · recurrence</div>
             <div class="formula">$h_t = \tanh(W_{hh}\,h_{t-1} + W_{xh}\,x_t + b)$</div>
             <p>The new hidden state mixes the previous state with the current input through a non-linearity.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Recurrence gives a network memory — but vanilla RNNs forget quickly over long sequences.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>The <b>vanishing/exploding gradient</b> problem: repeatedly multiplying by $W_{hh}$ through time shrinks gradients toward 0 (or blows them up), so the RNN can't learn dependencies more than a handful of steps back. This single weakness motivates Sessions 18 (LSTM) and 19 (attention).</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>RNNs process sequentially — powerful but inherently un-parallelisable across time, which later becomes the practical reason transformers win at scale.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#rnn">RNN Hidden States step-by-step →</a></div>
         </div>
 
@@ -747,15 +840,17 @@
           <h4 class="sess-title">Deep Dive into LSTMs</h4>
           <p class="sess-obj"><b>Objective:</b> study Long Short-Term Memory networks — RNNs that remember long-range dependencies and resist the vanishing-gradient problem.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Cell state</div><div class="td">A protected memory channel that carries information across many steps.</div></div>
-            <div class="topic"><div class="tk">Gates</div><div class="td">Forget, input and output gates decide what to keep, add and emit.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Predict the next word with an LSTM and compare against the plain RNN.</div></div>
+            <div class="topic"><div class="tk">Cell state</div><div class="td">A protected memory channel $C_t$ that runs straight through the chain with only minor linear interactions. Because information is <i>added</i> rather than repeatedly multiplied, gradients survive — the constant-error-carousel intuition behind solving vanishing gradients.</div></div>
+            <div class="topic"><div class="tk">Gates</div><div class="td">Three learned sigmoid gates regulate the cell: the <b>forget</b> gate drops stale memory, the <b>input</b> gate writes new information, the <b>output</b> gate decides what to expose as $h_t$. GRUs are a lighter two-gate variant.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Predict the next word with an LSTM and compare directly against the plain RNN to feel the long-dependency gain.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · gating</div>
             <div class="formula">$f_t=\sigma(W_f[h_{t-1},x_t]),\;\; C_t=f_t\odot C_{t-1}+i_t\odot \tilde{C}_t$</div>
             <p>Gates (sigmoids in 0–1) control the additive flow of the cell state, keeping gradients alive over long ranges.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Gates let the network choose what to remember and what to forget — solving the RNN's short memory.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>LSTMs extend memory but are still <i>sequential</i> (no time-parallelism) and still degrade over very long contexts. For machine translation they also struggle to compress a whole sentence into one fixed context vector — the bottleneck that attention removes.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>The additive cell-state path is the same trick as a residual connection in transformers — keep a clean gradient highway through the network.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#rnn">Compare with the RNN demo →</a></div>
         </div>
 
@@ -765,15 +860,20 @@
           <h4 class="sess-title">Transformers in NLP</h4>
           <p class="sess-obj"><b>Objective:</b> meet Transformers — the architecture that revolutionised NLP — and their self-attention mechanism for capturing intricate patterns.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Self-attention</div><div class="td">Every token attends to every other; no recurrence needed, so training parallelises.</div></div>
-            <div class="topic"><div class="tk">Multi-head & positional encoding</div><div class="td">Several attention "views" plus a sense of word order.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Fine-tune a transformer model for a text-classification task.</div></div>
+            <div class="topic"><div class="tk">Self-attention</div><div class="td">Each token emits a <b>query</b>, a <b>key</b> and a <b>value</b>. A token's new representation is a weighted average of all tokens' values, where the weight is how well its query matches each key. Every position can reach every other in one step — and all positions compute in parallel.</div></div>
+            <div class="topic"><div class="tk">Multi-head & positional encoding</div><div class="td"><b>Multi-head</b> runs several attention maps in parallel so different heads specialise (syntax, coreference, long-range links). Because attention is order-agnostic, <b>positional encodings</b> are added to inject word order. Residual connections + layer-norm + a feed-forward sublayer complete the block.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Fine-tune a pre-trained transformer for a specific text-classification task.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · scaled dot-product attention</div>
             <div class="formula">$\text{Attention}(Q,K,V) = \text{softmax}\!\left(\dfrac{QK^\top}{\sqrt{d_k}}\right)V$</div>
             <p>Query–key dot products (scaled by √d) become attention weights that mix the value vectors. From "Attention Is All You Need" (Vaswani et al., 2017).</p>
           </div>
+          <div class="concept"><div class="ct">Worked mini-example · why √d</div>
+            <p style="margin-top:0">For the pronoun "it" in "the animal didn't cross the street because <b>it</b> was tired", the query of "it" dots highest with the key of "animal", so attention concentrates there and copies its value — resolving the reference. The $\sqrt{d_k}$ divisor matters: with $d_k=64$, raw dot products grow ~√64 = 8× larger, pushing the softmax into saturated regions with near-zero gradients; scaling keeps it trainable.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>Attention replaces recurrence — any token can directly influence any other, in parallel.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>Self-attention is $O(n^2)$ in sequence length — doubling the context quadruples the compute and memory. This is the central efficiency problem behind long-context research (sparse, linear and flash attention).</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>One mechanism — soft, content-based lookup — underlies BERT, GPT and essentially every modern LLM. Understand this block and you understand the architecture of the field.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#transformer">Self-Attention visualised →</a></div>
         </div>
 
@@ -783,15 +883,17 @@
           <h4 class="sess-title">Pre-Trained Language Models (PLMs)</h4>
           <p class="sess-obj"><b>Objective:</b> understand PLMs like BERT and GPT — their ability to understand and generate human-like text — and the concept of transfer learning.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Pre-training objectives</div><div class="td">Masked language modelling (BERT) vs autoregressive next-token prediction (GPT).</div></div>
-            <div class="topic"><div class="tk">Transfer learning</div><div class="td">Adapt a giant pre-trained model to your task without training from scratch.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Extract sentence embeddings with BERT and visualise them.</div></div>
+            <div class="topic"><div class="tk">Pre-training objectives</div><div class="td"><b>BERT</b> uses <i>masked language modelling</i> — hide ~15% of tokens and predict them from both sides, giving deeply <i>bidirectional</i> representations ideal for understanding tasks. <b>GPT</b> uses <i>autoregressive</i> left-to-right next-token prediction, ideal for generation. Same transformer body, opposite reading direction.</div></div>
+            <div class="topic"><div class="tk">Transfer learning</div><div class="td">Adapt a giant pre-trained model to your task without training from scratch — either full <b>fine-tuning</b>, lightweight <b>adapters/LoRA</b>, or just <b>prompting</b> a frozen model. The cost asymmetry is huge: pre-training is millions of dollars, fine-tuning can be minutes on one GPU.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Extract sentence embeddings with BERT and visualise them; observe how semantically related sentences cluster.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · pre-train then fine-tune</div>
             <div class="formula">$\theta^\ast = \text{fine-tune}\big(\text{pretrain}(\theta_0,\,\mathcal{D}_{\text{large}}),\,\mathcal{D}_{\text{task}}\big)$</div>
             <p>Learn general language knowledge once on huge corpora, then specialise cheaply on a small labelled set.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Transfer learning is why a few hundred labelled examples can now beat models trained on millions.</div>
+          <div class="keyidea" style="border-left-color:var(--accent-2);background:rgba(0,212,255,.06);"><b style="color:var(--accent-2)">Connects to…</b>Choose the model by task: BERT-family (encoders) for classification/NER/extractive QA; GPT-family (decoders) for generation/chat; encoder–decoders (T5, BART) for translation/summarisation — the Seq2Seq pattern of Session 21.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>The pre-train-then-adapt recipe is the dominant paradigm in modern NLP; almost no one trains a language model from scratch anymore.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#transformer">Transformer block →</a><a href="index.html#flashcards" class="fc">★ BERT/GPT flashcards</a></div>
         </div>
 
@@ -801,15 +903,21 @@
           <h4 class="sess-title">Advanced Applications of RNNs and LSTMs</h4>
           <p class="sess-obj"><b>Objective:</b> see how RNNs and LSTMs solve real-world problems, from time-series prediction to language modelling.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Seq2Seq</div><div class="td">Encoder compresses the input sequence; decoder generates the output sequence.</div></div>
-            <div class="topic"><div class="tk">Applications</div><div class="td">Machine translation, summarization, time-series forecasting.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Design a mini translator using Seq2Seq LSTM models.</div></div>
+            <div class="topic"><div class="tk">Seq2Seq</div><div class="td">An encoder reads the input sequence into a context representation; a decoder generates the output sequence one token at a time. Adding <b>attention</b> lets the decoder look back at <i>every</i> encoder state instead of squeezing everything through one fixed vector — the fix for the bottleneck.</div></div>
+            <div class="topic"><div class="tk">Decoding</div><div class="td">At generation time, <b>greedy</b> decoding takes the top token each step (myopic); <b>beam search</b> keeps the k best partial sequences and usually finds a higher-probability overall output. Temperature and top-k/top-p sampling trade quality for diversity.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Design a mini translator using Seq2Seq LSTM models to translate specific phrases.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · encoder–decoder</div>
             <div class="formula">$\mathbf{c}=\text{Enc}(x_{1:n}),\quad y_t=\text{Dec}(y_{<t},\mathbf{c})$</div>
             <p>The encoder produces a context vector; the decoder generates one token at a time conditioned on it.</p>
           </div>
+          <div class="concept"><div class="ct">Core concept · BLEU</div>
+            <div class="formula">$\text{BLEU} = \text{BP}\cdot\exp\!\Big(\textstyle\sum_{n=1}^{4} w_n \log p_n\Big)$</div>
+            <p>Geometric mean of n-gram precisions $p_n$ (1- to 4-grams) against reference translations, times a <b>brevity penalty</b> BP that punishes too-short output. Example: a hypothesis sharing 3 of its 4 unigrams with the reference has $p_1=0.75$. ROUGE is the recall-oriented sibling used for summarisation.</p>
+          </div>
           <div class="keyidea"><b>Key idea</b>Seq2Seq reframed translation as "read the whole input, then write the whole output" — and motivated attention.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>BLEU rewards surface n-gram overlap, so a fluent paraphrase with different wording can score low while a clunky literal match scores high. Always pair automatic metrics with a few human reads.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Encoder–decoder + attention is the bridge from RNNs to transformers — "Attention Is All You Need" simply replaced the recurrent encoder and decoder with stacked self-attention.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#beam">Beam Search decoding →</a><a href="index.html#bleu">BLEU/ROUGE eval →</a></div>
         </div>
 
@@ -819,15 +927,17 @@
           <h4 class="sess-title">Advanced Applications of Transformers and PLMs</h4>
           <p class="sess-obj"><b>Objective:</b> unravel the transformative power of transformers in real-world applications, backed by self-attention.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Generative models</div><div class="td">GPT-style decoders that produce coherent, context-aware text.</div></div>
-            <div class="topic"><div class="tk">Prompting</div><div class="td">Steer a frozen model's behaviour through carefully designed inputs.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Use GPT models to design a chatbot for course-content inquiries.</div></div>
+            <div class="topic"><div class="tk">Generative models</div><div class="td">GPT-style decoder-only transformers that produce coherent, context-aware text by sampling next tokens. Scaling parameters and data yields <i>emergent</i> abilities — few-shot learning, reasoning, instruction following — not present in smaller models.</div></div>
+            <div class="topic"><div class="tk">Prompting</div><div class="td">Steer a frozen model through its input: <b>zero-shot</b> (just ask), <b>few-shot</b> (show examples in-context), and <b>chain-of-thought</b> ("think step by step") to elicit reasoning. Instruction-tuning and RLHF align the base model with what users actually want.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Use GPT models to design a chatbot tailored for course-content inquiries.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · autoregressive generation</div>
             <div class="formula">$P(x_{1:n}) = \prod_{t=1}^{n} P(x_t \mid x_{<t})$</div>
             <p>A language model factorises the probability of a sequence into a product of next-token predictions.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>The same next-token objective, scaled up, gives the emergent abilities behind modern chatbots.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b><b>Hallucination</b>: a model optimised to produce <i>plausible</i> text will confidently state falsehoods, because fluency is not factuality. Grounding (retrieval, citations) and verification are essential — never ship raw generation as truth.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Notice the full circle: the next-token objective of Session 3's n-gram is <i>exactly</i> what GPT optimises — only the model capacity and training scale changed.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#beam">Beam Search →</a><a href="index.html#summ">Summarization →</a></div>
         </div>
 
@@ -837,15 +947,18 @@
           <h4 class="sess-title">Introduction to Question Answering (QA)</h4>
           <p class="sess-obj"><b>Objective:</b> understand the principles behind QA systems — architected to extract precise answers from large volumes of data.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Extractive QA</div><div class="td">Find the answer as a contiguous span inside a passage (SQuAD-style).</div></div>
-            <div class="topic"><div class="tk">Start/end pointers</div><div class="td">The model predicts where the answer begins and ends.</div></div>
+            <div class="topic"><div class="tk">Extractive QA</div><div class="td">Given a question and a passage, return the answer as a contiguous span <i>copied</i> from the passage (SQuAD-style) — contrast with <b>generative/abstractive</b> QA, which writes a fresh answer that may not appear verbatim.</div></div>
+            <div class="topic"><div class="tk">Start/end pointers</div><div class="td">A fine-tuned encoder (e.g. BERT) outputs two distributions over passage positions — one for where the answer starts, one for where it ends — and the best valid span is selected.</div></div>
+            <div class="topic"><div class="tk">Evaluation</div><div class="td">Scored by <b>Exact Match</b> (string equal to a reference, after normalisation) and token-level <b>F1</b> (partial overlap credit) — the SQuAD standard.</div></div>
             <div class="topic"><div class="tk">Practice</div><div class="td">Build a rudimentary QA system over a fixed FAQ-style dataset.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · span selection</div>
             <div class="formula">$(\hat{s},\hat{e}) = \arg\max_{s\le e}\; P_{\text{start}}(s)\,P_{\text{end}}(e)$</div>
-            <p>Score each possible (start, end) pair and pick the most probable valid span.</p>
+            <p>Score each possible (start, end) pair (with $s\le e$) and pick the most probable valid span.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Extractive QA doesn't invent answers — it locates them, which makes it verifiable.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>Pure extractive QA can only answer what is literally present in the given passage; it cannot synthesise across documents or handle "no answer" gracefully unless trained to (SQuAD 2.0 adds unanswerable questions for exactly this reason).</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Because the answer is a verifiable pointer into a source, extractive QA is the trustworthy backbone you extend with retrieval (next session) to scale beyond a single passage.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#qa">Span-based QA →</a></div>
         </div>
 
@@ -855,15 +968,17 @@
           <h4 class="sess-title">Advanced QA Techniques and Strategies</h4>
           <p class="sess-obj"><b>Objective:</b> navigate state-of-the-art QA strategies as the demands of information retrieval evolve.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Retrieval-augmented QA</div><div class="td">Retrieve relevant passages first, then read them to answer (open-domain QA / RAG).</div></div>
-            <div class="topic"><div class="tk">Fine-tuning</div><div class="td">Adapt a transformer specifically for the QA objective.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Fine-tune a transformer to enhance the chatbot from the previous session.</div></div>
+            <div class="topic"><div class="tk">Retrieval-augmented QA</div><div class="td">For open-domain questions there is no given passage, so first <b>retrieve</b> the top-k relevant documents (dense embeddings or BM25 over a vector store), then <b>read</b> them to extract or generate the answer. This is RAG — the dominant pattern for grounding LLMs in private or up-to-date knowledge.</div></div>
+            <div class="topic"><div class="tk">Fine-tuning</div><div class="td">Adapt a transformer specifically for the QA objective — or fine-tune the retriever and reader jointly so they learn to cooperate.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Fine-tune a transformer to enhance the chatbot from the previous session so it answers course-content questions precisely.</div></div>
           </div>
           <div class="concept"><div class="ct">Core concept · retrieve-then-read</div>
             <div class="formula">$P(a\mid q) = \sum_{d} P(d\mid q)\,P(a\mid q,d)$</div>
             <p>Combine a retriever (find the right documents) with a reader (extract/generate the answer) — the backbone of RAG.</p>
           </div>
           <div class="keyidea"><b>Key idea</b>Grounding answers in retrieved evidence reduces hallucination and keeps knowledge current.</div>
+          <div class="keyidea" style="border-left-color:var(--warn);background:rgba(255,179,71,.06);"><b style="color:var(--warn)">Pitfall</b>RAG is only as good as its retriever — if the relevant passage isn't in the top-k, the reader cannot recover it and may hallucinate to fill the gap. Retrieval quality, chunking strategy and re-ranking matter as much as the LLM.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>RAG closes the loop of the whole course: TF-IDF/embedding <i>retrieval</i> (Modules 2–3) feeds a transformer <i>reader</i> (Module 4) — every technique you learned, working together.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#qa">QA demo →</a><a href="index.html#tfidf">Retrieval (TF-IDF) →</a></div>
         </div>
       </div>
@@ -899,11 +1014,13 @@
           <h4 class="sess-title">Ethics, Bias, and Real-world Challenges in NLP</h4>
           <p class="sess-obj"><b>Objective:</b> confront the critical issues — biases in models and their implications, the environmental footprint of large-scale training, and privacy concerns around language data.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Bias</div><div class="td">Models inherit and amplify the biases in their training data.</div></div>
-            <div class="topic"><div class="tk">Environmental & privacy cost</div><div class="td">The energy of training huge models; the risks of leaking personal data.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Critically examine a given NLP model/application for bias and ethical issues.</div></div>
+            <div class="topic"><div class="tk">Bias</div><div class="td">Models inherit and amplify the biases in their training data — gendered occupation associations, dialect and accent disparities, toxic stereotypes. Bias enters at data, annotation and modelling stages; auditing means measuring outcomes across demographic slices, not just overall accuracy.</div></div>
+            <div class="topic"><div class="tk">Environmental & privacy cost</div><div class="td">Training a large model can emit hundreds of tonnes of CO₂; the field is pushing efficiency (distillation, quantisation, smaller fine-tuned models). Privacy risks are real too: LLMs can <i>memorise and regurgitate</i> training data, so personal information leaks unless filtered or trained with differential privacy.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Critically examine a provided NLP model/application for potential biases and ethical issues.</div></div>
           </div>
           <div class="keyidea"><b>Key idea</b>A model is only as fair as its data — measuring and mitigating bias is part of building it.</div>
+          <div class="keyidea" style="border-left-color:var(--accent-2);background:rgba(0,212,255,.06);"><b style="color:var(--accent-2)">Connects to…</b>The static embeddings of Session 13 are where bias was first quantified (man:programmer :: woman:homemaker). Mitigation — debiasing, balanced data, evaluation suites — applies to every model in the course.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>Ethics is not an add-on at the end; fairness, transparency and accountability are engineering requirements that belong in every stage of the pipeline.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#challenges">Open challenges in NLP →</a></div>
         </div>
 
@@ -913,11 +1030,12 @@
           <h4 class="sess-title">Cutting-edge Trends and Open Problems in NLP</h4>
           <p class="sess-obj"><b>Objective:</b> survey the latest breakthroughs, the open problems the research community is tackling, and the future trajectory of NLP.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Frontier topics</div><div class="td">Scaling laws, multimodality, retrieval-augmentation, alignment and efficiency.</div></div>
-            <div class="topic"><div class="tk">Open problems</div><div class="td">Hallucination, factuality, reasoning, low-resource languages.</div></div>
-            <div class="topic"><div class="tk">Practice</div><div class="td">Group discussion: propose how an emerging trend could solve a real-world challenge.</div></div>
+            <div class="topic"><div class="tk">Frontier topics</div><div class="td"><b>Scaling laws</b> (predictable gains from more data/compute/parameters), <b>multimodality</b> (text+image+audio in one model), <b>retrieval-augmentation</b>, <b>agents & tool use</b>, <b>alignment</b> (RLHF, constitutional methods), and <b>efficiency</b> (mixture-of-experts, distillation, long-context attention).</div></div>
+            <div class="topic"><div class="tk">Open problems</div><div class="td"><b>Hallucination & factuality</b>, robust <b>multi-step reasoning</b>, <b>low-resource languages</b> (most of the world's ~7000 languages have little data), evaluation beyond leaderboards, interpretability, and the safety/governance of increasingly capable systems.</div></div>
+            <div class="topic"><div class="tk">Practice</div><div class="td">Group discussion: propose how an emerging trend could solve a real-world challenge; groups present a brief solution proposal.</div></div>
           </div>
           <div class="keyidea"><b>Key idea</b>The field moves fast — what matters most is the ability to read, evaluate and adapt new ideas.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>The fundamentals you built this semester — representation, attention, evaluation, grounding — are exactly the lenses you'll use to read tomorrow's papers. Tools change; the principles transfer.</div>
           <div class="demolinks"><span class="lbl">Explore:</span><a href="index.html#challenges">Challenges & summary →</a></div>
         </div>
 
@@ -927,10 +1045,12 @@
           <h4 class="sess-title">Group Presentations — Session 1</h4>
           <p class="sess-obj"><b>Objective:</b> present the group project — NLP applications you've built or case studies you've researched (15 minutes per group).</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Format</div><div class="td">15 minutes per group, followed by Q&A and peer feedback.</div></div>
+            <div class="topic"><div class="tk">Format</div><div class="td">15 minutes per group, followed by Q&A and peer feedback. Submit through Turnitin per the professor's guidelines.</div></div>
             <div class="topic"><div class="tk">Scope</div><div class="td">An implemented NLP application or an in-depth study of a studied tool.</div></div>
+            <div class="topic"><div class="tk">Talk structure</div><div class="td">Problem → data → method → <i>baseline</i> → results with a real metric → limitations → demo. Lead with the result, then explain how you got there.</div></div>
           </div>
           <div class="keyidea"><b>Key idea</b>Communicating a result clearly is as much a skill as building it.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>A clear baseline and an honest error analysis impress more than a flashy model with no evaluation.</div>
           <div class="demolinks"><span class="lbl">Relates to:</span><a href="#assessment">Group project (30%) →</a></div>
         </div>
 
@@ -952,10 +1072,12 @@
           <h4 class="sess-title">Review Session</h4>
           <p class="sess-obj"><b>Objective:</b> recap the entire course and clarify any remaining doubts before the exam.</p>
           <div class="topics">
-            <div class="topic"><div class="tk">Synthesis</div><div class="td">Tie together the statistical → neural → transformer arc of the course.</div></div>
-            <div class="topic"><div class="tk">Q&A</div><div class="td">Targeted review of the hardest concepts.</div></div>
+            <div class="topic"><div class="tk">Synthesis</div><div class="td">Tie together the statistical → neural → transformer arc: counting (n-grams) → weighting (TF-IDF) → classifying (NB/LR) → embedding (Word2Vec) → sequence models (RNN/LSTM) → attention (transformers) → grounding (RAG).</div></div>
+            <div class="topic"><div class="tk">Q&A</div><div class="td">Targeted review of the hardest concepts — bring the formulas you find slipperiest.</div></div>
+            <div class="topic"><div class="tk">Exam strategy</div><div class="td">For each method be ready to state: what problem it solves, its core formula, one pitfall, and how it connects to its neighbours.</div></div>
           </div>
           <div class="keyidea"><b>Key idea</b>The whole course is one story — from counting words to attention.</div>
+          <div class="keyidea" style="border-left-color:var(--good);background:rgba(40,209,124,.06);"><b style="color:var(--good)">Key takeaway</b>If you can redraw the arc above from memory and place every demo on it, you are ready for the exam.</div>
           <div class="demolinks"><span class="lbl">Study with:</span><a href="index.html#flashcards" class="fc">★ All course flashcards</a></div>
         </div>
 
@@ -1016,6 +1138,35 @@
       <div class="gterm"><dt>Beam search</dt><dd>Decoding that keeps the k best partial sequences at each step instead of just the top one.</dd></div>
       <div class="gterm"><dt>Question answering</dt><dd>Returning a precise answer to a question, by extracting a span or generating text.</dd></div>
       <div class="gterm"><dt>BLEU / ROUGE</dt><dd>n-gram precision (BLEU) and recall (ROUGE) metrics for generation tasks.</dd></div>
+      <div class="gterm"><dt>Corpus</dt><dd>A structured collection of text used to train or evaluate models; its size and quality cap what a model can learn.</dd></div>
+      <div class="gterm"><dt>Markov assumption</dt><dd>The simplifying claim that the next token depends only on a fixed window of recent tokens — the basis of n-gram models.</dd></div>
+      <div class="gterm"><dt>Laplace (add-one) smoothing</dt><dd>Adding a pseudo-count to every event so unseen n-grams or words get non-zero probability instead of zeroing a product.</dd></div>
+      <div class="gterm"><dt>Perplexity</dt><dd>$\exp$ of average per-word cross-entropy; the standard language-model score — the model's effective "branching factor" (lower is better).</dd></div>
+      <div class="gterm"><dt>Cross-entropy loss</dt><dd>The training objective for classifiers and LMs: penalises low probability assigned to the correct label/token.</dd></div>
+      <div class="gterm"><dt>Sigmoid</dt><dd>$\sigma(z)=1/(1+e^{-z})$ — squashes a real score to a probability; the activation behind logistic regression and LSTM gates.</dd></div>
+      <div class="gterm"><dt>Activation function</dt><dd>A non-linearity (ReLU, tanh, sigmoid) that gives a network expressive power; without it, depth collapses to a linear map.</dd></div>
+      <div class="gterm"><dt>Generative vs discriminative</dt><dd>Generative models $P(x,y)$ how data is produced (Naive Bayes); discriminative models the boundary $P(y\mid x)$ directly (logistic regression).</dd></div>
+      <div class="gterm"><dt>SVD / LSA</dt><dd>Singular Value Decomposition factorises a matrix; applied to a term–document matrix it yields Latent Semantic Analysis topics.</dd></div>
+      <div class="gterm"><dt>PCA</dt><dd>Principal Component Analysis — projects high-dimensional data onto its directions of greatest variance for visualisation/compression.</dd></div>
+      <div class="gterm"><dt>Curse of dimensionality</dt><dd>In very high-dimensional sparse spaces, distances concentrate and data becomes sparse — a motivation for dense embeddings.</dd></div>
+      <div class="gterm"><dt>Distributional hypothesis</dt><dd>"You shall know a word by the company it keeps" — meaning is inferred from co-occurrence context.</dd></div>
+      <div class="gterm"><dt>Skip-gram / CBOW</dt><dd>Word2Vec's objectives: predict context from a word (skip-gram) or a word from its context (CBOW).</dd></div>
+      <div class="gterm"><dt>Inverted index</dt><dd>A map from each term to the documents containing it — the data structure that makes large-scale search fast.</dd></div>
+      <div class="gterm"><dt>BM25</dt><dd>A refined TF-IDF ranking with term-frequency saturation and length normalisation; the standard lexical search baseline.</dd></div>
+      <div class="gterm"><dt>HMM</dt><dd>Hidden Markov Model — transition + emission probabilities over hidden states; classic model for POS tagging, decoded by Viterbi.</dd></div>
+      <div class="gterm"><dt>BIO tagging</dt><dd>Encoding spans as Begin/Inside/Outside per token, turning entity detection into per-token classification.</dd></div>
+      <div class="gterm"><dt>Vanishing/exploding gradient</dt><dd>Gradients shrinking to zero or blowing up through many layers/time-steps; the core RNN weakness LSTMs address.</dd></div>
+      <div class="gterm"><dt>BPTT</dt><dd>Backpropagation Through Time — unrolling a recurrent net across steps and back-propagating to train shared weights.</dd></div>
+      <div class="gterm"><dt>Query / Key / Value</dt><dd>The three projections each token produces in attention; query·key sets the weight, value is what gets mixed.</dd></div>
+      <div class="gterm"><dt>Multi-head attention</dt><dd>Running several attention maps in parallel so different heads capture different relations (syntax, coreference, …).</dd></div>
+      <div class="gterm"><dt>Masked LM (MLM)</dt><dd>BERT's pre-training: predict randomly masked tokens from both sides, yielding bidirectional representations.</dd></div>
+      <div class="gterm"><dt>Autoregressive LM</dt><dd>GPT's pre-training: predict the next token left-to-right, $P(x_{1:n})=\prod_t P(x_t\mid x_{<t})$ — ideal for generation.</dd></div>
+      <div class="gterm"><dt>Fine-tuning</dt><dd>Continuing training of a pre-trained model on a small task dataset; lightweight variants include adapters and LoRA.</dd></div>
+      <div class="gterm"><dt>Prompting (zero/few-shot)</dt><dd>Steering a frozen model via its input — instructions alone (zero-shot) or with in-context examples (few-shot).</dd></div>
+      <div class="gterm"><dt>RAG</dt><dd>Retrieval-Augmented Generation — retrieve relevant documents, then read/generate the answer, grounding it in evidence.</dd></div>
+      <div class="gterm"><dt>Hallucination</dt><dd>A model producing fluent but false content, because it optimises for plausibility, not truth.</dd></div>
+      <div class="gterm"><dt>Precision / Recall / F1</dt><dd>Core classification metrics: correctness of positives (precision), coverage of positives (recall), and their harmonic mean (F1).</dd></div>
+      <div class="gterm"><dt>Beam search vs greedy</dt><dd>Decoding strategies: greedy takes the top token each step; beam search keeps the k best partial sequences for a better overall path.</dd></div>
     </dl>
   </section>
 
