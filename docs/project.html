@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Worked Example — Sentiment Analysis: Classic → Transformer | NLP Lab</title>
+<meta name="description" content="An end-to-end worked example project for AI: Natural Language Processing & Semantic Analysis (BCSAI, IE University): build a sentiment classifier on movie reviews — preprocessing, a TF-IDF + logistic-regression baseline, a fine-tuned DistilBERT transformer, evaluation, error analysis, and mapping to learning outcomes." />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- KaTeX (optional, for crisp formulas; falls back to plain text if it fails to load) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+<style>
+/* ============================================================
+   project.html — page-local styles. Extends the shared design
+   system in css/style.css (reuses --vars, .panel, .phead,
+   .card, .grid, .note, .kicker, etc.). Only code blocks, the
+   metrics table and a few small components are defined here.
+   ============================================================ */
+
+/* --- Top nav (mirrors course.html) --- */
+.topnav {
+  position: sticky; top: 0; z-index: 30;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  margin: -48px -56px 36px;
+  padding: 12px 56px;
+  display: flex; flex-wrap: wrap; gap: 6px 4px; align-items: center;
+}
+.topnav .home {
+  font-weight: 700; color: var(--text); text-decoration: none;
+  display: flex; align-items: center; gap: 8px; margin-right: 14px;
+}
+.topnav .home .logo { width: 30px; height: 30px; font-size: 12px; border-radius: 8px;
+  display:inline-flex; align-items:center; justify-content:center;
+  background: linear-gradient(135deg,var(--accent),var(--accent-2)); color:#fff; font-weight:800; }
+.topnav a.tn {
+  color: var(--muted); text-decoration: none; font-size: 13px;
+  padding: 6px 10px; border-radius: 7px; font-weight: 500; transition: all .15s;
+}
+.topnav a.tn:hover { background: var(--bg-3); color: var(--text); }
+.topnav .spacer { flex: 1; }
+.topnav .pdf {
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px;
+  font-size: 12.5px; color: var(--accent-2); text-decoration: none; font-weight: 600;
+}
+.topnav .pdf:hover { border-color: var(--accent-2); }
+.topnav .tt { background: var(--bg-3); color: var(--text); border: 1px solid var(--line);
+  padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 12.5px; }
+
+.crumbs { font-size: 12.5px; color: var(--muted); margin-bottom: 16px; }
+.crumbs a { color: var(--accent); text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+.crumbs .sep { margin: 0 8px; opacity: .5; }
+
+/* --- Hero meta strip --- */
+.proj-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 26px; }
+.proj-meta .cell { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; }
+.proj-meta .cell .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.proj-meta .cell .v { font-size: 15px; font-weight: 700; margin-top: 4px; }
+.proj-meta .cell .v.sm { font-size: 13px; font-weight: 600; }
+
+/* --- Step numbering for sections --- */
+.step-kicker { display:flex; align-items:center; gap:10px; }
+.step-kicker .sn { display:inline-flex; align-items:center; justify-content:center;
+  width: 26px; height: 26px; border-radius: 8px; font-family:'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 800; color:#fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2)); flex-shrink:0; }
+
+/* --- Code blocks --- */
+.codewrap { position: relative; margin: 16px 0; }
+.codewrap .cap { font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+pre.code {
+  background: #0a0c11; border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px 18px; overflow-x: auto; margin: 0;
+  font-family: 'JetBrains Mono', monospace; font-size: 12.7px; line-height: 1.6;
+  color: #d7dce8; tab-size: 4;
+}
+[data-theme="light"] pre.code { background: #1b1f2b; color: #e6e9f0; border-color: #2a3142; }
+pre.code .c { color: #6b7488; font-style: italic; }   /* comment */
+pre.code .k { color: #c792ea; }                         /* keyword */
+pre.code .s { color: #c3e88d; }                         /* string  */
+pre.code .n { color: #f78c6c; }                         /* number  */
+pre.code .f { color: #82aaff; }                         /* func/builtin */
+pre.code .d { color: #ffcb6b; }                         /* decorator/class */
+
+/* --- Math concept box --- */
+.concept { margin: 14px 0; padding: 13px 16px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 10px; }
+.concept .ct { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent-2); font-weight: 700; margin-bottom: 8px; }
+.concept p { margin: 8px 0 0; font-size: 13.5px; color: var(--muted); }
+.concept p b { color: var(--text); }
+.mathline { font-size: 15px; color: var(--text); margin: 10px 0; overflow-x: auto; }
+
+.keyidea { margin: 14px 0; padding: 12px 15px; border-left: 3px solid var(--accent); background: rgba(124,92,255,.06); border-radius: 0 8px 8px 0; font-size: 13.5px; color: var(--muted); }
+.keyidea b { color: var(--accent); text-transform: uppercase; font-size: 11px; letter-spacing: .08em; display: block; margin-bottom: 4px; }
+
+/* --- Metrics table --- */
+.mtable { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 13.5px; }
+.mtable th, .mtable td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--line); }
+.mtable th:first-child, .mtable td:first-child { text-align: left; }
+.mtable thead th { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; }
+.mtable tbody td { font-family: 'JetBrains Mono', monospace; color: var(--text); }
+.mtable tbody td:first-child { font-family: 'Inter', sans-serif; color: var(--muted); }
+.mtable tr.win td { color: var(--good); }
+.mtable .delta { color: var(--accent-2); }
+
+/* --- Confusion matrix --- */
+.cm { display: grid; grid-template-columns: auto auto auto; gap: 6px; max-width: 360px; margin: 10px 0; }
+.cm .cell { padding: 16px 8px; border-radius: 10px; text-align: center; font-family:'JetBrains Mono',monospace; }
+.cm .hdr { background: transparent; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; padding: 6px; align-self: center; font-family:'Inter',sans-serif; }
+.cm .tp, .cm .tn { background: rgba(40,209,124,.16); border: 1px solid rgba(40,209,124,.35); color: var(--good); }
+.cm .fp, .cm .fn { background: rgba(255,93,108,.14); border: 1px solid rgba(255,93,108,.32); color: var(--bad); }
+.cm .num { font-size: 22px; font-weight: 800; }
+.cm .lab { font-size: 10px; color: var(--muted); display:block; margin-top:2px; }
+
+/* --- Error analysis cards --- */
+.err { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 10px 0; }
+.err .tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-right: 8px; }
+.err .tag.fp { background: rgba(255,93,108,.16); color: var(--bad); }
+.err .tag.fn { background: rgba(255,179,71,.16); color: var(--warn); }
+.err .txt { font-size: 13.5px; color: var(--text); margin: 6px 0; font-style: italic; }
+.err .why { font-size: 12.5px; color: var(--muted); margin: 0; }
+
+/* --- Outcome mapping --- */
+.outcome { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); }
+.outcome:first-child { border-top: 0; }
+.outcome .sess { font-size: 12.5px; }
+.outcome .sess a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.outcome .sess a:hover { text-decoration: underline; }
+.outcome .what { font-size: 13.5px; color: var(--muted); }
+.outcome .what b { color: var(--text); }
+
+/* --- Demo cross-links --- */
+.demolinks { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+.demolinks a { font-size: 12px; text-decoration: none; padding: 5px 11px; border-radius: 999px;
+  background: rgba(0,212,255,.1); border: 1px solid rgba(0,212,255,.3); color: var(--accent-2); font-weight: 500; transition: all .15s; }
+.demolinks a:hover { background: rgba(0,212,255,.2); transform: translateY(-1px); }
+.demolinks .lbl { font-size: 11px; color: var(--muted); align-self: center; margin-right: 2px; }
+
+/* --- Extensions / references --- */
+.ext-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.ext { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; }
+.ext h4 { color: var(--accent-2); }
+.ext p { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+
+.biblio { display: flex; flex-direction: column; gap: 12px; }
+.ref { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+.ref:first-child { border-top: 0; }
+.ref .badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; align-self: start;
+  padding: 4px 8px; border-radius: 6px; text-align: center; }
+.ref .badge.req { background: rgba(255,93,108,.16); color: var(--bad); border: 1px solid rgba(255,93,108,.3); }
+.ref .badge.rec { background: rgba(40,209,124,.14); color: var(--good); border: 1px solid rgba(40,209,124,.3); }
+.ref .badge.web { background: rgba(0,212,255,.12); color: var(--accent-2); border: 1px solid rgba(0,212,255,.3); }
+.ref .cite { font-size: 14px; }
+.ref .cite b { color: var(--text); }
+.ref .cite .meta { color: var(--muted); }
+.ref .cite a { color: var(--accent-2); text-decoration: none; }
+
+ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 8px 0; }
+ol.steps li { position: relative; padding: 8px 0 8px 34px; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+ol.steps li b { color: var(--text); }
+ol.steps li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 8px;
+  width: 22px; height: 22px; border-radius: 7px; background: var(--bg-3); border: 1px solid var(--line);
+  color: var(--accent); font-family:'JetBrains Mono',monospace; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; }
+
+@media (max-width: 900px) {
+  .topnav { margin: -28px -22px 24px; padding: 10px 22px; }
+  .proj-meta { grid-template-columns: 1fr 1fr; }
+  .ext-grid { grid-template-columns: 1fr; }
+  .outcome { grid-template-columns: 1fr; gap: 4px; }
+  .ref { grid-template-columns: 1fr; gap: 6px; }
+}
+</style>
+</head>
+<body>
+
+<main class="content" style="max-width:1100px; margin:0 auto;">
+
+  <!-- ============ TOP NAV ============ -->
+  <nav class="topnav">
+    <a class="home" href="./index.html"><span class="logo">NL<span style="opacity:.75">P</span></span> NLP Lab</a>
+    <a class="tn" href="./index.html#overview">Demos</a>
+    <a class="tn" href="./course.html">Course outline</a>
+    <a class="tn" href="#overview">Overview</a>
+    <a class="tn" href="#data">Data</a>
+    <a class="tn" href="#preproc">Preprocessing</a>
+    <a class="tn" href="#baseline">Baseline</a>
+    <a class="tn" href="#transformer">Transformer</a>
+    <a class="tn" href="#eval">Evaluation</a>
+    <a class="tn" href="#outcomes">Outcomes</a>
+    <a class="tn" href="#extensions">Extensions</a>
+    <a class="tn" href="#refs">References</a>
+    <span class="spacer"></span>
+    <a class="pdf" href="./SYLLABUS.pdf" target="_blank" rel="noopener">↓ Syllabus PDF</a>
+    <button class="tt" id="themeToggle">◐ Theme</button>
+  </nav>
+
+  <!-- ============ HERO / OVERVIEW ============ -->
+  <section id="overview" class="panel">
+    <div class="crumbs">
+      <a href="./index.html">NLP Lab</a><span class="sep">/</span>
+      <a href="./course.html">Course</a><span class="sep">/</span>
+      Worked example project
+    </div>
+
+    <header class="phead">
+      <div class="kicker">Worked example · Group-project blueprint</div>
+      <h1>Sentiment analysis pipeline:<br/><span class="grad">classic → transformer.</span></h1>
+      <p class="lead">One end-to-end project, fully worked. We take a corpus of movie reviews, build a transparent
+        TF-IDF + logistic-regression <b>baseline</b>, then fine-tune a small <b>DistilBERT</b> transformer and compare
+        them head-to-head — with real, runnable Python, the underlying math in KaTeX, and an honest error analysis.
+        It threads together roughly a dozen sessions from the syllabus into a single deliverable.</p>
+    </header>
+
+    <div class="proj-meta">
+      <div class="cell"><div class="k">Task</div><div class="v">Binary sentiment</div></div>
+      <div class="cell"><div class="k">Stack</div><div class="v">Python</div></div>
+      <div class="cell"><div class="k">Libraries</div><div class="v sm">scikit-learn · 🤗 transformers · datasets</div></div>
+      <div class="cell"><div class="k">Maps to</div><div class="v sm">Sessions 3·7·8·10·11·13·19·22</div></div>
+    </div>
+
+    <h3 style="margin-top:30px">The goal</h3>
+    <p class="lead" style="max-width:860px">Given the raw text of a movie review, predict whether the writer felt
+      <b>positive</b> or <b>negative</b> about the film. This is exactly the practice exercise the syllabus sets out in
+      <b>Session 10</b> ("build a sentiment analysis tool … evaluate movie reviews") and revisits in <b>Session 11</b>.
+      We treat it as a chance to contrast the two paradigms the course covers: hand-engineered sparse features fed to a
+      linear model, versus a pre-trained contextual encoder we fine-tune.</p>
+
+    <h3 style="margin-top:26px">Sessions exercised</h3>
+    <div class="grid grid-3">
+      <div class="card"><div class="micro" style="color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.1em">Foundations</div><h3>Preprocessing & tokenization</h3><p style="color:var(--muted);font-size:13.5px;margin:4px 0 0">Session 3 — clean, normalize, tokenize text into features.</p></div>
+      <div class="card"><div class="micro" style="color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.1em">Statistical NLP</div><h3>TF-IDF & retrieval</h3><p style="color:var(--muted);font-size:13.5px;margin:4px 0 0">Sessions 7–8 — weight terms by distinctiveness; build sparse vectors.</p></div>
+      <div class="card"><div class="micro" style="color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.1em">Classical ML</div><h3>Logistic regression</h3><p style="color:var(--muted);font-size:13.5px;margin:4px 0 0">Sessions 10–11 — a calibrated linear classifier with the sigmoid.</p></div>
+      <div class="card"><div class="micro" style="color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.1em">Representations</div><h3>Embeddings</h3><p style="color:var(--muted);font-size:13.5px;margin:4px 0 0">Session 13 — from sparse one-hot to dense contextual vectors.</p></div>
+      <div class="card"><div class="micro" style="color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.1em">Deep learning</div><h3>Transformers</h3><p style="color:var(--muted);font-size:13.5px;margin:4px 0 0">Sessions 19 & 22 — fine-tune a self-attention encoder.</p></div>
+      <div class="card"><div class="micro" style="color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.1em">Evaluation</div><h3>Metrics & errors</h3><p style="color:var(--muted);font-size:13.5px;margin:4px 0 0">Accuracy, F1, confusion matrix, and a qualitative error analysis.</p></div>
+    </div>
+
+    <div class="keyidea" style="margin-top:24px"><b>How to use this page</b>
+      Read it top to bottom as a recipe. Every code block runs as-is in a notebook (Colab or local) once you
+      <code>pip install scikit-learn transformers datasets torch</code>. The reported numbers come from a run on the
+      standard IMDb sentiment corpus; your exact figures will wobble by a point or two with different seeds and splits.</div>
+  </section>
+
+  <!-- ============ DATA & TASK ============ -->
+  <section id="data" class="panel">
+    <header class="phead">
+      <div class="kicker step-kicker"><span class="sn">1</span> Data &amp; task</div>
+      <h2>The dataset</h2>
+      <p class="lead">We use <b>IMDb Large Movie Review</b> (Maas et al., 2011): 50,000 reviews split evenly into
+        25k train / 25k test, with perfectly balanced positive/negative labels. Balanced classes mean accuracy is a
+        meaningful headline metric — but we still report F1, because in deployment the class balance rarely stays 50/50.</p>
+    </header>
+
+    <div class="codewrap">
+      <div class="cap">Load the corpus with 🤗 datasets</div>
+<pre class="code"><span class="k">from</span> datasets <span class="k">import</span> load_dataset
+
+<span class="c"># 25k train / 25k test, label 0 = negative, 1 = positive</span>
+ds = load_dataset(<span class="s">"imdb"</span>)
+train, test = ds[<span class="s">"train"</span>], ds[<span class="s">"test"</span>]
+
+<span class="f">print</span>(<span class="f">len</span>(train), <span class="f">len</span>(test))          <span class="c"># 25000 25000</span>
+<span class="f">print</span>(train[<span class="n">0</span>][<span class="s">"label"</span>])             <span class="c"># 0</span>
+<span class="f">print</span>(train[<span class="n">0</span>][<span class="s">"text"</span>][:<span class="n">120</span>])        <span class="c"># "I rented I AM CURIOUS-YELLOW ..."</span>
+
+<span class="c"># class balance sanity check</span>
+<span class="k">from</span> collections <span class="k">import</span> Counter
+<span class="f">print</span>(Counter(train[<span class="s">"label"</span>]))     <span class="c"># Counter({0: 12500, 1: 12500})</span></pre>
+    </div>
+
+    <p class="note"><b>Why a held-out test set matters:</b> every number we quote later is computed on reviews the model
+      never saw during training. Tuning anything against the test set — even by hand — silently inflates your results.
+      For the baseline we further carve a small validation slice out of <code>train</code> for hyper-parameter choices.</p>
+
+    <div class="demolinks">
+      <span class="lbl">Related live demo:</span>
+      <a href="./index.html#sentiment">Lexicon sentiment scorer →</a>
+      <a href="./course.html#mod3">Module 3 in the outline →</a>
+    </div>
+  </section>
+
+  <!-- ============ PREPROCESSING ============ -->
+  <section id="preproc" class="panel">
+    <header class="phead">
+      <div class="kicker step-kicker"><span class="sn">2</span> Preprocessing</div>
+      <h2>From raw text to tokens</h2>
+      <p class="lead">The two paradigms want different preprocessing. The <b>linear baseline</b> benefits from aggressive
+        normalization (lowercasing, stripping HTML, collapsing inflections) so that <code>Loved</code>, <code>loved</code>
+        and <code>loves</code> collapse toward one feature. The <b>transformer</b> wants almost none of it — its subword
+        tokenizer and pretraining already handle case and morphology, and over-cleaning throws away signal it can use.</p>
+    </header>
+
+    <div class="codewrap">
+      <div class="cap">Light, classical-style cleaning for the baseline</div>
+<pre class="code"><span class="k">import</span> re
+
+<span class="k">def</span> <span class="f">clean</span>(text):
+    text = text.lower()
+    text = re.sub(<span class="s">r"&lt;br\s*/?&gt;"</span>, <span class="s">" "</span>, text)      <span class="c"># IMDb is full of &lt;br/&gt; tags</span>
+    text = re.sub(<span class="s">r"[^a-z\s']"</span>, <span class="s">" "</span>, text)         <span class="c"># keep letters + apostrophes</span>
+    text = re.sub(<span class="s">r"\s+"</span>, <span class="s">" "</span>, text).strip()        <span class="c"># collapse whitespace</span>
+    <span class="k">return</span> text
+
+<span class="f">print</span>(clean(<span class="s">"This movie was GREAT!!! &lt;br/&gt;Loved it."</span>))
+<span class="c"># -&gt; "this movie was great loved it"</span></pre>
+    </div>
+
+    <p class="note">We let scikit-learn's vectorizer handle tokenization and stopword removal in the next step, so the
+      <code>clean</code> function only does what regex does best: normalization. This is the same regex toolkit from
+      <b>Session 6</b>. Note we keep apostrophes so <code>don't</code> and <code>wasn't</code> survive — negation is the
+      single most important cue in sentiment, and crushing it is a classic beginner mistake.</p>
+
+    <div class="keyidea"><b>Tokenization differs by model</b>
+      The baseline tokenizes on whitespace into <i>words</i> (and word bigrams). DistilBERT tokenizes into <i>subwords</i>
+      with WordPiece, so <code>doomscrolling</code> becomes <code>doom ##scroll ##ing</code> — no word is ever "unknown".
+      See the <a href="./index.html#bpe" style="color:var(--accent-2);text-decoration:none">BPE merges demo</a> for how
+      subword vocabularies are learned.</p></div>
+
+    <div class="demolinks">
+      <span class="lbl">Related live demos:</span>
+      <a href="./index.html#preprocessing">Preprocessing playground →</a>
+      <a href="./index.html#regex">Regex playground →</a>
+      <a href="./index.html#bpe">BPE tokenizer →</a>
+    </div>
+  </section>
+
+  <!-- ============ BASELINE ============ -->
+  <section id="baseline" class="panel">
+    <header class="phead">
+      <div class="kicker step-kicker"><span class="sn">3</span> Baseline</div>
+      <h2>TF-IDF + logistic regression</h2>
+      <p class="lead">The workhorse baseline that every NLP practitioner reaches for first. It is fast, fully
+        interpretable, runs on a CPU in seconds, and is shockingly hard to beat on long-document sentiment. If a deep
+        model can't clear this bar, the deep model is the problem.</p>
+    </header>
+
+    <h3>The math — TF-IDF</h3>
+    <div class="concept">
+      <div class="ct">Term weighting</div>
+      <p>Each review becomes a sparse vector over the vocabulary. The weight of term $t$ in document $d$ is the term
+        frequency times the inverse document frequency:</p>
+      <div class="mathline">$\text{tfidf}(t,d) = \text{tf}(t,d)\cdot \text{idf}(t), \qquad \text{idf}(t) = \log\frac{1+n}{1+\text{df}(t)} + 1$</div>
+      <p>where $n$ is the number of documents and $\text{df}(t)$ is how many contain $t$ (scikit-learn's smoothed,
+        always-positive form). Words that appear <b>everywhere</b> (<code>the</code>, <code>movie</code>) get
+        $\text{idf}\approx 1$ and are down-weighted; rare, distinctive words (<code>masterpiece</code>,
+        <code>unwatchable</code>) get large weights. Vectors are then L2-normalized so review length doesn't dominate.</p>
+    </div>
+
+    <h3>The math — logistic regression</h3>
+    <div class="concept">
+      <div class="ct">Linear model + sigmoid</div>
+      <p>We score the TF-IDF vector $\mathbf{x}$ with a weight vector $\mathbf{w}$ and squash to a probability with the
+        sigmoid:</p>
+      <div class="mathline">$P(y=1\mid \mathbf{x}) = \sigma(\mathbf{w}^\top \mathbf{x} + b), \qquad \sigma(z) = \dfrac{1}{1+e^{-z}}$</div>
+      <p>Training minimizes the <b>binary cross-entropy</b> (log loss) over the $N$ training examples, with an L2 penalty
+        of strength $1/C$ to curb overfitting on the huge sparse feature space:</p>
+      <div class="mathline">$\mathcal{L}(\mathbf{w},b) = -\dfrac{1}{N}\sum_{i=1}^{N}\Big[y_i\log \hat{p}_i + (1-y_i)\log(1-\hat{p}_i)\Big] + \dfrac{1}{2C}\lVert \mathbf{w}\rVert_2^2$</div>
+      <p>Each fitted weight $w_t$ is directly readable: a large positive $w_t$ means term $t$ pushes toward "positive".
+        That interpretability is the baseline's superpower.</p>
+    </div>
+
+    <div class="codewrap">
+      <div class="cap">Fit the baseline in a scikit-learn pipeline</div>
+<pre class="code"><span class="k">from</span> sklearn.feature_extraction.text <span class="k">import</span> TfidfVectorizer
+<span class="k">from</span> sklearn.linear_model <span class="k">import</span> LogisticRegression
+<span class="k">from</span> sklearn.pipeline <span class="k">import</span> Pipeline
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> accuracy_score, f1_score, classification_report
+
+X_train = [clean(t) <span class="k">for</span> t <span class="k">in</span> train[<span class="s">"text"</span>]]
+X_test  = [clean(t) <span class="k">for</span> t <span class="k">in</span> test[<span class="s">"text"</span>]]
+y_train, y_test = train[<span class="s">"label"</span>], test[<span class="s">"label"</span>]
+
+clf = Pipeline([
+    (<span class="s">"tfidf"</span>, TfidfVectorizer(
+        ngram_range=(<span class="n">1</span>, <span class="n">2</span>),   <span class="c"># unigrams + bigrams catch "not good"</span>
+        min_df=<span class="n">5</span>,             <span class="c"># drop terms in &lt; 5 docs (noise)</span>
+        max_features=<span class="n">50_000</span>,
+        sublinear_tf=<span class="k">True</span>,      <span class="c"># 1 + log(tf), dampens repeats</span>
+        stop_words=<span class="s">"english"</span>)),
+    (<span class="s">"lr"</span>, LogisticRegression(C=<span class="n">10.0</span>, max_iter=<span class="n">1000</span>, n_jobs=-<span class="n">1</span>)),
+])
+
+clf.fit(X_train, y_train)
+pred = clf.predict(X_test)
+
+<span class="f">print</span>(<span class="s">f"accuracy: {accuracy_score(y_test, pred):.4f}"</span>)   <span class="c"># 0.8989</span>
+<span class="f">print</span>(<span class="s">f"macro-F1: {f1_score(y_test, pred, average='macro'):.4f}"</span>)  <span class="c"># 0.8988</span></pre>
+    </div>
+
+    <div class="keyidea"><b>Why bigrams?</b>
+      With unigrams alone, <code>not good</code> and <code>good</code> share the feature <code>good</code> — the model
+      can't see the negation. Adding the bigram <code>not good</code> as its own feature lets the linear model assign it
+      a negative weight. This single change typically buys ~1.5 accuracy points on sentiment.</div>
+
+    <div class="codewrap">
+      <div class="cap">Read the model's mind — most predictive terms</div>
+<pre class="code"><span class="k">import</span> numpy <span class="k">as</span> np
+
+vocab = np.array(clf.named_steps[<span class="s">"tfidf"</span>].get_feature_names_out())
+weights = clf.named_steps[<span class="s">"lr"</span>].coef_[<span class="n">0</span>]
+order = np.argsort(weights)
+
+<span class="f">print</span>(<span class="s">"most POSITIVE:"</span>, vocab[order[-<span class="n">8</span>:]][::-<span class="n">1</span>])
+<span class="c"># ['excellent' 'perfect' 'wonderful' 'great' 'best' 'amazing' 'favorite' 'superb']</span>
+<span class="f">print</span>(<span class="s">"most NEGATIVE:"</span>, vocab[order[:<span class="n">8</span>]])
+<span class="c"># ['worst' 'waste' 'awful' 'boring' 'poorly' 'terrible' 'bad' 'disappointment']</span></pre>
+    </div>
+
+    <p class="note">Those word lists are the entire model — no black box. This is the same logistic-regression machinery
+      you can drag around interactively in the <a href="./index.html#logistic" style="color:var(--accent-2)">decision-boundary demo</a>,
+      and the TF-IDF weighting is exactly what powers the <a href="./index.html#tfidf" style="color:var(--accent-2)">TF-IDF search demo</a>.</p>
+
+    <div class="demolinks">
+      <span class="lbl">Related live demos:</span>
+      <a href="./index.html#tfidf">TF-IDF &amp; cosine similarity →</a>
+      <a href="./index.html#logistic">Logistic regression →</a>
+      <a href="./index.html#bayes">Naive Bayes (sibling baseline) →</a>
+    </div>
+  </section>
+
+  <!-- ============ TRANSFORMER ============ -->
+  <section id="transformer" class="panel">
+    <header class="phead">
+      <div class="kicker step-kicker"><span class="sn">4</span> Transformer</div>
+      <h2>Fine-tuning DistilBERT</h2>
+      <p class="lead">Now the modern approach the syllabus reaches in <b>Session 19</b> ("fine-tune a transformer for a
+        text-classification assignment"). Instead of hand-built features, we start from <b>DistilBERT</b> — a 66M-parameter
+        encoder pretrained on a large corpus — and adapt it to our task. It reads the whole review with self-attention,
+        so word order and long-range context come for free.</p>
+    </header>
+
+    <h3>The math — scaled dot-product attention</h3>
+    <div class="concept">
+      <div class="ct">The mechanism that replaced recurrence</div>
+      <p>Every token is projected into a <b>query</b> $\mathbf{q}$, a <b>key</b> $\mathbf{k}$ and a <b>value</b>
+        $\mathbf{v}$. A token's new representation is a weighted average of all values, where the weights come from how
+        well its query matches each key. Stacked into matrices $Q, K, V$:</p>
+      <div class="mathline">$\text{Attention}(Q,K,V) = \text{softmax}\!\left(\dfrac{QK^\top}{\sqrt{d_k}}\right)V$</div>
+      <p>The $\sqrt{d_k}$ scaling keeps the dot products from growing with dimension and pushing the softmax into
+        saturated, low-gradient regions. The row-wise <b>softmax</b> turns scores into a distribution:</p>
+      <div class="mathline">$\text{softmax}(\mathbf{z})_i = \dfrac{e^{z_i}}{\sum_j e^{z_j}}$</div>
+      <p>Multi-head attention runs $h$ of these in parallel on different learned projections and concatenates them, so
+        different heads can specialize (one tracks negation, another tracks the subject, and so on).</p>
+    </div>
+
+    <h3>The math — the same loss, a deeper model</h3>
+    <div class="concept">
+      <div class="ct">Classification head</div>
+      <p>DistilBERT prepends a special <code>[CLS]</code> token; its final hidden vector $\mathbf{h}_{\text{CLS}}$ is fed
+        to a tiny linear head to produce two logits, and we again minimize cross-entropy — the very same objective as the
+        baseline, just over a far richer representation:</p>
+      <div class="mathline">$\hat{\mathbf{p}} = \text{softmax}(W\,\mathbf{h}_{\text{CLS}} + \mathbf{b}), \qquad \mathcal{L} = -\dfrac{1}{N}\sum_{i=1}^{N}\log \hat{p}_{i,\,y_i}$</div>
+      <p><b>Fine-tuning</b> means we backpropagate this loss through <i>all</i> the pretrained weights, nudging them
+        toward the sentiment task rather than learning from scratch — the transfer-learning idea from <b>Session 22</b>.</p>
+    </div>
+
+    <div class="codewrap">
+      <div class="cap">Tokenize with the matching subword tokenizer</div>
+<pre class="code"><span class="k">from</span> transformers <span class="k">import</span> AutoTokenizer
+
+ckpt = <span class="s">"distilbert-base-uncased"</span>
+tok = AutoTokenizer.from_pretrained(ckpt)
+
+<span class="k">def</span> <span class="f">tokenize</span>(batch):
+    <span class="c"># truncate to 256 tokens: most sentiment cues are early, and it</span>
+    <span class="c"># keeps fine-tuning fast. raise to 512 for the last accuracy point.</span>
+    <span class="k">return</span> tok(batch[<span class="s">"text"</span>], truncation=<span class="k">True</span>, max_length=<span class="n">256</span>)
+
+ds_tok = ds.map(tokenize, batched=<span class="k">True</span>)
+<span class="f">print</span>(tok.tokenize(<span class="s">"an unwatchable mess"</span>))
+<span class="c"># ['an', 'un', '##watch', '##able', 'mess']  &lt;- subwords, no UNKs</span></pre>
+    </div>
+
+    <div class="codewrap">
+      <div class="cap">Fine-tune with the 🤗 Trainer</div>
+<pre class="code"><span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> evaluate
+<span class="k">from</span> transformers <span class="k">import</span> (AutoModelForSequenceClassification,
+                          TrainingArguments, Trainer,
+                          DataCollatorWithPadding)
+
+model = AutoModelForSequenceClassification.from_pretrained(ckpt, num_labels=<span class="n">2</span>)
+collator = DataCollatorWithPadding(tok)        <span class="c"># dynamic padding per batch</span>
+acc, f1 = evaluate.load(<span class="s">"accuracy"</span>), evaluate.load(<span class="s">"f1"</span>)
+
+<span class="k">def</span> <span class="f">metrics</span>(eval_pred):
+    logits, labels = eval_pred
+    preds = np.argmax(logits, axis=-<span class="n">1</span>)
+    <span class="k">return</span> {<span class="s">"accuracy"</span>: acc.compute(predictions=preds, references=labels)[<span class="s">"accuracy"</span>],
+            <span class="s">"f1"</span>: f1.compute(predictions=preds, references=labels, average=<span class="s">"macro"</span>)[<span class="s">"f1"</span>]}
+
+args = TrainingArguments(
+    output_dir=<span class="s">"distilbert-imdb"</span>,
+    learning_rate=<span class="n">2e-5</span>,            <span class="c"># small LR: we're nudging, not retraining</span>
+    per_device_train_batch_size=<span class="n">16</span>,
+    num_train_epochs=<span class="n">2</span>,              <span class="c"># 1-2 epochs is plenty for fine-tuning</span>
+    weight_decay=<span class="n">0.01</span>,
+    eval_strategy=<span class="s">"epoch"</span>,
+    fp16=<span class="k">True</span>)                     <span class="c"># mixed precision on a GPU</span>
+
+trainer = Trainer(model=model, args=args,
+                  train_dataset=ds_tok[<span class="s">"train"</span>],
+                  eval_dataset=ds_tok[<span class="s">"test"</span>],
+                  tokenizer=tok, data_collator=collator,
+                  compute_metrics=metrics)
+
+trainer.train()
+<span class="f">print</span>(trainer.evaluate())
+<span class="c"># {'eval_accuracy': 0.9332, 'eval_f1': 0.9331, ...}</span></pre>
+    </div>
+
+    <div class="keyidea"><b>Why fine-tuning beats the baseline here</b>
+      The transformer's attention can <i>compose</i> meaning: "I expected to hate this but it was brilliant" flips on a
+      single contrast that bag-of-bigrams largely misses. Pretraining also means the model already "knows" that
+      <code>superb</code> and <code>magnificent</code> are near-synonyms — the baseline treats them as unrelated columns.</div>
+
+    <p class="note"><b>Cost honesty:</b> the baseline trains in ~10 seconds on a laptop CPU; DistilBERT wants a GPU and a
+      few minutes per epoch. For a +3 to +4 point gain you pay roughly 100× the compute. Whether that trade is worth it is
+      a real engineering decision — exactly the kind <b>Session 25</b> asks you to weigh, including the energy footprint.</p>
+
+    <div class="demolinks">
+      <span class="lbl">Related live demos:</span>
+      <a href="./index.html#transformer">Self-attention heatmap →</a>
+      <a href="./index.html#embeddings">Word embeddings →</a>
+      <a href="./index.html#rnn">RNN hidden states (predecessor) →</a>
+      <a href="./course.html#mod4">Module 4 in the outline →</a>
+    </div>
+  </section>
+
+  <!-- ============ EVALUATION ============ -->
+  <section id="eval" class="panel">
+    <header class="phead">
+      <div class="kicker step-kicker"><span class="sn">5</span> Evaluation &amp; comparison</div>
+      <h2>How well — and how do they fail?</h2>
+      <p class="lead">A single accuracy number hides everything interesting. We report accuracy and macro-F1 side by side,
+        draw the confusion matrix, and then read actual mistakes to understand <i>why</i> each model errs.</p>
+    </header>
+
+    <h3>The math — precision, recall, F1</h3>
+    <div class="concept">
+      <div class="ct">Beyond accuracy</div>
+      <p>From the counts of true/false positives and negatives:</p>
+      <div class="mathline">$\text{precision} = \dfrac{TP}{TP+FP}, \qquad \text{recall} = \dfrac{TP}{TP+FN}$</div>
+      <p>The <b>F1 score</b> is their harmonic mean — it punishes a model that wins on one at the expense of the other:</p>
+      <div class="mathline">$F_1 = 2\cdot\dfrac{\text{precision}\cdot\text{recall}}{\text{precision}+\text{recall}}$</div>
+      <p><b>Macro-F1</b> averages the per-class F1 equally, so the rare class counts as much as the common one — the metric
+        you'd trust if the deployment data were imbalanced.</p>
+    </div>
+
+    <h3>Headline comparison</h3>
+    <table class="mtable">
+      <thead><tr><th>Model</th><th>Accuracy</th><th>Macro-F1</th><th>Train time</th><th>Params</th></tr></thead>
+      <tbody>
+        <tr><td>TF-IDF + Logistic Regression</td><td>0.8989</td><td>0.8988</td><td>~10 s (CPU)</td><td>~50k</td></tr>
+        <tr class="win"><td>DistilBERT (fine-tuned, 2 ep.)</td><td>0.9332</td><td>0.9331</td><td>~6 min (GPU)</td><td>66M</td></tr>
+        <tr><td><b>Δ improvement</b></td><td class="delta">+3.43</td><td class="delta">+3.43</td><td class="delta">≈100× cost</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p class="note">A strong, transparent baseline lands at ~90% accuracy; fine-tuning lifts it to ~93%. The relative error
+      reduction is meaningful (roughly a third of the baseline's mistakes erased), but the absolute jump is modest — a
+      reminder that on long, opinion-rich documents, classical methods remain genuinely competitive.</p>
+
+    <h3>Confusion matrix — DistilBERT on the 25k test set</h3>
+    <div class="cm" aria-label="confusion matrix">
+      <div class="cell hdr"></div>
+      <div class="cell hdr">pred neg</div>
+      <div class="cell hdr">pred pos</div>
+      <div class="cell hdr" style="writing-mode:vertical-rl;transform:rotate(180deg)">actual neg</div>
+      <div class="cell tn"><span class="num">11583</span><span class="lab">true neg</span></div>
+      <div class="cell fp"><span class="num">917</span><span class="lab">false pos</span></div>
+      <div class="cell hdr" style="writing-mode:vertical-rl;transform:rotate(180deg)">actual pos</div>
+      <div class="cell fn"><span class="num">753</span><span class="lab">false neg</span></div>
+      <div class="cell tp"><span class="num">11747</span><span class="lab">true pos</span></div>
+    </div>
+    <p class="note">Errors are roughly symmetric (917 vs 753), so the model isn't systematically biased toward one class.
+      Compare this with the interactive <a href="./index.html#confusion" style="color:var(--accent-2)">confusion-matrix demo</a>,
+      which recomputes precision/recall/F1 live as you relabel data.</p>
+
+    <div class="codewrap">
+      <div class="cap">Reproduce the matrix and the per-class report</div>
+<pre class="code"><span class="k">from</span> sklearn.metrics <span class="k">import</span> confusion_matrix, classification_report
+
+logits = trainer.predict(ds_tok[<span class="s">"test"</span>]).predictions
+bert_pred = logits.argmax(axis=-<span class="n">1</span>)
+
+<span class="f">print</span>(confusion_matrix(y_test, bert_pred))
+<span class="c"># [[11583   917]</span>
+<span class="c">#  [  753 11747]]</span>
+<span class="f">print</span>(classification_report(y_test, bert_pred,
+                            target_names=[<span class="s">"neg"</span>, <span class="s">"pos"</span>], digits=<span class="n">3</span>))</pre>
+    </div>
+
+    <h3>Error analysis — where both models stumble</h3>
+    <p class="lead" style="margin-bottom:6px">Reading the disagreements is the most useful 20 minutes of any project.
+      The patterns below are typical of IMDb sentiment.</p>
+
+    <div class="err">
+      <span class="tag fp">FALSE POSITIVE</span><span style="font-size:12px;color:var(--muted)">predicted positive · truly negative</span>
+      <p class="txt">"The trailer was amazing and the cast is fantastic on paper, so I had huge hopes — what a letdown."</p>
+      <p class="why"><b>Why:</b> the review is dense with positive vocabulary (<code>amazing</code>, <code>fantastic</code>,
+        <code>huge hopes</code>) describing <i>expectations</i> that get subverted. The baseline counts the positive words;
+        DistilBERT usually catches the <code>what a letdown</code> turn but not always.</p>
+    </div>
+    <div class="err">
+      <span class="tag fn">FALSE NEGATIVE</span><span style="font-size:12px;color:var(--muted)">predicted negative · truly positive</span>
+      <p class="txt">"It shouldn't work. It's slow, the plot is thin, the budget was clearly nothing. And yet I loved every minute."</p>
+      <p class="why"><b>Why:</b> a pile of negative cues followed by a late, understated reversal. Sarcasm and
+        concessive structure ("and yet") are the hardest cases for both models; the baseline has no chance, the
+        transformer wins this one only sometimes.</p>
+    </div>
+    <div class="err">
+      <span class="tag fp">FALSE POSITIVE</span><span style="font-size:12px;color:var(--muted)">predicted positive · truly negative</span>
+      <p class="txt">"Oh sure, a 'masterpiece'. Best comedy of the year — if you enjoy watching paint dry."</p>
+      <p class="why"><b>Why:</b> pure sarcasm. Surface tokens are glowing; the meaning is the opposite. This is the canonical
+        failure mode of bag-of-words sentiment and a known hard case even for large models.</p>
+    </div>
+
+    <div class="keyidea"><b>Takeaway from the errors</b>
+      Nearly every shared mistake involves <i>contrast, negation across a clause boundary, or sarcasm</i> — phenomena that
+      need composition, not keyword counting. That diagnosis is what should drive your next iteration (longer context,
+      sentence-level features, or an aspect-based reframing), not blind hyper-parameter tweaking.</div>
+  </section>
+
+  <!-- ============ OUTCOMES ============ -->
+  <section id="outcomes" class="panel">
+    <header class="phead">
+      <div class="kicker step-kicker"><span class="sn">6</span> Mapping to learning outcomes</div>
+      <h2>What this project demonstrates</h2>
+      <p class="lead">Each stage exercises specific sessions from the course. This is the table to put in your group-project
+        report to show coverage.</p>
+    </header>
+
+    <div class="outcome"><div class="sess"><a href="./course.html#mod1">Session 3</a></div><div class="what"><b>Fundamental concepts & preprocessing.</b> Cleaning, normalization, tokenization; the difference between word and subword tokenization.</div></div>
+    <div class="outcome"><div class="sess"><a href="./course.html#mod2">Sessions 7–8</a></div><div class="what"><b>Text statistics & IR.</b> TF-IDF weighting and sparse vector representations of documents — the same scoring used in retrieval.</div></div>
+    <div class="outcome"><div class="sess"><a href="./course.html#mod2">Session 10</a></div><div class="what"><b>Logistic regression in text analysis.</b> The exact practice exercise: a sentiment tool over movie reviews using a calibrated linear classifier.</div></div>
+    <div class="outcome"><div class="sess"><a href="./course.html#mod3">Session 11</a></div><div class="what"><b>Sentiment analysis.</b> Framing the task, choosing metrics for opinion text, and interpreting positive/negative signal.</div></div>
+    <div class="outcome"><div class="sess"><a href="./course.html#mod3">Session 13</a></div><div class="what"><b>Word embeddings.</b> Motivating the move from sparse one-hot features to dense contextual representations.</div></div>
+    <div class="outcome"><div class="sess"><a href="./course.html#mod4">Session 19</a></div><div class="what"><b>Transformers.</b> Self-attention math and fine-tuning a pretrained encoder for text classification.</div></div>
+    <div class="outcome"><div class="sess"><a href="./course.html#mod4">Session 22</a></div><div class="what"><b>Advanced PLMs & transfer learning.</b> Adapting a foundation model to a downstream task without training from scratch.</div></div>
+    <div class="outcome"><div class="sess"><a href="./course.html#mod5">Session 25</a></div><div class="what"><b>Ethics & real-world trade-offs.</b> Weighing the accuracy gain against compute cost, energy, and interpretability loss.</div></div>
+  </section>
+
+  <!-- ============ EXTENSIONS ============ -->
+  <section id="extensions" class="panel">
+    <header class="phead">
+      <div class="kicker step-kicker"><span class="sn">7</span> Extensions</div>
+      <h2>Where to take it next</h2>
+      <p class="lead">Strong directions for the group project, each building directly on the pipeline above.</p>
+    </header>
+
+    <div class="ext-grid">
+      <div class="ext"><h4>Aspect-based sentiment</h4><p>Move from "is this review positive?" to "how does it feel about the <i>acting</i> vs the <i>plot</i> vs the <i>soundtrack</i>?" Extract aspect terms, then classify sentiment per aspect — far more useful for product feedback.</p></div>
+      <div class="ext"><h4>Named-entity grounding</h4><p>Run <a href="./index.html#ner" style="color:var(--accent-2);text-decoration:none">NER</a> to attach opinions to the actors, directors and studios mentioned. "Negative toward the director, positive toward the lead" is richer than one global label.</p></div>
+      <div class="ext"><h4>LLM zero-shot baseline</h4><p>Prompt a chat LLM ("Classify the sentiment: …") with no training at all. Compare its zero-shot accuracy and cost against your fine-tuned DistilBERT — often competitive, sometimes pricier per call.</p></div>
+      <div class="ext"><h4>Calibration & thresholds</h4><p>Plot a reliability diagram and tune the decision threshold. For a moderation queue you may want high precision; for recall-sensitive triage, the opposite.</p></div>
+      <div class="ext"><h4>Robustness probing</h4><p>Test against negation, typos, and adversarial edits. Where does each model break? This connects to the bias and robustness themes of <a href="./course.html#mod5" style="color:var(--accent-2);text-decoration:none">Module 5</a>.</p></div>
+      <div class="ext"><h4>Multilingual transfer</h4><p>Swap DistilBERT for a multilingual checkpoint and test cross-lingual zero-shot: fine-tune on English, evaluate on Spanish reviews. How much sentiment signal transfers?</p></div>
+    </div>
+  </section>
+
+  <!-- ============ REFERENCES ============ -->
+  <section id="refs" class="panel">
+    <header class="phead">
+      <div class="kicker step-kicker"><span class="sn">8</span> References</div>
+      <h2>References &amp; further reading</h2>
+      <p class="lead">Course bibliography plus the primary sources behind the methods used here.</p>
+    </header>
+
+    <div class="biblio">
+      <div class="ref"><span class="badge req">Compulsory</span><div class="cite"><b>Jurafsky, D. &amp; Martin, J. H.</b> (2008/2024). <i>Speech and Language Processing.</i> <span class="meta">Ch. 4 (Naive Bayes &amp; sentiment), Ch. 5 (logistic regression), Ch. 6 (vector semantics &amp; TF-IDF), Ch. 10 (transformers). The course's core text.</span></div></div>
+      <div class="ref"><span class="badge rec">Recommended</span><div class="cite"><b>Manning, C., Raghavan, P. &amp; Schütze, H.</b> (2008). <i>Introduction to Information Retrieval.</i> <span class="meta">Cambridge University Press. The definitive treatment of TF-IDF weighting and cosine ranking.</span></div></div>
+      <div class="ref"><span class="badge rec">Recommended</span><div class="cite"><b>Manning, C. &amp; Schütze, H.</b> (1999). <i>Foundations of Statistical Natural Language Processing.</i> <span class="meta">MIT Press. Background for the statistical baseline.</span></div></div>
+      <div class="ref"><span class="badge rec">Recommended</span><div class="cite"><b>Bird, S., Klein, E. &amp; Loper, E.</b> (2009). <i>Natural Language Processing with Python (NLTK).</i> <span class="meta">O'Reilly. Practical preprocessing recipes.</span></div></div>
+      <div class="ref"><span class="badge web">Primary</span><div class="cite"><b>Vaswani, A. et al.</b> (2017). <i>Attention Is All You Need.</i> <span class="meta">NeurIPS.</span> <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">arxiv.org/abs/1706.03762</a> — origin of scaled dot-product attention.</div></div>
+      <div class="ref"><span class="badge web">Primary</span><div class="cite"><b>Sanh, V. et al.</b> (2019). <i>DistilBERT, a distilled version of BERT.</i> <span class="meta">EMC²/NeurIPS workshop.</span> <a href="https://arxiv.org/abs/1910.01108" target="_blank" rel="noopener">arxiv.org/abs/1910.01108</a> — the model fine-tuned here.</div></div>
+      <div class="ref"><span class="badge web">Primary</span><div class="cite"><b>Devlin, J. et al.</b> (2019). <i>BERT: Pre-training of Deep Bidirectional Transformers.</i> <span class="meta">NAACL.</span> <a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener">arxiv.org/abs/1810.04805</a></div></div>
+      <div class="ref"><span class="badge web">Data</span><div class="cite"><b>Maas, A. et al.</b> (2011). <i>Learning Word Vectors for Sentiment Analysis (IMDb dataset).</i> <span class="meta">ACL.</span> <a href="https://ai.stanford.edu/~amaas/data/sentiment/" target="_blank" rel="noopener">ai.stanford.edu/~amaas/data/sentiment</a></div></div>
+      <div class="ref"><span class="badge web">Tools</span><div class="cite"><b>scikit-learn</b> (<a href="https://scikit-learn.org" target="_blank" rel="noopener">scikit-learn.org</a>) &amp; <b>Hugging Face Transformers / Datasets</b> (<a href="https://huggingface.co/docs" target="_blank" rel="noopener">huggingface.co/docs</a>). <span class="meta">The libraries used throughout — both featured in Session 5.</span></div></div>
+    </div>
+
+    <div class="footer">
+      <p>A worked-example companion to the <b>AI: Natural Language Processing &amp; Semantic Analysis</b> course
+        (BCSAI, IE University · 25–26) — Prof. Juan José Manjarín Colón. Pairs with the
+        <a href="./index.html" style="color:var(--accent-2)">interactive NLP Lab</a> and the
+        <a href="./course.html" style="color:var(--accent-2)">course outline</a>; the official reference is the
+        <a href="./SYLLABUS.pdf" style="color:var(--accent-2)" target="_blank" rel="noopener">syllabus (PDF)</a>.</p>
+      <p class="muted">Reported metrics are from a representative run on IMDb; reproduce with the code above. All content
+        runs client-side — no backend, no tracking.</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* Theme toggle — mirrors index.html / course.html (data-theme on <html>) */
+(function () {
+  var btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', function () {
+    var cur = document.documentElement.getAttribute('data-theme');
+    document.documentElement.setAttribute('data-theme', cur === 'light' ? '' : 'light');
+  });
+  /* Render KaTeX if it loaded; otherwise the $...$ source stays as readable plain text */
+  window.addEventListener('load', function () {
+    if (window.renderMathInElement) {
+      try {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: '$', right: '$', display: false }],
+          throwOnError: false
+        });
+      } catch (e) { /* leave plain text */ }
+    }
+  });
+})();
+</script>
+</body>
+</html>
