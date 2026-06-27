@@ -1,0 +1,11 @@
+{
+  "name": "nlp-lab",
+  "version": "1.0.0",
+  "description": "Interactive NLP course lab: 23 live demos from preprocessing to transformers, with the deterministic NLP cores extracted into tested ES modules.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}

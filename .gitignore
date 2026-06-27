@@ -1,5 +1,17 @@
-# Ignore everything by default
+# Ignore everything by default; GitHub Pages serves only docs/.
 *
 !.gitignore
 !docs/
 !docs/**
+
+# Project files and tests for the extracted NLP modules.
+!README.md
+!LICENSE
+!SYLLABUS.pdf
+!package.json
+!test/
+!test/**
+
+# Never commit local tooling or dependencies.
+node_modules/
+.claude/

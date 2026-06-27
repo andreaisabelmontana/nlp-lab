@@ -1,7 +1,18 @@
 /* =========================================================================
    NLP LAB — interactive demos for an NLP course
-   All demos are vanilla JS, no dependencies, runs static on GitHub Pages.
+   The page is vanilla JS and runs static on GitHub Pages. The deterministic
+   NLP cores live in ./nlp/*.js (framework-free ES modules, unit-tested with
+   `node --test`); this file imports them and wires them to the DOM.
    ========================================================================= */
+
+import { STOPWORDS, LEMMA_MAP, porterLite, lemmatize, tokenize, sentSplit } from './nlp/tokenize.js';
+import { computeTFIDF, cosine } from './nlp/vectorize.js';
+import { buildNgram, nextWordDist, sampleFromDist, ngramCounts } from './nlp/ngrams.js';
+import { editDistance } from './nlp/editDistance.js';
+import { trainBPE, bpeApply } from './nlp/bpe.js';
+import { softmax, matVec, scaledDotProductAttention } from './nlp/attention.js';
+import { bleuScore, rougeScore } from './nlp/metrics.js';
+import { trainNB, predictNB, nbTokens } from './nlp/naiveBayes.js';
 
 /* ---------- shared helpers ---------- */
 const $  = s => document.querySelector(s);
@@ -34,7 +45,12 @@ themeBtn.onclick = () => {
 
 /* ---------- nav highlight on scroll ---------- */
 const navLinks = $$('#nav a');
-const sections = navLinks.map(a => document.querySelector(a.getAttribute('href')));
+// Only in-page (#hash) links point at observable sections; the course /
+// project links go to other pages and are not valid element selectors.
+const sections = navLinks.map(a => {
+  const href = a.getAttribute('href') || '';
+  return href.startsWith('#') ? document.querySelector(href) : null;
+});
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -139,38 +155,8 @@ renderEra(0);
 /* =========================================================================
    3. PREPROCESSING
    ========================================================================= */
-const STOPWORDS = new Set("a an the and or but is are was were be been being have has had do does did will would could should may might can this that these those i you he she it we they him her them my your his its our their as at by for in of on to with from".split(' '));
-const LEMMA_MAP = {
-  was:'be', were:'be', is:'be', are:'be', been:'be', am:'be',
-  has:'have', had:'have', having:'have',
-  did:'do', does:'do', done:'do', doing:'do',
-  better:'good', best:'good', worse:'bad', worst:'bad',
-  mice:'mouse', children:'child', men:'man', women:'woman', feet:'foot', teeth:'tooth', geese:'goose', people:'person',
-  ran:'run', running:'run', went:'go', gone:'go', going:'go', came:'come', coming:'come',
-  jumping:'jump', jumped:'jump', eating:'eat', ate:'eat', eaten:'eat', flying:'fly', flew:'fly',
-  dogs:'dog', cats:'cat', foxes:'fox', boxes:'box', wishes:'wish', kisses:'kiss'
-};
-function porterLite(w) {
-  if (w.length < 4) return w;
-  for (const s of ['ational','ization','ousness','iveness','fulness','tional','alize','iciti','ation','ement','ation','ness','able','ible','ance','ence','ment','sion','tion']) {
-    if (w.endsWith(s) && w.length - s.length >= 3) return w.slice(0, -s.length);
-  }
-  for (const s of ['ies','ied','ing','ly','ed','es','s']) {
-    if (w.endsWith(s) && w.length - s.length >= 3) return w.slice(0, -s.length);
-  }
-  return w;
-}
-function lemmatize(w) {
-  if (LEMMA_MAP[w]) return LEMMA_MAP[w];
-  if (w.endsWith('ies') && w.length > 4) return w.slice(0,-3)+'y';
-  if (w.endsWith('ses') || w.endsWith('xes') || w.endsWith('zes') || w.endsWith('ches') || w.endsWith('shes')) return w.slice(0,-2);
-  if (w.endsWith('s') && !w.endsWith('ss') && w.length > 3) return w.slice(0,-1);
-  if (w.endsWith('ing') && w.length > 5) return w.slice(0,-3);
-  if (w.endsWith('ed') && w.length > 4) return w.slice(0,-2);
-  return w;
-}
-function tokenize(s){ return s.match(/[\w']+|[.,!?;]/g) || []; }
-function sentSplit(s){ return s.match(/[^.!?]+[.!?]+/g) || (s.trim() ? [s.trim()] : []); }
+/* STOPWORDS, LEMMA_MAP, porterLite, lemmatize, tokenize, sentSplit
+   are imported from ./nlp/tokenize.js */
 
 function renderPP() {
   const txt = $('#ppInput').value;
@@ -268,27 +254,8 @@ let TF_DOCS = [
 function tfTokenize(s){
   return (s.toLowerCase().match(/[a-z]+/g) || []).filter(w => !STOPWORDS.has(w) && w.length>2);
 }
-function computeTFIDF(docs, query) {
-  const docTokens = docs.map(tfTokenize);
-  const N = docs.length;
-  const df = {};
-  docTokens.forEach(toks => new Set(toks).forEach(t => df[t] = (df[t]||0)+1));
-  const idf = {}; for (const t in df) idf[t] = Math.log((N+1)/(df[t]+1)) + 1;
-  const tfidf = docTokens.map(toks => {
-    const tf = {}; toks.forEach(t => tf[t]=(tf[t]||0)+1);
-    const v = {}; for (const t in tf) v[t] = (tf[t]/toks.length) * (idf[t]||0);
-    return v;
-  });
-  const qToks = tfTokenize(query);
-  const qTf = {}; qToks.forEach(t=>qTf[t]=(qTf[t]||0)+1);
-  const qVec = {}; for (const t in qTf) qVec[t] = (qTf[t]/Math.max(qToks.length,1)) * (idf[t]||0);
-  const norm = v => Math.sqrt(Object.values(v).reduce((s,x)=>s+x*x,0));
-  const dot = (a,b)=>{let s=0;for(const t in a)if(b[t])s+=a[t]*b[t];return s;};
-  const qn = norm(qVec) || 1e-9;
-  const scores = tfidf.map((d,i)=>({i, score: dot(d, qVec)/((norm(d)||1e-9)*qn)}));
-  scores.sort((a,b)=>b.score-a.score);
-  return { tfidf, idf, scores, vocab: Object.keys(idf) };
-}
+/* computeTFIDF (TF, smoothed IDF, cosine ranking) is imported from
+   ./nlp/vectorize.js; we feed it the page's content-word tokenizer. */
 function renderTFDocs(){
   const c = $('#tfDocs'); c.innerHTML='';
   TF_DOCS.forEach((d,i)=>{
@@ -302,7 +269,7 @@ function renderTFDocs(){
 $('#tfAdd').onclick = ()=>{ TF_DOCS.push('New document text here.'); renderTFDocs(); renderTFResults(); };
 function renderTFResults(){
   const q = $('#tfQuery').value;
-  const r = computeTFIDF(TF_DOCS, q);
+  const r = computeTFIDF(TF_DOCS, q, tfTokenize);
   const out = $('#tfResults'); out.innerHTML='';
   r.scores.forEach(s=>{
     out.appendChild(h('div',{class:'tf-result'},[
@@ -344,45 +311,26 @@ let NB_DATA = [
   {t:"thanks for the notes from class yesterday", y:"ham"},
   {t:"can you send me the report by friday", y:"ham"},
 ];
-function nbTokens(s){ return (s.toLowerCase().match(/[a-z']+/g) || []); }
-function trainNB(data){
-  const classes = ['spam','ham'];
-  const prior = {}, cond = {}, vocab = new Set();
-  classes.forEach(c=>{prior[c]=0; cond[c]={total:0, w:{}};});
-  data.forEach(d=>{
-    prior[d.y]++;
-    nbTokens(d.t).forEach(w=>{
-      vocab.add(w);
-      cond[d.y].w[w] = (cond[d.y].w[w]||0)+1;
-      cond[d.y].total++;
-    });
-  });
-  const N = data.length;
-  classes.forEach(c=>{prior[c] = (prior[c]||0)/N;});
-  return {prior, cond, vocab};
-}
-function predictNB(m, text){
+/* trainNB / predictNB / nbTokens are imported from ./nlp/naiveBayes.js.
+   Pin the two label classes so the demo keeps both even if the user
+   deletes every row of one label. */
+const nbTrain = data => trainNB(data, ['spam','ham']);
+
+/* Per-word log-probability contributions, used only for the math display. */
+function nbContributions(m, text){
   const toks = nbTokens(text);
   const V = m.vocab.size;
-  const logScores = {}; const contributions = {};
+  const contributions = {};
   for (const c of ['spam','ham']) {
     let lp = Math.log(m.prior[c] || 1e-9);
     contributions[c] = [{w:'prior', s:lp}];
     toks.forEach(w=>{
       const cnt = (m.cond[c].w[w] || 0) + 1;
       const denom = m.cond[c].total + V;
-      const term = Math.log(cnt/denom);
-      lp += term;
-      contributions[c].push({w, s:term});
+      contributions[c].push({w, s:Math.log(cnt/denom)});
     });
-    logScores[c] = lp;
   }
-  const max = Math.max(logScores.spam, logScores.ham);
-  const expS = Math.exp(logScores.spam - max);
-  const expH = Math.exp(logScores.ham - max);
-  const probs = { spam: expS/(expS+expH), ham: expH/(expS+expH) };
-  const pred = probs.spam > probs.ham ? 'spam' : 'ham';
-  return {pred, probs, logScores, contributions};
+  return contributions;
 }
 function renderNBTrain(){
   const c = $('#nbTrain'); c.innerHTML='';
@@ -407,8 +355,9 @@ function renderNBTrain(){
 }
 $('#nbAdd').onclick = ()=>{NB_DATA.push({t:'sample message',y:'ham'}); renderNBTrain(); renderNBPred();};
 function renderNBPred(){
-  const m = trainNB(NB_DATA);
+  const m = nbTrain(NB_DATA);
   const r = predictNB(m, $('#nbTest').value);
+  const contributions = nbContributions(m, $('#nbTest').value);
   $('#nbPred').innerHTML =
     `<span class="lab ${r.pred}">${r.pred.toUpperCase()}</span>
      <span class="muted">P(spam)=${round(r.probs.spam,3)} · P(ham)=${round(r.probs.ham,3)}</span>`;
@@ -417,10 +366,10 @@ function renderNBPred(){
   ['spam','ham'].forEach(c=>{
     const win = c === r.pred;
     let line = `<div ${win?'style="color:var(--accent-2);font-weight:700"':''}>log P(${c} | text) = `;
-    line += r.contributions[c].slice(0,8).map(x=>
+    line += contributions[c].slice(0,8).map(x=>
       `<span class="${x.s>=Math.log(0.05)?'pos':'neg'}">${round(x.s,2)}</span>·${x.w}`
     ).join(' + ');
-    if (r.contributions[c].length>8) line += ` + …`;
+    if (contributions[c].length>8) line += ` + …`;
     line += ` = <b>${round(r.logScores[c],2)}</b></div>`;
     math.innerHTML += line;
   });
@@ -690,10 +639,7 @@ for (const w in EMB_RAW) {
   EMB[w] = [x, y, x*0.5, y*0.5, Math.sin(x), Math.cos(y), x*y*0.05, (x+y)*0.3];
 }
 function emb(w){ return EMB[w.toLowerCase()] || null; }
-function cosine(a,b){ let d=0, na=0, nb=0;
-  for (let i=0;i<a.length;i++){d+=a[i]*b[i]; na+=a[i]*a[i]; nb+=b[i]*b[i];}
-  return d/(Math.sqrt(na*nb)||1e-9);
-}
+/* cosine (dense vectors) is imported from ./nlp/vectorize.js */
 let EMB_PICK = 'king';
 const embCv = $('#embCanvas'), embCtx = embCv.getContext('2d');
 function embCanvas(x,y){ return [320 + x*45, 260 - y*45]; }
@@ -1062,17 +1008,10 @@ function atEmbed(toks){
     return e.map(x=>x/n);
   });
 }
-function matVec(M,v){ return M.map(row=>row.reduce((s,m,i)=>s+m*v[i],0)); }
-function softmax(arr){ const m=Math.max(...arr); const ex=arr.map(x=>Math.exp(x-m)); const s=ex.reduce((a,b)=>a+b,0); return ex.map(x=>x/s); }
+/* matVec / softmax / scaledDotProductAttention are imported from
+   ./nlp/attention.js */
 function computeAttention(toks){
-  const E = atEmbed(toks);
-  const Q = E.map(e => matVec(AT_Wq, e));
-  const K = E.map(e => matVec(AT_Wk, e));
-  const V = E.map(e => matVec(AT_Wv, e));
-  const sqd = Math.sqrt(AT_DIM);
-  const scores = Q.map(q => K.map(k => q.reduce((s,qi,i)=>s+qi*k[i],0)/sqd));
-  const attn = scores.map(softmax);
-  return {Q, K, V, attn};
+  return scaledDotProductAttention(atEmbed(toks), AT_Wq, AT_Wk, AT_Wv);
 }
 function renderAttention(){
   const text = $('#atInput').value;
@@ -1134,59 +1073,8 @@ CHALLENGES.forEach(c=>{
 
 /* =========================================================================
    16. BPE (Byte-Pair Encoding)
+   trainBPE / bpeApply are imported from ./nlp/bpe.js
    ========================================================================= */
-function trainBPE(text, nMerges){
-  // Initial words split into characters with end-of-word marker
-  const words = (text.toLowerCase().match(/[a-z]+/g)||[]);
-  const wordCounts = {};
-  words.forEach(w => { wordCounts[w] = (wordCounts[w]||0)+1; });
-  // represent each word as space-separated chars with </w>
-  let splits = {};
-  for (const w in wordCounts) splits[w] = w.split('').concat(['</w>']);
-  const merges = [];
-  for (let step=0; step<nMerges; step++){
-    const pairs = {};
-    for (const w in wordCounts){
-      const s = splits[w]; const c = wordCounts[w];
-      for (let i=0;i<s.length-1;i++){
-        const p = s[i]+'​'+s[i+1];
-        pairs[p] = (pairs[p]||0)+c;
-      }
-    }
-    if (!Object.keys(pairs).length) break;
-    let best=null, bestC=-1;
-    for (const p in pairs) if (pairs[p]>bestC){bestC=pairs[p]; best=p;}
-    const [a,b] = best.split('​');
-    merges.push([a,b]);
-    // apply merge
-    const nextSplits = {};
-    for (const w in splits) {
-      const s = splits[w]; const out = [];
-      let i=0; while (i<s.length){
-        if (i<s.length-1 && s[i]===a && s[i+1]===b){ out.push(a+b); i+=2; }
-        else { out.push(s[i]); i++; }
-      }
-      nextSplits[w] = out;
-    }
-    splits = nextSplits;
-  }
-  // build vocab from final splits
-  const vocab = new Set();
-  for (const w in splits) splits[w].forEach(t=>vocab.add(t));
-  return {merges, vocab:[...vocab], splits};
-}
-function bpeApply(word, merges){
-  let s = word.split('').concat(['</w>']);
-  for (const [a,b] of merges){
-    const out=[]; let i=0;
-    while (i<s.length){
-      if (i<s.length-1 && s[i]===a && s[i+1]===b){ out.push(a+b); i+=2; }
-      else { out.push(s[i]); i++; }
-    }
-    s = out;
-  }
-  return s;
-}
 function renderBPE(){
   const txt = $('#bpeCorpus').value;
   const n = parseInt($('#bpeN').value);
@@ -1220,28 +1108,8 @@ renderBPE();
 
 /* =========================================================================
    17. N-GRAM LANGUAGE MODEL
+   buildNgram / nextWordDist / sampleFromDist are imported from ./nlp/ngrams.js
    ========================================================================= */
-function buildNgram(corpus, n){
-  const toks = ['<s>','<s>','<s>'].concat(corpus.toLowerCase().match(/[a-z]+/g)||[]).concat(['</s>']);
-  const counts = {};
-  for (let i=0; i<=toks.length-n; i++){
-    const ctx = toks.slice(i, i+n-1).join(' ');
-    const w = toks[i+n-1];
-    counts[ctx] = counts[ctx] || {};
-    counts[ctx][w] = (counts[ctx][w]||0)+1;
-  }
-  return counts;
-}
-function nextWordDist(counts, ctx){
-  const c = counts[ctx]; if (!c) return [];
-  const total = Object.values(c).reduce((s,x)=>s+x,0);
-  return Object.entries(c).map(([w,k])=>({w, p:k/total, k})).sort((a,b)=>b.p-a.p);
-}
-function sampleFromDist(dist){
-  let r = Math.random(), acc=0;
-  for (const x of dist){ acc += x.p; if (r<=acc) return x.w; }
-  return dist[dist.length-1].w;
-}
 function renderNgram(generate){
   const n = parseInt($('#ngN').value);
   const corpus = $('#ngCorpus').value;
@@ -1279,34 +1147,8 @@ renderNgram(false);
 
 /* =========================================================================
    18. EDIT DISTANCE
+   editDistance is imported from ./nlp/editDistance.js
    ========================================================================= */
-function editDistance(a, b){
-  const m = a.length, n = b.length;
-  const d = Array.from({length:m+1}, ()=>Array(n+1).fill(0));
-  for (let i=0;i<=m;i++) d[i][0]=i;
-  for (let j=0;j<=n;j++) d[0][j]=j;
-  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++){
-    const c = a[i-1]===b[j-1] ? 0 : 1;
-    d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+c);
-  }
-  // back-trace
-  const path = new Set(); const ops = [];
-  let i=m, j=n;
-  while (i>0 || j>0){
-    path.add(i+','+j);
-    if (i>0 && j>0 && a[i-1]===b[j-1] && d[i][j]===d[i-1][j-1]){
-      ops.unshift({op:'match', c:a[i-1]}); i--; j--;
-    } else if (i>0 && j>0 && d[i][j]===d[i-1][j-1]+1){
-      ops.unshift({op:'sub', from:a[i-1], to:b[j-1]}); i--; j--;
-    } else if (i>0 && d[i][j]===d[i-1][j]+1){
-      ops.unshift({op:'del', c:a[i-1]}); i--;
-    } else {
-      ops.unshift({op:'ins', c:b[j-1]}); j--;
-    }
-  }
-  path.add('0,0');
-  return {d, path, ops, dist:d[m][n]};
-}
 function renderEdit(){
   const a = $('#edA').value, b = $('#edB').value;
   const r = editDistance(a, b);
@@ -1634,54 +1476,9 @@ renderQA();
 
 /* =========================================================================
    23. BLEU & ROUGE
+   bleuScore / rougeScore / ngramCounts are imported from ./nlp/metrics.js
+   and ./nlp/ngrams.js
    ========================================================================= */
-function ngramCounts(toks, n){
-  const c = {};
-  for (let i=0; i<=toks.length-n; i++){
-    const k = toks.slice(i,i+n).join(' ');
-    c[k] = (c[k]||0)+1;
-  }
-  return c;
-}
-function bleuScore(cand, ref){
-  const cToks = cand.toLowerCase().match(/[a-z]+/g)||[];
-  const rToks = ref.toLowerCase().match(/[a-z]+/g)||[];
-  if (!cToks.length) return {bleu:0, precs:[], bp:0};
-  const precs = [];
-  for (let n=1; n<=4; n++){
-    const cC = ngramCounts(cToks, n);
-    const rC = ngramCounts(rToks, n);
-    let match = 0, total = 0;
-    for (const k in cC){ const m = Math.min(cC[k], rC[k]||0); match += m; total += cC[k]; }
-    precs.push(total ? match/total : 0);
-  }
-  const bp = cToks.length > rToks.length ? 1 : Math.exp(1 - rToks.length/Math.max(cToks.length,1));
-  let logSum = 0; let valid = 0;
-  precs.forEach(p => { if (p>0){ logSum += Math.log(p); valid++; }});
-  const geo = valid ? Math.exp(logSum/4) : 0;
-  return { bleu: bp*geo, precs, bp };
-}
-function rougeScore(cand, ref){
-  const cToks = cand.toLowerCase().match(/[a-z]+/g)||[];
-  const rToks = ref.toLowerCase().match(/[a-z]+/g)||[];
-  const rougeN = n => {
-    const cC = ngramCounts(cToks, n), rC = ngramCounts(rToks, n);
-    let match=0, totalR=0;
-    for (const k in rC){ const m = Math.min(rC[k], cC[k]||0); match+=m; totalR+=rC[k]; }
-    return totalR ? match/totalR : 0;
-  };
-  // LCS for ROUGE-L
-  const m = cToks.length, n = rToks.length;
-  const dp = Array.from({length:m+1},()=>new Array(n+1).fill(0));
-  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++){
-    if (cToks[i-1]===rToks[j-1]) dp[i][j] = dp[i-1][j-1]+1;
-    else dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
-  }
-  const lcs = dp[m][n];
-  const p = m? lcs/m:0, r = n? lcs/n:0;
-  const f = (p+r)?2*p*r/(p+r):0;
-  return { r1:rougeN(1), r2:rougeN(2), rl_p:p, rl_r:r, rl_f:f };
-}
 function renderBleu(){
   const c = $('#bleuC').value, r = $('#bleuR').value;
   const b = bleuScore(c, r);
@@ -1732,7 +1529,7 @@ function renderCMTest(){
 }
 $('#cmAdd').onclick = ()=>{CM_TEST.push({t:'new test', y:'ham'}); renderCMTest(); renderCM();};
 function renderCM(){
-  const m = trainNB(NB_DATA);
+  const m = nbTrain(NB_DATA);
   const classes = ['spam','ham'];
   const conf = {spam:{spam:0,ham:0}, ham:{spam:0,ham:0}};
   CM_TEST.forEach(d => {
