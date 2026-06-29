@@ -23,6 +23,7 @@
   <nav id="nav">
     <a href="course.html"><span class="nav-ico">▥</span>Course outline</a>
     <a href="./project.html"><span class="nav-ico">▷</span>example project</a>
+    <a href="#builds"><span class="nav-ico">▣</span>Related builds</a>
     <a href="#overview" class="active"><span class="nav-ico">◎</span>Overview</a>
     <a href="#pipeline"><span class="nav-ico">▤</span>NLP Pipeline</a>
     <a href="#history"><span class="nav-ico">⌛</span>History</a>
@@ -724,6 +725,31 @@ The match was won by the away team after a dramatic finish.</textarea>
   <div class="footer">
     <p>Built for the <b>AI: Natural Language Processing &amp; Semantic Analysis</b> course. All visualizations run client-side — no backend, no tracking, no dependencies beyond Google Fonts.</p>
     <p class="muted">Deploy via <code>Settings → Pages → main / docs</code> on GitHub.</p>
+  </div>
+</section>
+
+<!-- RELATED INTERACTIVE BUILDS -->
+<style>
+  #builds .build-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:18px;}
+  #builds a.build{display:flex;flex-direction:column;gap:8px;background:var(--bg);border:1px solid var(--line);
+    border-radius:12px;padding:15px 16px;text-decoration:none;color:var(--text);
+    transition:transform .15s,box-shadow .15s,border-color .15s;}
+  #builds a.build:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--accent);}
+  #builds a.build .bemoji{font-size:1.6rem;line-height:1;}
+  #builds a.build .btext{display:flex;flex-direction:column;gap:3px;}
+  #builds a.build .btext strong{font-weight:700;font-size:1.04rem;color:var(--text);}
+  #builds a.build .btext small{color:var(--muted);font-size:.85rem;line-height:1.5;}
+  #builds a.build .bgo{margin-top:auto;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);}
+</style>
+<section id="builds" class="panel">
+  <h2>Related interactive builds</h2>
+  <p class="lead">A from-scratch build that puts this course's language ideas to work — describe a flat in plain words and watch it rank and explain every match.</p>
+  <div class="build-grid">
+    <a class="build" href="https://andreaisabelmontana.github.io/rental-finder/" target="_blank" rel="noopener">
+      <span class="bemoji">🏠</span>
+      <span class="btext"><strong>Rental Finder</strong><small>Describe a Madrid flat in plain language; it ranks listings and explains every match.</small></span>
+      <span class="bgo">open live demo →</span>
+    </a>
   </div>
 </section>
 
