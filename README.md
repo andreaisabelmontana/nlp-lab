@@ -71,6 +71,19 @@ test/                 node:test suites, one per module
 package.json          "type": "module", "test": "node --test"
 ```
 
+## Coursework
+
+Hands-on projects I built for this course, each a standalone repo:
+[Document Classifier](https://github.com/andreaisabelmontana/document-classifier),
+[NLP Alignment Drift](https://github.com/andreaisabelmontana/nlp-alignment-drift),
+[Notification Triage](https://github.com/andreaisabelmontana/notification-triage),
+[Persuasion Tactics](https://github.com/andreaisabelmontana/persuasion-tactics),
+[Semantic Engagement](https://github.com/andreaisabelmontana/semantic-engagement),
+[TruthLens](https://github.com/andreaisabelmontana/truthlens),
+[Stash](https://github.com/andreaisabelmontana/stash),
+[Rental Finder](https://github.com/andreaisabelmontana/rental-finder) and
+[Delve](https://github.com/andreaisabelmontana/delve).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).

@@ -24,6 +24,7 @@
     <a href="course.html"><span class="nav-ico">▥</span>Course outline</a>
     <a href="./project.html"><span class="nav-ico">▷</span>example project</a>
     <a href="#builds"><span class="nav-ico">▣</span>Related builds</a>
+    <a href="#coursework"><span class="nav-ico">🧪</span>Coursework</a>
     <a href="#overview" class="active"><span class="nav-ico">◎</span>Overview</a>
     <a href="#pipeline"><span class="nav-ico">▤</span>NLP Pipeline</a>
     <a href="#history"><span class="nav-ico">⌛</span>History</a>
@@ -749,6 +750,69 @@ The match was won by the away team after a dramatic finish.</textarea>
       <span class="bemoji">🏠</span>
       <span class="btext"><strong>Rental Finder</strong><small>Describe a Madrid flat in plain language; it ranks listings and explains every match.</small></span>
       <span class="bgo">open live demo →</span>
+    </a>
+  </div>
+</section>
+
+<!-- COURSEWORK -->
+<style>
+  #coursework .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:18px;}
+  #coursework a.proj-card{display:flex;flex-direction:column;gap:6px;background:var(--bg);border:1px solid var(--line);
+    border-radius:12px;padding:15px 16px;text-decoration:none;color:var(--text);
+    transition:transform .15s,box-shadow .15s,border-color .15s;}
+  #coursework a.proj-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--accent);}
+  #coursework a.proj-card strong{font-weight:700;font-size:1.04rem;color:var(--text);}
+  #coursework a.proj-card small{color:var(--muted);font-size:.85rem;line-height:1.5;}
+  #coursework a.proj-card .pgo{margin-top:auto;padding-top:6px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);}
+</style>
+<section id="coursework" class="panel">
+  <h2>🧪 Coursework — projects I built</h2>
+  <p class="lead">Hands-on projects from this course, each a standalone build that puts the NLP ideas here to work.</p>
+  <div class="proj-grid">
+    <a class="proj-card" href="https://andreaisabelmontana.github.io/document-classifier/" target="_blank" rel="noopener">
+      <strong>Document Classifier</strong>
+      <small>Sort documents into categories from their text alone.</small>
+      <span class="pgo">open →</span>
+    </a>
+    <a class="proj-card" href="https://andreaisabelmontana.github.io/nlp-alignment-drift/" target="_blank" rel="noopener">
+      <strong>NLP Alignment Drift</strong>
+      <small>Visualize safety drift across multi-turn model conversations.</small>
+      <span class="pgo">open →</span>
+    </a>
+    <a class="proj-card" href="https://andreaisabelmontana.github.io/notification-triage/" target="_blank" rel="noopener">
+      <strong>Notification Triage</strong>
+      <small>Rank notifications by priority using semantic content analysis.</small>
+      <span class="pgo">open →</span>
+    </a>
+    <a class="proj-card" href="https://andreaisabelmontana.github.io/persuasion-tactics/" target="_blank" rel="noopener">
+      <strong>Persuasion Tactics</strong>
+      <small>Detect rhetorical tactics in political messaging with NLP.</small>
+      <span class="pgo">open →</span>
+    </a>
+    <a class="proj-card" href="https://andreaisabelmontana.github.io/semantic-engagement/" target="_blank" rel="noopener">
+      <strong>Semantic Engagement</strong>
+      <small>Predict short-video engagement from caption meaning, via embeddings.</small>
+      <span class="pgo">open →</span>
+    </a>
+    <a class="proj-card" href="https://andreaisabelmontana.github.io/truthlens/" target="_blank" rel="noopener">
+      <strong>TruthLens</strong>
+      <small>Sentence-level AI fact-checking for your study notes.</small>
+      <span class="pgo">open →</span>
+    </a>
+    <a class="proj-card" href="https://andreaisabelmontana.github.io/stash/" target="_blank" rel="noopener">
+      <strong>Stash</strong>
+      <small>Save videos, extract transcripts, summarize with an LLM.</small>
+      <span class="pgo">open →</span>
+    </a>
+    <a class="proj-card" href="https://andreaisabelmontana.github.io/rental-finder/" target="_blank" rel="noopener">
+      <strong>Rental Finder</strong>
+      <small>Plain-language Madrid rental search with transparent reasons.</small>
+      <span class="pgo">open →</span>
+    </a>
+    <a class="proj-card" href="https://github.com/andreaisabelmontana/delve" target="_blank" rel="noopener">
+      <strong>Delve</strong>
+      <small>Search private knowledge: TF-IDF retrieval with cited passages.</small>
+      <span class="pgo">open →</span>
     </a>
   </div>
 </section>
